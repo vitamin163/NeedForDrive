@@ -4,6 +4,8 @@
   "description": "carsharing",
   "main": "dist/main.js",
   "scripts": {
+    "predeploy": "npm run build",
+    "deploy": "gh-pages -d dist",
     "dev": "webpack-dev-server --mode development --open",
     "build": "webpack --mode production",
     "eslint": "npx eslint . --ext js,jsx"
@@ -41,6 +43,7 @@
     "eslint-plugin-jsx-a11y": "^6.2.3",
     "eslint-plugin-react": "^7.20.0",
     "eslint-plugin-react-hooks": "^4.0.4",
+    "gh-pages": "^3.1.0",
     "husky": "^4.2.5",
     "lint-staged": "^10.2.10"
   },
@@ -63,6 +66,7 @@
     "cssnano": "^4.1.10",
     "file-loader": "^6.0.0",
     "html-webpack-plugin": "^4.3.0",
+    "imagemin-mozjpeg": "^9.0.0",
     "imagemin-webpack-plugin": "^2.4.2",
     "lodash": "^4.17.15",
     "mini-css-extract-plugin": "^0.9.0",

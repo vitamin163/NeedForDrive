@@ -1,0 +1,52 @@
+@import '../../../scss/variables.scss';
+
+.sidebar{
+    display: flex;
+    flex-basis: 64px;
+    padding-left: 16px;
+    padding-right: 16px;
+    background-color: black;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    padding: 3.945vh 1.111vw 3.822vh 1.111vw;
+  
+    &__burger-btn{
+      background-color: inherit;
+    }
+    &__lang-btn{
+      background-color: inherit;
+      width: 23px;
+      height: 16px;
+      left: 21px;
+      font-family: Roboto;
+      font-weight: 700;
+      font-size: 13px;
+      line-height: 15px;
+      color: $mainAccent;
+      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+    }
+    
+    @media (max-width: 1023px){
+      flex-basis: 85.77px;
+    }
+
+    @media (max-width: 767px){
+      position: absolute;
+      padding: 0;
+      background-color: transparent;
+      flex-basis: 33.5px;
+      height: 33.5px;
+      top: 2.816vh;
+      left: 5vw;
+ 
+      &__burger-image path{
+        stroke: $black;
+      }
+      &__lang-btn{
+        display: none;
+      }
+
+    
+    }
+}

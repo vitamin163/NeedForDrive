@@ -1,3 +1,4 @@
+const imageminMozjpeg = require('imagemin-mozjpeg');
 const path = require('path');
 const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
@@ -74,6 +75,15 @@ module.exports = (env, options) => {
           ],
         },
         {
+          test: /\.(woff|woff2|eot|ttf|otf)$/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: `${PATHS.assets}/fonts`,
+
+          },
+        },
+        {
           test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
           loader: 'file-loader',
           options: {
@@ -98,10 +108,20 @@ module.exports = (env, options) => {
         {
           patterns: [
             { from: `${PATHS.src}/img`, to: `${PATHS.dist}/${PATHS.assets}img` },
+            { from: `${PATHS.src}/fonts`, to: `${PATHS.dist}/${PATHS.assets}fonts` },
           ],
         },
       ),
-      new ImageminPlugin({ test: /\.(jpe?g|png|gif|svg)$/i }),
+      new ImageminPlugin({
+        disable: isDevelopment,
+        test: /\.(jpe?g|png|gif|svg)$/i,
+        plugins: [
+          imageminMozjpeg({
+            quality: 90,
+            progressive: true,
+          }),
+        ],
+      }),
     ],
   };
 

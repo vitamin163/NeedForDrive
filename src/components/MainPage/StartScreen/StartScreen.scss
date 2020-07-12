@@ -1,0 +1,156 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.start-screen{
+  flex: 1 1 688px;
+  display: flex;
+  flex-direction: column;
+  padding-left: 64px;
+  padding-right: 64px;
+  
+  &__header{
+    margin-top: 32px;
+    flex: 0 0 auto;
+  }
+  &__content{
+    margin-top: 163px;
+    flex: 1 0 auto;
+  }
+  &__footer{
+    margin-bottom: 32px;
+    flex: 0 0 auto;
+  }
+}
+
+.header{
+  display: flex;
+  justify-content: space-between;
+  &__logo{
+    @include textStyle(700, 30px, 35px, $mainAccent);
+  }
+  &__location{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__place{
+    margin-left: 7.5px;
+    @include textStyle(400, 14px, 16px, $gray);
+  }
+}
+
+.content{
+  &__title{
+    @include textStyle(700, 70px, 66px, $black);
+    margin-bottom: 4px;
+  }
+  &__name{
+    @include textStyle(700, 70px, 66px, $mainAccent);
+  }
+  &__subtitle{
+    margin-top: 34px;
+    @include textStyle(300, 26px, 30px, $gray);
+  }
+  &__reservation-button{
+    margin-top: 60px;
+    background: linear-gradient(90deg, #0EC261 2.61%, #039F67 112.6%);
+    background-blend-mode: darken;
+    border-radius: 8px;
+    @include textStyle(500, 18px, 21px, $white, center);
+    width: 250px;
+    height: 48px;
+  }
+}
+
+.footer{
+  display: flex;
+  justify-content: space-between;
+  &__copyright{
+    @include textStyle(400, 13px, 15px, $gray);
+  }
+  &__number{
+    @include textStyle(400, 13px, 15px, $black);
+  }
+}
+
+@media (max-width: $desktop-min-width) {
+  .start-screen{
+    padding-left: 32px;
+    padding-right: 32px;
+    &__content{
+      margin-top: 159px;
+    }
+  }
+}
+
+@media (max-width: $tablet-width) {
+  .start-screen{
+    &__content{
+      margin-top: 163px;
+    }
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .start-screen{
+    padding-left: 0px;
+    padding-right: 0px;
+    &__header{
+      padding-right: 16px;
+      margin-top: 16px;
+    }
+    &__footer{
+      margin-bottom: 0px;
+    }
+  }
+  .header{
+    flex-direction: column;
+    align-items: flex-end;
+    
+  }
+  .content{
+    margin-top: 34px;
+    width: 100%;
+    &__title{
+      padding-left: 16px;
+      padding-right: 16px;
+      @include textStyle(700, 32px, 100%, $black);
+      margin-bottom: 6px;
+    }
+    &__name{
+      padding-left: 16px;
+      padding-right: 16px;
+      @include textStyle(700, 32px, 100%, $mainAccent);
+    }
+    &__subtitle{
+      padding-left: 16px;
+      padding-right: 16px;
+      margin-top: 16px;
+      @include textStyle(300, 18px, 21px, $gray);
+    }
+    &__reservation-button{
+      margin-top: 32px;
+      border-radius: 0px;
+      @include textStyle(500, 18px, 21px, $white, center);
+      width: 100%;
+      height: 50px;
+    }
+  }
+
+  .footer{
+    padding: 16px;
+    flex-direction: column;
+    align-items: flex-end;
+    width: 100%;
+    height: 72px;
+    background: #151B1F;
+    &__copyright{
+      @include textStyle(400, 13px, 15px, $grayLight);
+    }
+    &__number{
+      @include textStyle(400, 13px, 15px, $mainAccent);
+    }
+  }
+
+}
