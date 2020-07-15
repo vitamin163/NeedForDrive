@@ -7,3 +7,7 @@
     color: $color;
     text-align: $text-align;
 }
+
+@mixin tr($x: 0px, $y: 0px) {
+    transform: translateX($x) translateY($y);
+}

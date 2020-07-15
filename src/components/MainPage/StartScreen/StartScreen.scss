@@ -61,6 +61,14 @@
     width: 250px;
     height: 48px;
   }
+  &__reservation-button:hover{
+    background: linear-gradient(90deg, #0B934A 2.61%, #026E47 112.6%);
+    background-blend-mode: darken;
+  }
+  &__reservation-button:active{
+    background: linear-gradient(90deg, #076432 2.61%, #013C27 112.6%);
+    background-blend-mode: darken;
+  }
 }
 
 .footer{

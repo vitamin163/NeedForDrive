@@ -2,23 +2,22 @@
 
 .sidebar{
     display: flex;
-    flex-basis: 64px;
-    padding-left: 16px;
-    padding-right: 16px;
+    width: 64px;
     background-color: black;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
-    padding: 3.945vh 1.111vw 3.822vh 1.111vw;
+    padding: 32px 16px 15px 16px;
   
     &__burger-btn{
       background-color: inherit;
     }
     &__lang-btn{
+
       background-color: inherit;
-      width: 23px;
-      height: 16px;
-      left: 21px;
+      width: 48px;
+      height: 48px;
+    
       font-family: Roboto;
       font-weight: 700;
       font-size: 13px;
@@ -26,19 +25,29 @@
       color: $mainAccent;
       text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
+    &__lang-btn:hover{
+      border: 1px solid $grayLight;
+      box-sizing: border-box;
+      border-radius: 50%;
+      color: $grayLight;
+    }
+
+    &__lang-btn:active{
+      color: $mainAccent
+    }
     
     @media (max-width: 1023px){
-      flex-basis: 85.77px;
+      width: 85.77px;
     }
 
     @media (max-width: 767px){
       position: absolute;
       padding: 0;
       background-color: transparent;
-      flex-basis: 33.5px;
+      width: 33.5px;
       height: 33.5px;
-      top: 2.816vh;
-      left: 5vw;
+      top: 16px;
+      left: 16px;
  
       &__burger-image path{
         stroke: $black;
