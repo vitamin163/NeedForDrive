@@ -1,28 +1,36 @@
 @import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
 
 .sidebar{
     display: flex;
+    position: absolute;
     width: 64px;
-    background-color: black;
+    height: 100vh;
+    background-color: #151B1F;;
     flex-direction: column;
     justify-content: space-between;
     align-items: center;
     padding: 32px 16px 15px 16px;
+
+    &__nav{
+      position: absolute;
+      top: 37.8545vh;
+      left: 128px;
+    }
   
     &__burger-btn{
       background-color: inherit;
     }
+    &__close-btn{
+      position: absolute;
+      background: transparent;
+      left: 24px;
+    }
     &__lang-btn{
-
       background-color: inherit;
       width: 48px;
       height: 48px;
-    
-      font-family: Roboto;
-      font-weight: 700;
-      font-size: 13px;
-      line-height: 15px;
-      color: $mainAccent;
+      @include textStyle(700, 13px, 15px, $mainAccent, center);
       text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
     }
     &__lang-btn:hover{
@@ -35,27 +43,126 @@
     &__lang-btn:active{
       color: $mainAccent
     }
-    
-    @media (max-width: 1023px){
-      width: 85.77px;
-    }
+}
 
-    @media (max-width: 767px){
+.lang-btn_hide{
+  display: none;
+}
+.nav{
+  height: 198px;
+  &__link-container{
+    display: flex;
+    height: 100%;
+    flex-direction: column;
+    justify-content: space-between;
+  }
+  &__link{
+    @include textStyle(500, 32px, 37px, $white);
+  }
+  &__link:hover{
+    color: $mainAccent;
+    cursor: pointer;
+  }
+  &__icon-container{
+    margin-top: 38px;
+    width: 144px;
+    height: 32px;
+    display: flex;
+    justify-content: space-between;
+  }
+  &__social{
+    background: transparent;
+  }
+  &__icon:hover path {
+    fill: $mainAccent;
+  }
+}
+
+.sidebar_opened{
+  width: 100vw;
+  transition: width 0.5s;
+  background: linear-gradient(90deg, #111518 50%, rgba(21, 27, 31, 0.81) 50%);
+  z-index: 5;
+}
+
+.sidebar_closed{
+  width: 64px;
+  transition: width 0.5s;
+}
+
+@media (max-width: $desktop-min-width){
+  .sidebar{
+    &__nav{
+      left: 97px;
+    }
+  }
+  .sidebar_opened{
+    background: linear-gradient(90deg, #111518 63.701644%, rgba(21, 27, 31, 0.81) 31.850822%);
+  }
+}
+
+@media (max-width: $tablet-width){
+  .sidebar{
+    width: 85.77px;
+    &__nav{
+      top: 39.0875vh;
+      left: 97px;
+    }
+  }
+  .sidebar_opened{
+    width: 100%;
+    transition: width 0.5s;
+    background: linear-gradient(90deg, #111518 100%);
+    z-index: 5;
+  }
+  .nav{
+    &__link{
+      @include textStyle(500, 28px, 33px, $white);
+    }
+  }
+}
+
+@media (max-width: $mobile-width){
+  .sidebar{
+    position: absolute;
+    padding: 0;
+    background-color: transparent;
+    width: 33.5px;
+    height: 33.5px;
+    top: 16px;
+    left: 16px;
+    &__burger-image path{
+      stroke: $black;
+    }
+    &__close-btn{
       position: absolute;
-      padding: 0;
-      background-color: transparent;
-      width: 33.5px;
-      height: 33.5px;
-      top: 16px;
-      left: 16px;
- 
-      &__burger-image path{
-        stroke: $black;
-      }
-      &__lang-btn{
-        display: none;
-      }
-
-    
+      background: transparent;
+      top: 28px;
+      left: 28px;
     }
+    &__nav{
+      top: 14.0845vh;
+      left: 28px;
+    }
+  }
+  .sidebar_opened{
+    top: 0;
+    left: 0;
+    height: 100vh;
+    width: 100vw;
+  }
+  .lang-btn_show{
+    display: none;
+  }
+  .lang-btn_hide{
+    display: block;
+    position: absolute;
+    bottom: 28px;
+    left: 28px;
+  }
+  .nav{
+    &__link{
+      @include textStyle(500, 22px, 26px, $white);
+    }
+  }
 }

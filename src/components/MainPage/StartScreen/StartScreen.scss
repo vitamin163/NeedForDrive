@@ -5,7 +5,7 @@
   flex: 1 1 688px;
   display: flex;
   flex-direction: column;
-  padding-left: 64px;
+  padding-left: 128px;
   padding-right: 64px;
   
   &__header{
@@ -80,11 +80,14 @@
   &__number{
     @include textStyle(400, 13px, 15px, $black);
   }
+  &__number:hover{
+    @include textStyle(400, 13px, 15px, $mainAccent);
+  }
 }
 
 @media (max-width: $desktop-min-width) {
   .start-screen{
-    padding-left: 32px;
+    padding-left: 97px;
     padding-right: 32px;
     &__content{
       margin-top: 159px;
@@ -94,6 +97,7 @@
 
 @media (max-width: $tablet-width) {
   .start-screen{
+    padding-left: 118px;
     &__content{
       margin-top: 163px;
     }
@@ -158,6 +162,9 @@
     }
     &__number{
       @include textStyle(400, 13px, 15px, $mainAccent);
+    }
+    &__number:hover{
+      @include textStyle(400, 13px, 15px, $grayLight);
     }
   }
 

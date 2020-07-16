@@ -84,11 +84,20 @@ module.exports = (env, options) => {
           },
         },
         {
-          test: /\.(png|svg|jpg|jpeg|gif|ico)$/,
+          test: /\.(png|jpg|jpeg|gif)$/,
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
             outputPath: `${PATHS.assets}/img`,
+
+          },
+        },
+        {
+          test: /\.(svg|ico)$/,
+          loader: 'file-loader',
+          options: {
+            name: '[name].[ext]',
+            outputPath: `${PATHS.assets}/icon`,
 
           },
         },
