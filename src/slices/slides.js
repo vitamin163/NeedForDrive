@@ -8,7 +8,7 @@ const slice = createSlice({
       header: 'Бесплатная парковка',
       title: 'Оставляйте машину на платных городских парковках и разрешенных местах, не нарушая ПДД, а также в аэропортах',
     },
-    /* {
+    {
       img: 'assets/img/ferrari.jpg',
       header: 'Страховка',
       title: 'Полная страховка страховка автомобиля',
@@ -22,7 +22,7 @@ const slice = createSlice({
       img: 'assets/img/nissan.jpg',
       header: 'Обслуживание',
       title: 'Автомобиль проходит еженедельное ТО',
-    }, */
+    },
   ],
   reducers: {},
 });
