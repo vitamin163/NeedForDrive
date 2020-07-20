@@ -1,5 +1,5 @@
  lint:
-	npx eslint .
+	npm run eslint
 
 dev:
 	npm run dev

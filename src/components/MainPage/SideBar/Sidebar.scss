@@ -11,50 +11,58 @@
     justify-content: space-between;
     align-items: center;
     padding: 32px 16px 15px 16px;
-
-    &__nav{
-      position: absolute;
-      top: 37.8545vh;
-      left: 128px;
-    }
-  
-    &__burger-btn{
-      background-color: inherit;
-    }
-    &__close-btn{
-      position: absolute;
-      background: transparent;
-      left: 24px;
-    }
-    &__lang-btn{
-      background-color: inherit;
-      width: 48px;
-      height: 48px;
-      @include textStyle(700, 13px, 15px, $mainAccent, center);
-      text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-    }
-    &__lang-btn:hover{
-      border: 1px solid $grayLight;
-      box-sizing: border-box;
-      border-radius: 50%;
-      color: $grayLight;
-    }
-
-    &__lang-btn:active{
-      color: $mainAccent
-    }
 }
 
-.lang-btn_hide{
-  display: none;
+.lang-btn{
+  position: absolute;
+  background-color: inherit;
+  width: 48px;
+  height: 48px;
+  bottom: 15px;
+  @include textStyle(700, 13px, 15px, $mainAccent, center);
+  text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
+  &:hover{
+    border: 1px solid $grayLight;
+    box-sizing: border-box;
+    border-radius: 50%;
+    color: $grayLight;
+  }
+  &:active{
+    color: $mainAccent;
+  }
+  &_hide{
+    display: none;
+  }
 }
+
+
+.menu{
+  position: absolute;
+  display: flex;
+  top: 0;
+  height: 100vh;
+  width: 100vw;
+  &_show{
+    left: 0;
+    z-index: 50;
+    transition: left 0.5s;
+  }
+  &_hide{
+    left: -100vw;
+    transition: left 0.5s;
+  }
+}
+
 .nav{
-  height: 198px;
+  flex: 1 1 752px;
+  background: linear-gradient(90deg, #111518 100%);
+  padding-left: 128px;
   &__link-container{
     display: flex;
-    height: 100%;
     flex-direction: column;
     justify-content: space-between;
+    margin-top: 37.8545vh;
+    height: 198px;
   }
   &__link{
     @include textStyle(500, 32px, 37px, $white);
@@ -76,46 +84,72 @@
   &__icon:hover path {
     fill: $mainAccent;
   }
+  
+}
+.cover{
+  flex: 1 2 688px;
+  background: linear-gradient(rgba(21, 27, 31, 0.81) 100%);
 }
 
-.sidebar_opened{
-  width: 100vw;
-  transition: width 0.5s;
-  background: linear-gradient(90deg, #111518 50%, rgba(21, 27, 31, 0.81) 50%);
-  z-index: 5;
-}
-
-.sidebar_closed{
-  width: 64px;
-  transition: width 0.5s;
-}
-
-@media (max-width: $desktop-min-width){
-  .sidebar{
-    &__nav{
-      left: 97px;
-    }
+.burger-btn{
+  position: absolute;
+  background: transparent;
+  left: 16px;
+  &_hide{
+    transition: 0.25s;
+    transform: scale(0, 0);
   }
-  .sidebar_opened{
-    background: linear-gradient(90deg, #111518 63.701644%, rgba(21, 27, 31, 0.81) 31.850822%);
+  &_show{
+    animation: showButton 0.5s;
+  }
+}
+
+.close-btn{
+  position: absolute;
+  background: transparent;
+  left: 16px;
+  z-index: 100;
+  &_hide{
+    transition: 0.25s;
+    transform: scale(0, 0); 
+  }
+  &_show{
+    animation: showButton 0.5s;
+  }
+}
+
+  
+@media (max-width: $desktop-min-width){
+  .nav{
+    padding-left: 97px;
+  }
+  .cover{
+    flex: 1 2 406px;
+    background: linear-gradient(rgba(21, 27, 31, 0.81) 100%);
   }
 }
 
 @media (max-width: $tablet-width){
   .sidebar{
-    width: 85.77px;
-    &__nav{
-      top: 39.0875vh;
-      left: 97px;
+    width: 85.77px; 
+  }
+  .burger-btn{
+    left: 27px;
+    &__icon{
+      transform: scaleX(1.3125);
     }
   }
-  .sidebar_opened{
-    width: 100%;
-    transition: width 0.5s;
-    background: linear-gradient(90deg, #111518 100%);
-    z-index: 5;
+  .close-btn{
+    left: 27px;
+  }
+  .cover{
+    display: none;
   }
   .nav{
+    padding-left: 97px;
+    &__link-container{
+      margin-top: 39.0875vh;
+    }
     &__link{
       @include textStyle(500, 28px, 33px, $white);
     }
@@ -127,42 +161,62 @@
     position: absolute;
     padding: 0;
     background-color: transparent;
-    width: 33.5px;
-    height: 33.5px;
-    top: 16px;
-    left: 16px;
-    &__burger-image path{
-      stroke: $black;
-    }
-    &__close-btn{
-      position: absolute;
-      background: transparent;
-      top: 28px;
-      left: 28px;
-    }
-    &__nav{
-      top: 14.0845vh;
-      left: 28px;
-    }
-  }
-  .sidebar_opened{
-    top: 0;
-    left: 0;
+    width: 0px;
     height: 100vh;
-    width: 100vw;
+    top: 0px;
+    left: 0px;
   }
-  .lang-btn_show{
+  .cover{
     display: none;
   }
-  .lang-btn_hide{
-    display: block;
+
+  .burger-btn{
+    left: 16px;
+    top: 16px;
+    &__icon{
+      transform: scaleX(1);
+    }
+    &__icon path{
+      stroke: $black;
+    }
+  }
+  .close-btn{
     position: absolute;
-    bottom: 28px;
-    left: 28px;
+    background: transparent;
+    top: 16px;
+    left: 16px;
+  }
+  .lang-btn{
+    &_show{
+      display: none;
+    }
+    &_hide{
+      display: block;
+      position: absolute;
+      bottom: 28px;
+      left: 28px;
+      z-index: 100;
+    }
   }
   .nav{
+    padding-left: 28px;
+    &__link-container{
+      margin-top:  14.0845vh;;
+    }
     &__link{
       @include textStyle(500, 22px, 26px, $white);
     }
+  }
+}
+
+@keyframes showButton{
+  0%{
+    transform: scale(0, 0);
+  }
+  50%{
+    transform: scale(0, 0);
+  }
+  100%{
+    transform: scale(1, 1);
   }
 }

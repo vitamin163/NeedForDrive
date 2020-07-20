@@ -61,6 +61,7 @@
    width: 64px;
    height: 100%;
    background-color: transparent;
+   z-index: 2;
  }
 
  &__prev-button{
@@ -70,7 +71,7 @@
   width: 64px;
   height: 100%;
   background-color: transparent;
-  z-index: 1;
+  z-index: 2;
 }
 
  &__next-button:hover, &__prev-button:hover {
