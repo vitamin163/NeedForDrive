@@ -1,0 +1,46 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.navigator {
+  display: flex;
+  flex-direction: column;
+  height: 32px;
+  margin-top: 32px;
+  border-top: 1px solid $grayLight;
+  border-bottom: 1px solid $grayLight;
+  &__nav {
+    display: flex;
+    align-items: center;
+    height: 100%;
+  }
+  &__link-container {
+    display: flex;
+  }
+
+  &__link {
+    display: flex;
+    align-items: center;
+    a {
+      @include textStyle(700, 14px, 16px, $mainAccent);
+    }
+    img {
+      margin-left: 16px;
+      margin-right: 16px;
+    }
+  }
+
+  &__link_disable a {
+    pointer-events: none;
+    @include textStyle(700, 14px, 16px, $gray);
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .navigator {
+    overflow-x: scroll;
+    &__link-container {
+      padding-left: 16px;
+      padding-right: 16px;
+    }
+  }
+}

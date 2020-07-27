@@ -2,6 +2,7 @@ import React from 'react';
 import { render } from 'react-dom';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
+import { HashRouter } from 'react-router-dom';
 import App from './components/App/App.jsx';
 import reducers from './slices';
 import './scss/style.scss';
@@ -12,7 +13,9 @@ const store = configureStore({
 
 render(
   <Provider store={store}>
-    <App />
+    <HashRouter>
+      <App />
+    </HashRouter>
   </Provider>,
   document.getElementById('root'),
 );

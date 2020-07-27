@@ -1,9 +1,10 @@
 ---
-
 plugins:
   - import
+  - react
   - jsx-a11y
   - react-hooks
+  - prettier
 
 parser: babel-eslint
 
@@ -16,16 +17,17 @@ env:
   node: true
 
 extends:
-  - "airbnb-base"
-  - "plugin:jsx-a11y/recommended"
-  - "plugin:react/recommended"
+  - 'airbnb-base'
+  - 'plugin:jsx-a11y/recommended'
+  - 'plugin:react/recommended'
+  - 'prettier'
 
 settings:
   import/resolver:
     - node
     - webpack
   react:
-      version: latest
+    version: latest
 rules:
   import/extensions: 0
   react/prop-types: 0

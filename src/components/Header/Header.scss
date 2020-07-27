@@ -1,0 +1,29 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 32px;
+  flex: 0 0 auto;
+  &__logo {
+    @include textStyle(700, 30px, 35px, $mainAccent);
+  }
+  &__location {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+  }
+
+  &__place {
+    margin-left: 7.5px;
+    @include textStyle(400, 14px, 16px, $gray);
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .header {
+    top: 0px;
+    margin-top: 16px;
+  }
+}

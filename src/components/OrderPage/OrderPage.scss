@@ -1,0 +1,32 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.order-page {
+  display: flex;
+  height: 100vh;
+  flex: 0 1 1400px;
+  justify-content: center;
+  &__wrapper {
+    overflow: hidden;
+    padding-left: 128px;
+    padding-right: 64px;
+    flex-direction: column;
+  }
+  &__content {
+    display: flex;
+    height: 100%;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .order-page {
+    &__wrapper {
+      padding-left: 0px;
+      padding-right: 0px;
+      overflow-y: scroll;
+    }
+    &__content {
+      flex-direction: column;
+    }
+  }
+}

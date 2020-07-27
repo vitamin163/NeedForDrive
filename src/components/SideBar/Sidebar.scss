@@ -1,19 +1,21 @@
-@import '../../../scss/variables.scss';
-@import '../../../scss/mixins.scss';
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
 
-.sidebar{
-    display: flex;
-    position: absolute;
-    width: 64px;
-    height: 100vh;
-    background-color: #151B1F;;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
-    padding: 32px 16px 15px 16px;
+.sidebar {
+  display: flex;
+  position: absolute;
+  width: 64px;
+  height: 100vh;
+  left: 0;
+  background-color: #151b1f;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  padding: 32px 16px 15px 16px;
+  z-index: 100;
 }
 
-.lang-btn{
+.lang-btn {
   position: absolute;
   background-color: inherit;
   width: 48px;
@@ -21,202 +23,199 @@
   bottom: 15px;
   @include textStyle(700, 13px, 15px, $mainAccent, center);
   text-shadow: 0px 4px 4px rgba(0, 0, 0, 0.25);
-  &:hover{
+  &:hover {
     border: 1px solid $grayLight;
     box-sizing: border-box;
     border-radius: 50%;
     color: $grayLight;
   }
-  &:active{
+  &:active {
     color: $mainAccent;
   }
-  &_hide{
+  &_hide {
     display: none;
   }
 }
 
-
-.menu{
+.menu {
   position: absolute;
   display: flex;
   top: 0;
   height: 100vh;
   width: 100vw;
-  &_show{
+  &_show {
     left: 0;
     z-index: 50;
     transition: left 0.5s;
   }
-  &_hide{
+  &_hide {
     left: -100vw;
     transition: left 0.5s;
   }
 }
 
-.nav{
+.nav {
   flex: 1 1 752px;
   background: linear-gradient(90deg, #111518 100%);
   padding-left: 128px;
-  &__link-container{
+  &__link-container {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     margin-top: 37.8545vh;
     height: 198px;
   }
-  &__link{
+  &__link {
     @include textStyle(500, 32px, 37px, $white);
   }
-  &__link:hover{
+  &__link:hover {
     color: $mainAccent;
     cursor: pointer;
   }
-  &__icon-container{
+  &__icon-container {
     margin-top: 38px;
     width: 144px;
     height: 32px;
     display: flex;
     justify-content: space-between;
   }
-  &__social{
+  &__social {
     background: transparent;
   }
   &__icon:hover path {
     fill: $mainAccent;
   }
-  
 }
-.cover{
+.cover {
   flex: 1 2 688px;
   background: linear-gradient(rgba(21, 27, 31, 0.81) 100%);
 }
 
-.burger-btn{
+.burger-btn {
   position: absolute;
   background: transparent;
   left: 16px;
-  &_hide{
+  &_hide {
     transition: 0.25s;
     transform: scale(0, 0);
   }
-  &_show{
+  &_show {
     animation: showButton 0.5s;
   }
 }
 
-.close-btn{
+.close-btn {
   position: absolute;
   background: transparent;
   left: 16px;
   z-index: 100;
-  &_hide{
+  &_hide {
     transition: 0.25s;
-    transform: scale(0, 0); 
+    transform: scale(0, 0);
   }
-  &_show{
+  &_show {
     animation: showButton 0.5s;
   }
 }
 
-  
-@media (max-width: $desktop-min-width){
-  .nav{
+@media (max-width: $desktop-min-width) {
+  .nav {
     padding-left: 97px;
   }
-  .cover{
+  .cover {
     flex: 1 2 406px;
     background: linear-gradient(rgba(21, 27, 31, 0.81) 100%);
   }
 }
 
-@media (max-width: $tablet-width){
-  .sidebar{
-    width: 85.77px; 
+@media (max-width: $tablet-width) {
+  .sidebar {
+    width: 85.77px;
   }
-  .burger-btn{
+  .burger-btn {
     left: 27px;
-    &__icon{
+    &__icon {
       transform: scaleX(1.3125);
     }
   }
-  .close-btn{
+  .close-btn {
     left: 27px;
   }
-  .cover{
+  .cover {
     display: none;
   }
-  .nav{
+  .nav {
     padding-left: 97px;
-    &__link-container{
+    &__link-container {
       margin-top: 39.0875vh;
     }
-    &__link{
+    &__link {
       @include textStyle(500, 28px, 33px, $white);
     }
   }
 }
 
-@media (max-width: $mobile-width){
-  .sidebar{
-    position: absolute;
+@media (max-width: $mobile-width) {
+  .sidebar {
+    position: relative;
     padding: 0;
     background-color: transparent;
     width: 0px;
-    height: 100vh;
+    height: 0px;
     top: 0px;
     left: 0px;
   }
-  .cover{
+  .cover {
     display: none;
   }
 
-  .burger-btn{
+  .burger-btn {
     left: 16px;
     top: 16px;
-    &__icon{
+    &__icon {
       transform: scaleX(1);
     }
-    &__icon path{
+    &__icon path {
       stroke: $black;
     }
   }
-  .close-btn{
+  .close-btn {
     position: absolute;
     background: transparent;
     top: 16px;
     left: 16px;
   }
-  .lang-btn{
-    &_show{
+  .lang-btn {
+    &_show {
       display: none;
     }
-    &_hide{
+    &_hide {
       display: block;
       position: absolute;
-      bottom: 28px;
+      bottom: -97vh;
       left: 28px;
       z-index: 100;
     }
   }
-  .nav{
+  .nav {
     padding-left: 28px;
-    &__link-container{
-      margin-top:  14.0845vh;;
+    &__link-container {
+      margin-top: 14.0845vh;
     }
-    &__link{
+    &__link {
       @include textStyle(500, 22px, 26px, $white);
     }
   }
 }
 
-@keyframes showButton{
-  0%{
+@keyframes showButton {
+  0% {
     transform: scale(0, 0);
   }
-  50%{
+  50% {
     transform: scale(0, 0);
   }
-  100%{
+  100% {
     transform: scale(1, 1);
   }
 }

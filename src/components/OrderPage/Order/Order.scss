@@ -1,0 +1,84 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.order {
+  width: 320px;
+  border-left: 1px solid $grayLight;
+  padding-top: 32px;
+  padding-left: 32px;
+  overflow: hidden;
+  &__title {
+    @include textStyle(500, 18px, 21px, $black, right);
+  }
+  &__list {
+    margin-top: 32px;
+  }
+  &__item {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    @include textStyle(300, 14px, 16px, $black);
+  }
+  &__item::before {
+    content: '';
+    border-bottom: 1px dotted $gray;
+    flex-grow: 1;
+    order: 2;
+    margin: 0 12px;
+  }
+  &__address {
+    width: 101px;
+    order: 3;
+    @include textStyle(300, 14px, 16px, $gray, right);
+  }
+  &__price {
+    margin-top: 32px;
+    @include textStyle(500, 16px, 16px, $black);
+  }
+
+  &__button {
+    @include textStyle(500, 18px, 21px, $white, center);
+    margin-top: 32px;
+    width: 287px;
+    height: 48px;
+    background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
+    background-blend-mode: darken;
+    border-radius: 8px;
+  }
+  &__button:hover {
+    background: linear-gradient(90deg, #0b934a 2.61%, #026e47 112.6%);
+    background-blend-mode: darken;
+  }
+  &__button:active {
+    background: linear-gradient(90deg, #076432 2.61%, #013c27 112.6%);
+    background-blend-mode: darken;
+  }
+  &__button_disabled {
+    pointer-events: none;
+    background: $grayLight;
+  }
+}
+
+@media (max-width: $desktop-min-width) {
+  .order {
+    &__button {
+      width: 89.6875%;
+    }
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .order {
+    width: 100%;
+    padding-right: 0px;
+    padding-left: 0px;
+    &__content {
+      padding-right: 16px;
+      padding-left: 16px;
+    }
+    &__button {
+      width: 100%;
+      border-radius: 0px;
+    }
+  }
+}

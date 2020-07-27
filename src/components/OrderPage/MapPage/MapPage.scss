@@ -1,0 +1,104 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.map-page {
+  width: 928px;
+  height: 512px;
+  padding-right: 192px;
+  overflow: hidden;
+  &__search-container {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  &__search-city {
+    margin-top: 32px;
+  }
+  &__search-delivery {
+    margin-top: 16px;
+  }
+  span {
+    @include textStyle(300, 14px, 16px, $black);
+  }
+  &__input {
+    width: 224px;
+    margin-left: 16px;
+    @include textStyle(300, 14px, 16px, $black);
+    border-bottom: 1px solid $gray;
+  }
+  &__input_disable {
+    pointer-events: none;
+  }
+
+  &__map {
+    display: flex;
+    max-width: 736px;
+    flex-direction: column;
+    height: 352px;
+    margin-top: 45px;
+  }
+  &__map-image {
+    margin-top: 16px;
+  }
+  &__dropdown {
+    position: absolute;
+    background-color: $grayLight;
+    width: 224px;
+    overflow: auto;
+    z-index: 1;
+  }
+  &__dropdown button {
+    @include textStyle(400, 14px, 16px, $black);
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  &__dropdown button:hover {
+    width: 100%;
+    background-color: $gray;
+  }
+  &__clean-input {
+    background: transparent;
+    @include tr(-200%);
+  }
+}
+
+@media (max-width: $desktop-min-width) {
+  .map-page {
+    padding-right: 32px;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .map-page {
+    width: 100%;
+    height: 100%;
+    padding-right: 16px;
+    padding-left: 16px;
+    &__search-container {
+      width: 100%;
+      align-items: flex-start;
+    }
+    &__search-city {
+      display: flex;
+      flex-direction: column;
+    }
+    &__search-delivery {
+      display: flex;
+      flex-direction: column;
+    }
+    &__input {
+      margin-left: 0px;
+      margin-top: 10px;
+    }
+    &__clean-input {
+      background: transparent;
+      width: 8px;
+      height: 8px;
+      @include tr(212px, -200%);
+    }
+    &__dropdown {
+      @include tr(0px, 50px);
+    }
+  }
+}

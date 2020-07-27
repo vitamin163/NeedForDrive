@@ -16,10 +16,7 @@ module.exports = (env, options) => {
   const isProduction = options.mode === 'production';
   const isDevelopment = !isProduction;
   const conf = {
-    entry: [
-      '@babel/polyfill',
-      './src/index.jsx',
-    ],
+    entry: ['@babel/polyfill', './src/index.jsx'],
     output: {
       path: PATHS.dist,
       filename: '[name].js',
@@ -80,7 +77,6 @@ module.exports = (env, options) => {
           options: {
             name: '[name].[ext]',
             outputPath: `${PATHS.assets}/fonts`,
-
           },
         },
         {
@@ -89,7 +85,6 @@ module.exports = (env, options) => {
           options: {
             name: '[name].[ext]',
             outputPath: `${PATHS.assets}/img`,
-
           },
         },
         {
@@ -98,7 +93,6 @@ module.exports = (env, options) => {
           options: {
             name: '[name].[ext]',
             outputPath: `${PATHS.assets}/icon`,
-
           },
         },
       ],
@@ -113,14 +107,12 @@ module.exports = (env, options) => {
       new MiniCssExtractPlugin({
         filename: '[name].css',
       }),
-      new CopyWebpackPlugin(
-        {
-          patterns: [
-            { from: `${PATHS.src}/img`, to: `${PATHS.dist}/${PATHS.assets}img` },
-            { from: `${PATHS.src}/fonts`, to: `${PATHS.dist}/${PATHS.assets}fonts` },
-          ],
-        },
-      ),
+      new CopyWebpackPlugin({
+        patterns: [
+          { from: `${PATHS.src}/img`, to: `${PATHS.dist}/${PATHS.assets}img` },
+          { from: `${PATHS.src}/fonts`, to: `${PATHS.dist}/${PATHS.assets}fonts` },
+        ],
+      }),
       new ImageminPlugin({
         disable: isDevelopment,
         test: /\.(jpe?g|png|gif|svg)$/i,

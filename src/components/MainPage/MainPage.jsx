@@ -1,6 +1,6 @@
 import React from 'react';
 import './MainPage.scss';
-import SideBar from './SideBar/Sidebar.jsx';
+import SideBar from '../SideBar/Sidebar.jsx';
 import StartScreen from './StartScreen/StartScreen.jsx';
 import Slider from './Slider/Slider.jsx';
 
