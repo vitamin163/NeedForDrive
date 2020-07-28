@@ -1,5 +1,5 @@
 import React from 'react';
-import icons from '../../JS/icons';
+import icons from '../../icon';
 import './Header.scss';
 
 const Header = () => {

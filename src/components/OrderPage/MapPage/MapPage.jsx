@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import cn from 'classnames';
-import { actions } from '../../../slices';
+import { actions } from '../../../store';
 import './MapPage.scss';
 import map from '../../../img/map.jpg';
 import Order from '../Order/Order.jsx';
@@ -59,7 +59,7 @@ const MapPage = () => {
           <img className="map-page__map-image" src={map} alt="map" />
         </div>
       </div>
-      <Order buttonName="Выбрать модель" buttonClass={buttonClass} />
+      <Order buttonName="Выбрать модель" buttonClass={buttonClass} activeLink={1} />
     </>
   );
 };

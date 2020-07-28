@@ -1,37 +1,46 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { NavLink } from 'react-router-dom';
+import { useSelector, useDispatch } from 'react-redux';
 import './Navigator.scss';
 import cn from 'classnames';
-import icons from '../../../JS/icons.js';
+import icons from '../../../icon';
+import { actions } from '../../../store';
 
 const Navigator = () => {
+  const dispatch = useDispatch();
+  const { changeActive } = actions;
   const { navArrow } = icons;
-  const { pointId } = useSelector((state) => state.order);
+  const { pointId, carId } = useSelector((state) => state.order);
+  const { active } = useSelector((state) => state.navUIState);
 
-  const modelClass = cn({
-    navigator__link: true,
-    navigator__link_disable: !pointId.id,
-  });
+  const getClass = (id, condition) => {
+    return cn({
+      navigator__link: true,
+      navigator__link_active: active === id,
+      navigator__link_disable: condition,
+    });
+  };
 
+  const navLinkHandler = (activeLink) => {
+    dispatch(changeActive(activeLink));
+  };
   return (
     <div className="order-page__navigator navigator">
       <nav className="navigator__nav">
         <ul className="navigator__link-container">
-          <li className="navigator__link">
-            <NavLink to="/location">Местоположение</NavLink>
+          <li className={getClass(0, false)}>
+            <button onClick={() => navLinkHandler(0)}>Местоположение</button>
             <img src={navArrow} alt="next" />
           </li>
-          <li className={modelClass}>
-            <NavLink to="/model">Модель</NavLink>
+          <li className={getClass(1, !pointId.id)}>
+            <button onClick={() => navLinkHandler(1)}>Модель</button>
+            <img src={navArrow} alt="next" />
+          </li>
+          <li className={getClass(2, !carId.id)}>
+            <button onClick={() => navLinkHandler(2)}>Дополнительно</button>
             <img src={navArrow} alt="next" />
           </li>
           <li className="navigator__link navigator__link_disable">
-            <NavLink to="/options">Дополнительно</NavLink>
-            <img src={navArrow} alt="next" />
-          </li>
-          <li className="navigator__link navigator__link_disable">
-            <NavLink to="/total">Итого</NavLink>
+            <button onClick={() => navLinkHandler(3)}>Итого</button>
           </li>
         </ul>
       </nav>

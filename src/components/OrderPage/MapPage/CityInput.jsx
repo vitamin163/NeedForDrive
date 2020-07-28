@@ -1,14 +1,18 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { capitalize } from 'lodash';
-import { actions } from '../../../slices';
+import { actions } from '../../../store';
 import './MapPage.scss';
-import icons from '../../../JS/icons';
+import icons from '../../../icon';
 
 const CityInput = () => {
   const dispatch = useDispatch();
 
-  const locations = useSelector((state) => state.locations);
+  const {
+    cities: { allIds, byId },
+  } = useSelector((state) => state);
+
+  const cities = allIds.map((id) => byId[id]);
 
   const { cityFilterValue, cityInputValue } = useSelector((state) => state.locationsInput);
 
@@ -23,11 +27,9 @@ const CityInput = () => {
     dispatch(deletePointId());
   };
 
-  const { cities } = locations;
   const filtered = cities.filter(
     ({ name }) => name.toUpperCase().indexOf(cityFilterValue.toUpperCase()) >= 0,
   );
-
   useEffect(() => {
     if (filtered.length === 1 && filtered[0].name === capitalize(cityFilterValue)) {
       const { id, name } = filtered[0];

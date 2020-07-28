@@ -17,6 +17,7 @@
     display: flex;
     justify-content: space-between;
     align-items: flex-end;
+    margin-bottom: 16px;
     @include textStyle(300, 14px, 16px, $black);
   }
   &__item::before {
@@ -72,6 +73,7 @@
     width: 100%;
     padding-right: 0px;
     padding-left: 0px;
+    padding-bottom: 64px;
     &__content {
       padding-right: 16px;
       padding-left: 16px;

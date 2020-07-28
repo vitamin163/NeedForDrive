@@ -10,14 +10,16 @@ const StartScreen = () => (
       <div className="content__title">Каршеринг</div>
       <div className="content__name">Need for drive</div>
       <div className="content__subtitle">Поминутная аренда авто твоего города</div>
-      <NavLink to="/location">
+      <NavLink to="/order-page">
         <button className="content__reservation-button">Забронировать</button>
       </NavLink>
     </main>
 
     <div className="start-screen__footer footer">
       <div className="footer__copyright">© 2016-2019 «Need for drive»</div>
-      <div className="footer__number">8(495) 234-22-44</div>
+      <a href="tel:84952342244" className="footer__number">
+        8(495) 234-22-44
+      </a>
     </div>
   </div>
 );

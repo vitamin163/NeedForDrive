@@ -2,14 +2,18 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { capitalize } from 'lodash';
 import cn from 'classnames';
-import { actions } from '../../../slices';
+import { actions } from '../../../store';
 import './MapPage.scss';
-import icons from '../../../JS/icons';
+import icons from '../../../icon';
 
 const PointInput = () => {
   const dispatch = useDispatch();
 
-  const locations = useSelector((state) => state.locations);
+  const {
+    points: { allIds, byId },
+  } = useSelector((state) => state);
+  const points = allIds.map((id) => byId[id]);
+
   const { cityId } = useSelector((state) => state.order);
 
   const { pointFilterValue, pointInputValue } = useSelector((state) => state.locationsInput);
@@ -21,7 +25,7 @@ const PointInput = () => {
     dispatch(filterPoint(''));
     dispatch(addPointInputValue(address));
   };
-  const { points } = locations;
+
   const filteredByCity = points.filter(({ cityId: { id } }) => id === cityId.id);
 
   const filteredByAddress = filteredByCity.filter(

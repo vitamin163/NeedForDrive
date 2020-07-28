@@ -1,14 +1,13 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-// import '../scss/App.scss';
 import MainPage from '../MainPage/MainPage.jsx';
 import OrderPage from '../OrderPage/OrderPage.jsx';
 
 const App = () => (
-  <div>
+  <div className="app">
     <Switch>
       <Route exact path="/" component={MainPage} />
-      <Route path="/location" component={OrderPage} />
+      <Route path="/order-page" component={OrderPage} />
     </Switch>
   </div>
 );

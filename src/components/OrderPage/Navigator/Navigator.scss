@@ -20,16 +20,20 @@
   &__link {
     display: flex;
     align-items: center;
-    a {
-      @include textStyle(700, 14px, 16px, $mainAccent);
+    button {
+      background: transparent;
+      @include textStyle(700, 14px, 16px, $black);
     }
     img {
       margin-left: 16px;
       margin-right: 16px;
     }
   }
+  &__link_active button {
+    @include textStyle(700, 14px, 16px, $mainAccent);
+  }
 
-  &__link_disable a {
+  &__link_disable button {
     pointer-events: none;
     @include textStyle(700, 14px, 16px, $gray);
   }
@@ -42,5 +46,12 @@
       padding-left: 16px;
       padding-right: 16px;
     }
+  }
+  .navigator::-webkit-scrollbar {
+    display: none;
+  }
+  .navigator {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
   }
 }

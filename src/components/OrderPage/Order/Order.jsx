@@ -1,21 +1,47 @@
 import React from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import { actions } from '../../../store';
 import './Order.scss';
 
 const Order = (props) => {
-  const { buttonName, buttonClass } = props;
+  const dispatch = useDispatch();
+  const { changeActive } = actions;
+  const { buttonName, buttonClass, activeLink } = props;
+  const {
+    pointId: { id: pointId },
+    cityId: { id: cityId },
+    carId: { id: carId },
+    price,
+  } = useSelector((state) => state.order);
+
+  const { byId: cities } = useSelector((state) => state.cities);
+  const { byId: points } = useSelector((state) => state.points);
+  const { byId: cars } = useSelector((state) => state.cars);
   return (
     <div className="order-page__order order">
       <div className="order__content">
         <div className="order__title">Ваш заказ:</div>
         <ul className="order__list">
-          <li className="order__item">
-            Пункт выдачи
-            <span className="order__address">Ульяновск, Нариманова 42</span>
-          </li>
+          {pointId && (
+            <li className="order__item">
+              Пункт выдачи
+              <span className="order__address">
+                {cities[cityId].name}, {points[pointId].address}
+              </span>
+            </li>
+          )}
+          {carId && (
+            <li className="order__item">
+              Модель
+              <span className="order__address">{cars[carId].name}</span>
+            </li>
+          )}
         </ul>
-        <div className="order__price">Цена: от 8 000 до 12 000 ₽</div>
+        <div className="order__price">Цена: {price} ₽</div>
       </div>
-      <button className={buttonClass}>{buttonName}</button>
+      <button className={buttonClass} onClick={() => dispatch(changeActive(activeLink))}>
+        {buttonName}
+      </button>
     </div>
   );
 };

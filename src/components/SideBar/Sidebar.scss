@@ -82,13 +82,38 @@
   &__social {
     background: transparent;
   }
-  &__icon:hover path {
-    fill: $mainAccent;
+  &__icon {
+    display: inline-block;
+    background-size: cover;
+    width: 32px;
+    height: 32px;
+  }
+  &__icon-telegram {
+    background-image: url('../../icon/Telegram_white.svg');
+  }
+  &__icon-telegram:hover,
+  &__icon-telegram:focus {
+    background-image: url('../../icon/Telegram_green.svg');
+  }
+  &__icon-facebook {
+    background-image: url('../../icon/Facebook_white.svg');
+  }
+  &__icon-facebook:hover,
+  &__icon-facebook:focus {
+    background-image: url('../../icon/Facebook_green.svg');
+  }
+  &__icon-instagram {
+    background-image: url('../../icon/Instagram_white.svg');
+  }
+  &__icon-instagram:hover,
+  &__icon-instagram:focus {
+    background-image: url('../../icon/Instagram_green.svg');
   }
 }
 .cover {
   flex: 1 2 688px;
   background: linear-gradient(rgba(21, 27, 31, 0.81) 100%);
+  z-index: 100;
 }
 
 .burger-btn {

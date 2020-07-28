@@ -30,6 +30,12 @@ const slice = createSlice({
     deletePointId(state) {
       state.pointId = {};
     },
+    addCarId(state, { payload }) {
+      state.carId.id = payload;
+    },
+    addPrice(state, { payload }) {
+      state.price = payload;
+    },
   },
 });
 
