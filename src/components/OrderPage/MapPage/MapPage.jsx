@@ -17,27 +17,30 @@ const MapPage = () => {
 
   useEffect(() => {
     const getLocations = async () => {
-      const {
-        data: { data: dataCities },
-      } = await axios.get('http://api-factory.simbirsoft1.com/api/db/city/', {
-        headers: {
-          'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-          Authorization: 'Bearer 4cbcea96de',
-        },
-      });
-      const {
-        data: { data: dataPoints },
-      } = await axios.get('http://api-factory.simbirsoft1.com/api/db/point/', {
-        headers: {
-          'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-          Authorization: 'Bearer 4cbcea96de',
-        },
-      });
-      console.log(dataCities);
-      console.log(dataPoints);
-      dispatch(addCities(dataCities));
-      dispatch(addPoints(dataPoints));
+      try {
+        const {
+          data: { data: dataCities },
+        } = await axios.get('http://api-factory.simbirsoft1.com/api/db/city/', {
+          headers: {
+            'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+            Authorization: 'Bearer 4cbcea96de',
+          },
+        });
+        const {
+          data: { data: dataPoints },
+        } = await axios.get('http://api-factory.simbirsoft1.com/api/db/point/', {
+          headers: {
+            'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+            Authorization: 'Bearer 4cbcea96de',
+          },
+        });
+        dispatch(addCities(dataCities));
+        dispatch(addPoints(dataPoints));
+      } catch (e) {
+        console.log(e);
+      }
     };
+
     getLocations();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
