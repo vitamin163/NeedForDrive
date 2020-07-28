@@ -23,6 +23,7 @@ const Navigator = () => {
   const navLinkHandler = (activeLink) => {
     dispatch(changeActive(activeLink));
   };
+
   return (
     <div className="order-page__navigator navigator">
       <nav className="navigator__nav">
