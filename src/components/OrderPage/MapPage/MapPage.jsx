@@ -20,7 +20,7 @@ const MapPage = () => {
       try {
         const {
           data: { data: dataCities },
-        } = await axios.get('http://api-factory.simbirsoft1.com/api/db/city/', {
+        } = await axios.get('//api-factory.simbirsoft1.com/api/db/city/', {
           headers: {
             'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
             Authorization: 'Bearer 4cbcea96de',
@@ -28,7 +28,7 @@ const MapPage = () => {
         });
         const {
           data: { data: dataPoints },
-        } = await axios.get('http://api-factory.simbirsoft1.com/api/db/point/', {
+        } = await axios.get('//api-factory.simbirsoft1.com/api/db/point/', {
           headers: {
             'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
             Authorization: 'Bearer 4cbcea96de',
