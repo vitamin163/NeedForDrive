@@ -19,8 +19,10 @@ const ModelPage = () => {
   const {
     carId: { id: carId },
   } = order;
-
-  const filtered = cars.filter(({ categoryId: { id } }) => id === categoryId || categoryId === 0);
+  const defaultCategory = 0;
+  const filtered = cars.filter(
+    ({ categoryId: { id } }) => id === categoryId || categoryId === defaultCategory,
+  );
 
   const renderCars = () => {
     return filtered.map((car, i) => {
@@ -62,26 +64,34 @@ const ModelPage = () => {
 
   useEffect(() => {
     const getCars = async () => {
-      const {
-        data: { data: dataCars },
-      } = await axios.get('http://api-factory.simbirsoft1.com/api/db/car/', {
-        headers: {
-          'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-          Authorization: 'Bearer 4cbcea96de',
-        },
-      });
-      dispatch(addCars(dataCars));
+      try {
+        const {
+          data: { data: dataCars },
+        } = await axios.get('http://api-factory.simbirsoft1.com/api/db/car/', {
+          headers: {
+            'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+            Authorization: 'Bearer 4cbcea96de',
+          },
+        });
+        dispatch(addCars(dataCars));
+      } catch (e) {
+        console.log(e);
+      }
     };
     const getCategory = async () => {
-      const {
-        data: { data: dataCategory },
-      } = await axios.get('http://api-factory.simbirsoft1.com/api/db/category/', {
-        headers: {
-          'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-          Authorization: 'Bearer 4cbcea96de',
-        },
-      });
-      dispatch(addCategory(dataCategory));
+      try {
+        const {
+          data: { data: dataCategory },
+        } = await axios.get('http://api-factory.simbirsoft1.com/api/db/category/', {
+          headers: {
+            'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+            Authorization: 'Bearer 4cbcea96de',
+          },
+        });
+        dispatch(addCategory(dataCategory));
+      } catch (e) {
+        console.log(e);
+      }
     };
     getCategory();
     getCars();
