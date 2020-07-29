@@ -10,7 +10,6 @@ const slice = createSlice({
   },
   reducers: {
     addCategory(state, { payload }) {
-      console.log(payload);
       const [category1, category2] = payload;
       return { ...state, [category1.name]: category1, [category2.name]: category2 };
     },
