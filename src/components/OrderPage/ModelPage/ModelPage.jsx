@@ -33,7 +33,7 @@ const ModelPage = () => {
         priceMax,
         thumbnail: { path },
       } = car;
-      const imgPath = `http://api-factory.simbirsoft1.com${path}`;
+      const imgPath = `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com${path}`;
       const cardClass = cn({
         'model-page__card': true,
         'model-page__card_active': carId === id,
@@ -55,7 +55,7 @@ const ModelPage = () => {
             </span>
           </div>
           <div className="model-page__img">
-            <img src={imgPath} alt="car" />
+            <img crossOrigin="anonymous" referrerPolicy="origin" src={imgPath} alt="car" />
           </div>
         </button>
       );
