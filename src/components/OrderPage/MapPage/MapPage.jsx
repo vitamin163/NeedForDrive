@@ -20,20 +20,26 @@ const MapPage = () => {
       try {
         const {
           data: { data: dataCities },
-        } = await axios.get('//api-factory.simbirsoft1.com/api/db/city/', {
-          headers: {
-            'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-            Authorization: 'Bearer 4cbcea96de',
+        } = await axios.get(
+          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/city/',
+          {
+            headers: {
+              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+              Authorization: 'Bearer 4cbcea96de',
+            },
           },
-        });
+        );
         const {
           data: { data: dataPoints },
-        } = await axios.get('//api-factory.simbirsoft1.com/api/db/point/', {
-          headers: {
-            'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-            Authorization: 'Bearer 4cbcea96de',
+        } = await axios.get(
+          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/point/',
+          {
+            headers: {
+              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+              Authorization: 'Bearer 4cbcea96de',
+            },
           },
-        });
+        );
         dispatch(addCities(dataCities));
         dispatch(addPoints(dataPoints));
       } catch (e) {
