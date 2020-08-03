@@ -1,10 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { capitalize } from 'lodash';
-import cn from 'classnames';
 import { actions } from '../../../store';
 import './MapPage.scss';
-import icons from '../../../icon';
+import Input from '../../Input/Input.jsx';
 
 const PointInput = () => {
   const dispatch = useDispatch();
@@ -18,7 +17,6 @@ const PointInput = () => {
 
   const { pointFilterValue, pointInputValue } = useSelector((state) => state.locationsInput);
   const { filterPoint, addPointInputValue, addPointId, deletePointId } = actions;
-  const { cleanInput } = icons;
 
   const addDeliveryHandler = (id, address) => {
     dispatch(addPointId(id));
@@ -56,25 +54,19 @@ const PointInput = () => {
     dispatch(filterPoint(value));
     dispatch(addPointInputValue(value));
   };
-
-  const inputClass = cn({
-    'map-page__input': true,
-    'map-page__input_disable': !cityId.id,
-  });
   return (
-    <div className="map-page__search-delivery">
-      <span>Пункт выдачи</span>
-      <input
-        value={pointInputValue}
-        onChange={handleChangeDelivery}
-        type="text"
-        className={inputClass}
-      />
-      <button className="map-page__clean-input" onClick={() => dispatch(deletePointId())}>
-        <img src={cleanInput} alt="clean input" />
-      </button>
-      {pointFilterValue.length > 0 && <div className="map-page__dropdown">{renderDevilery()}</div>}
-    </div>
+    <Input
+      label="Пункт выдачи"
+      type="text"
+      value={pointInputValue}
+      change={handleChangeDelivery}
+      click={() => dispatch(deletePointId())}
+      placeholder="Начните вводить пункт..."
+      disable={!cityId.id}
+      dropdown={
+        pointFilterValue.length > 0 && <div className="map-page__dropdown">{renderDevilery()}</div>
+      }
+    />
   );
 };
 

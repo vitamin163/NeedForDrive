@@ -1,0 +1,51 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.options-page {
+  width: 928px;
+  height: 512px;
+  padding-right: 192px;
+  overflow: hidden;
+  &__color-label {
+    margin-top: 32px;
+    @include textStyle(300, 14px, 16px, $black);
+  }
+  &__colors-container {
+    display: flex;
+    margin-top: 16px;
+  }
+  &__radio-color {
+    margin-right: 16px;
+  }
+  &__label {
+    margin-top: 32px;
+    @include textStyle(300, 14px, 16px, $black);
+  }
+  &__rent {
+    position: relative;
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-end;
+  }
+  &__rate {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 16px;
+    margin-bottom: -8px;
+  }
+  &__other {
+    display: inline-flex;
+    flex-direction: column;
+    align-items: flex-start;
+    margin-top: 16px;
+    margin-bottom: -8px;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .options-page {
+    padding-left: 16px;
+    padding-right: 16px;
+  }
+}

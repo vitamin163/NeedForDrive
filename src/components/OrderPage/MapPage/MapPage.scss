@@ -5,6 +5,7 @@
   width: 928px;
   height: 512px;
   padding-right: 192px;
+  padding-top: 16px;
   overflow: hidden;
   &__search-container {
     position: relative;
@@ -12,25 +13,6 @@
     flex-direction: column;
     align-items: flex-end;
   }
-  &__search-city {
-    margin-top: 32px;
-  }
-  &__search-delivery {
-    margin-top: 16px;
-  }
-  span {
-    @include textStyle(300, 14px, 16px, $black);
-  }
-  &__input {
-    width: 224px;
-    margin-left: 16px;
-    @include textStyle(300, 14px, 16px, $black);
-    border-bottom: 1px solid $gray;
-  }
-  &__input_disable {
-    pointer-events: none;
-  }
-
   &__map {
     display: flex;
     max-width: 736px;
@@ -49,6 +31,7 @@
     max-height: 106px;
     overflow: auto;
     border: 1px solid $grayLight;
+    @include tr(-8px);
     z-index: 10;
   }
   &__dropdown button {
@@ -60,10 +43,6 @@
   }
   &__dropdown button:hover {
     @include textStyle(300, 14px, 16px, $mainAccent);
-  }
-  &__clean-input {
-    background: transparent;
-    @include tr(-200%);
   }
 }
 
@@ -82,24 +61,6 @@
     &__search-container {
       width: 100%;
       align-items: flex-start;
-    }
-    &__search-city {
-      display: flex;
-      flex-direction: column;
-    }
-    &__search-delivery {
-      display: flex;
-      flex-direction: column;
-    }
-    &__input {
-      margin-left: 0px;
-      margin-top: 10px;
-    }
-    &__clean-input {
-      background: transparent;
-      width: 8px;
-      height: 8px;
-      @include tr(212px, -200%);
     }
     &__dropdown {
       left: 0;

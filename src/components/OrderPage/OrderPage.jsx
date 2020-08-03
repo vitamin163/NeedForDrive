@@ -6,6 +6,7 @@ import Header from '../Header/Header.jsx';
 import Navigator from './Navigator/Navigator.jsx';
 import MapPage from './MapPage/MapPage.jsx';
 import ModelPage from './ModelPage/ModelPage.jsx';
+import OptionsPage from './OptionsPage/OptionsPage.jsx';
 
 const OrderPage = () => {
   const { active } = useSelector((state) => state.navUIState);
@@ -18,6 +19,7 @@ const OrderPage = () => {
         <div className="order-page__content">
           {active === 0 && <MapPage />}
           {active === 1 && <ModelPage />}
+          {active === 2 && <OptionsPage />}
         </div>
       </div>
     </div>

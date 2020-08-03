@@ -3,7 +3,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { capitalize } from 'lodash';
 import { actions } from '../../../store';
 import './MapPage.scss';
-import icons from '../../../icon';
+import Input from '../../Input/Input.jsx';
 
 const CityInput = () => {
   const dispatch = useDispatch();
@@ -17,8 +17,6 @@ const CityInput = () => {
   const { cityFilterValue, cityInputValue } = useSelector((state) => state.locationsInput);
 
   const { filterCity, addCityInputValue, addCityId, deleteCityId, deletePointId } = actions;
-
-  const { cleanInput } = icons;
 
   const addCityHandler = (id, name) => {
     dispatch(addCityId(id));
@@ -52,19 +50,17 @@ const CityInput = () => {
     dispatch(addCityInputValue(value));
   };
   return (
-    <div className="map-page__search-city">
-      <span>Город</span>
-      <input
-        type="text"
-        value={cityInputValue}
-        className="map-page__input"
-        onChange={handleChangeCity}
-      />
-      <button className="map-page__clean-input" onClick={() => dispatch(deleteCityId())}>
-        <img src={cleanInput} alt="clean input" />
-      </button>
-      {cityFilterValue.length > 0 && <div className="map-page__dropdown">{renderCity()}</div>}
-    </div>
+    <Input
+      label="Город"
+      type="text"
+      value={cityInputValue}
+      change={handleChangeCity}
+      click={() => dispatch(deleteCityId())}
+      placeholder="Начните вводить город..."
+      dropdown={
+        cityFilterValue.length > 0 && <div className="map-page__dropdown">{renderCity()}</div>
+      }
+    />
   );
 };
 export default CityInput;

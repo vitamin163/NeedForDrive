@@ -1,0 +1,54 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.checkbox {
+  display: inline-flex;
+  margin-bottom: 8px;
+  align-items: center;
+  flex-direction: row-reverse;
+  margin-right: 16px;
+  @include textStyle(300, 14px, 16px, $gray);
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  input {
+    opacity: 0;
+    cursor: pointer;
+  }
+  &__checkmark {
+    top: 0;
+    left: 0;
+    width: 12px;
+    height: 12px;
+    border: 1px solid $gray;
+  }
+}
+
+.checkbox:hover input ~ .checkbox__checkmark {
+  background-color: #ccc;
+}
+
+.checkbox input:checked ~ .checkbox__checkmark {
+  border-color: $mainAccent;
+}
+
+.checkbox__checkmark:after {
+  content: '';
+  position: absolute;
+  display: none;
+}
+
+.checkbox input:checked ~ .checkbox__checkmark:after {
+  display: block;
+}
+
+.checkbox__checkmark:after {
+  margin-top: -1px;
+  margin-left: 2px;
+  width: 13px;
+  height: 10px;
+  background: url('../../icon/check.svg');
+  background-size: cover;
+}

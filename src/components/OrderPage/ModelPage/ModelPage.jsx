@@ -5,6 +5,7 @@ import cn from 'classnames';
 import Order from '../Order/Order.jsx';
 import './ModelPage.scss';
 import { actions } from '../../../store';
+import RadioButton from '../../RadioButton/RadioBugtton.jsx';
 
 const ModelPage = () => {
   const dispatch = useDispatch();
@@ -76,6 +77,7 @@ const ModelPage = () => {
             },
           },
         );
+        console.log(dataCars);
         dispatch(addCars(dataCars));
       } catch (e) {
         console.log(e);
@@ -99,17 +101,13 @@ const ModelPage = () => {
         console.log(e);
       }
     };
-    getCategory();
-    getCars();
+    if (allIds.length === 0) {
+      getCategory();
+      getCars();
+    }
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
-
-  const getClass = (className, id) => {
-    return cn({
-      [className]: true,
-      [`${className}_active`]: categoryId === id,
-    });
-  };
 
   const filterHandler = (id) => {
     dispatch(changeCategory(id));
@@ -119,46 +117,25 @@ const ModelPage = () => {
   const economy = category['Эконом'] && category['Эконом'].id;
   const premium = category['Премиум'] && category['Премиум'].id;
 
-  const buttonClass = cn({
-    order__button: true,
-    order__button_disabled: !carId,
-  });
-
   return (
     <>
       <div className="order-page__model-page model-page">
         <div className="model-page__filter-container">
-          <div className="model-page__row">
-            <div className={getClass('model-page__radio', allModel)}></div>
-            <button
-              className={getClass('model-page__filter-button', allModel)}
-              onClick={() => filterHandler(allModel)}
-            >
-              Все модели
-            </button>
-          </div>
-          <div className="model-page__row">
-            <div className={getClass('model-page__radio', economy)}></div>
-            <button
-              className={getClass('model-page__filter-button', economy)}
-              onClick={() => filterHandler(economy)}
-            >
-              Эконом
-            </button>
-          </div>
-          <div className="model-page__row">
-            <div className={getClass('model-page__radio', premium)}></div>
-            <button
-              className={getClass('model-page__filter-button', premium)}
-              onClick={() => filterHandler(premium)}
-            >
-              Премиум
-            </button>
-          </div>
+          <RadioButton
+            items={[
+              {
+                name: 'Все модели',
+                checked: 0,
+                click: () => filterHandler(allModel),
+              },
+              { name: 'Эконом', click: () => filterHandler(economy) },
+              { name: 'Премиум', click: () => filterHandler(premium) },
+            ]}
+          />
         </div>
         <div className="model-page__cards-container">{cars.length > 0 && renderCars()}</div>
       </div>
-      <Order buttonName="Дополнительно" buttonClass={buttonClass} />
+      <Order buttonName="Дополнительно" disabled={!carId} activeLink={2} />
     </>
   );
 };

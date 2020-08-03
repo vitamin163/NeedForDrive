@@ -1,7 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
-import cn from 'classnames';
 import { actions } from '../../../store';
 import './MapPage.scss';
 import map from '../../../img/map.jpg';
@@ -51,11 +50,6 @@ const MapPage = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const buttonClass = cn({
-    order__button: true,
-    order__button_disabled: !pointId.id,
-  });
-
   return (
     <>
       <div className="order-page__map-page map-page">
@@ -68,7 +62,7 @@ const MapPage = () => {
           <img className="map-page__map-image" src={map} alt="map" />
         </div>
       </div>
-      <Order buttonName="Выбрать модель" buttonClass={buttonClass} activeLink={1} />
+      <Order buttonName="Выбрать модель" disabled={!pointId.id} activeLink={1} />
     </>
   );
 };

@@ -1,0 +1,47 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.input-container {
+  flex: 0 0 auto;
+  margin-top: 16px;
+
+  &__label {
+    @include textStyle(300, 14px, 16px, $black);
+  }
+  &__input {
+    width: 224px;
+    padding-left: 8px;
+    padding-right: 16px;
+    margin-left: 8px;
+    @include textStyle(300, 14px, 16px, $black);
+    border-bottom: 1px solid $gray;
+  }
+  &__input_disable {
+    pointer-events: none;
+  }
+  &__clean-input {
+    background: transparent;
+    @include tr(-200%);
+  }
+  &__fake {
+    display: inline-block;
+    width: 8px;
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .input-container {
+    display: flex;
+    flex-direction: column;
+    &__input {
+      margin-left: 0px;
+      margin-top: 10px;
+    }
+    &__clean-input {
+      background: transparent;
+      width: 8px;
+      height: 8px;
+      @include tr(212px, -200%);
+    }
+  }
+}

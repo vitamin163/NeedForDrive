@@ -1,12 +1,13 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import cn from 'classnames';
 import { actions } from '../../../store';
 import './Order.scss';
 
 const Order = (props) => {
   const dispatch = useDispatch();
   const { changeActive } = actions;
-  const { buttonName, buttonClass, activeLink } = props;
+  const { buttonName, disabled, activeLink } = props;
   const {
     pointId: { id: pointId },
     cityId: { id: cityId },
@@ -17,6 +18,10 @@ const Order = (props) => {
   const { byId: cities } = useSelector((state) => state.cities);
   const { byId: points } = useSelector((state) => state.points);
   const { byId: cars } = useSelector((state) => state.cars);
+  const buttonClass = cn({
+    order__button: true,
+    order__button_disabled: disabled,
+  });
   return (
     <div className="order-page__order order">
       <div className="order__content">
