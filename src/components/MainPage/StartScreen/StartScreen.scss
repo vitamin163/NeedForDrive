@@ -7,6 +7,7 @@
   flex-direction: column;
   padding-left: 128px;
   padding-right: 64px;
+  padding-top: 32px;
 
   &__content {
     margin-top: 163px;
@@ -86,6 +87,7 @@
   .start-screen {
     padding-left: 0px;
     padding-right: 0px;
+    padding-top: 16px;
     &__header {
       padding-right: 16px;
       margin-top: 16px;
