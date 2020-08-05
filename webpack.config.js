@@ -38,7 +38,9 @@ module.exports = (env, options) => {
         {
           test: /\.jsx?$/,
           exclude: /node_modules/,
-          use: 'babel-loader',
+          use: {
+            loader: 'babel-loader',
+          },
         },
         {
           test: /\.css$/,
@@ -88,12 +90,25 @@ module.exports = (env, options) => {
           },
         },
         {
-          test: /\.(svg|ico)$/,
+          test: /\.ico$/,
           loader: 'file-loader',
           options: {
             name: '[name].[ext]',
             outputPath: `${PATHS.assets}/icon`,
           },
+        },
+        {
+          test: /\.svg$/,
+          use: [
+            { loader: '@svgr/webpack' },
+            {
+              loader: 'file-loader',
+              options: {
+                name: '[name].[ext]',
+                outputPath: `${PATHS.assets}/icon`,
+              },
+            },
+          ],
         },
       ],
     },

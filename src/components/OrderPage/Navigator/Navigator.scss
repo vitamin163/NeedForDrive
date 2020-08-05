@@ -6,8 +6,7 @@
   flex-direction: column;
   height: 32px;
   margin-top: 32px;
-  border-top: 1px solid $grayLight;
-  border-bottom: 1px solid $grayLight;
+
   &__nav {
     display: flex;
     align-items: center;
@@ -37,6 +36,13 @@
     pointer-events: none;
     @include textStyle(700, 14px, 16px, $gray);
   }
+}
+hr {
+  position: fixed;
+  left: 0;
+  background-color: $grayLight;
+  width: 100%;
+  height: 1px;
 }
 
 @media (max-width: $mobile-width) {

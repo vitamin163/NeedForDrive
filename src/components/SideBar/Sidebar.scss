@@ -6,6 +6,7 @@
   position: absolute;
   width: 64px;
   height: 100vh;
+  top: 0;
   left: 0;
   background-color: #151b1f;
   flex-direction: column;
@@ -81,33 +82,9 @@
   }
   &__social {
     background: transparent;
-  }
-  &__icon {
-    display: inline-block;
-    background-size: cover;
-    width: 32px;
-    height: 32px;
-  }
-  &__icon-telegram {
-    background-image: url('../../icon/Telegram_white.svg');
-  }
-  &__icon-telegram:hover,
-  &__icon-telegram:focus {
-    background-image: url('../../icon/Telegram_green.svg');
-  }
-  &__icon-facebook {
-    background-image: url('../../icon/Facebook_white.svg');
-  }
-  &__icon-facebook:hover,
-  &__icon-facebook:focus {
-    background-image: url('../../icon/Facebook_green.svg');
-  }
-  &__icon-instagram {
-    background-image: url('../../icon/Instagram_white.svg');
-  }
-  &__icon-instagram:hover,
-  &__icon-instagram:focus {
-    background-image: url('../../icon/Instagram_green.svg');
+    svg:hover path {
+      fill: $mainAccent;
+    }
   }
 }
 .cover {
@@ -159,7 +136,7 @@
   }
   .burger-btn {
     left: 27px;
-    &__icon {
+    svg {
       transform: scaleX(1.3125);
     }
   }
@@ -182,7 +159,7 @@
 
 @media (max-width: $mobile-width) {
   .sidebar {
-    position: relative;
+    position: absolute;
     padding: 0;
     background-color: transparent;
     width: 0px;
@@ -197,11 +174,11 @@
   .burger-btn {
     left: 16px;
     top: 16px;
-    &__icon {
+    svg {
       transform: scaleX(1);
-    }
-    &__icon path {
-      stroke: $black;
+      path {
+        stroke: $black;
+      }
     }
   }
   .close-btn {

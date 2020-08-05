@@ -3,10 +3,9 @@
 
 .map-page {
   width: 928px;
-  height: 512px;
   padding-right: 192px;
   padding-top: 16px;
-  overflow: hidden;
+  overflow-x: hidden;
   &__search-container {
     position: relative;
     display: inline-flex;
@@ -17,7 +16,7 @@
     display: flex;
     max-width: 736px;
     flex-direction: column;
-    height: 352px;
+    height: calc(100vh - 265px);
     margin-top: 45px;
   }
   &__map-image {

@@ -7,13 +7,17 @@
   flex: 0 1 1400px;
   justify-content: center;
   &__wrapper {
-    overflow-y: scroll;
     overflow-x: hidden;
     padding-left: 128px;
     padding-right: 64px;
     flex-direction: column;
   }
-
+  &__header {
+    position: sticky;
+    top: 0;
+    background: $white;
+    z-index: 50;
+  }
   &__content {
     display: flex;
   }
@@ -24,7 +28,6 @@
     &__wrapper {
       padding-left: 0px;
       padding-right: 0px;
-      overflow-y: scroll;
     }
     &__content {
       flex-direction: column;

@@ -23,29 +23,33 @@ const Navigator = () => {
   const navLinkHandler = (activeLink) => {
     dispatch(changeActive(activeLink));
   };
+  const items = [
+    { name: 'Местоположение', className: getClass(0, false), img: navArrow },
+    { name: 'Модель', className: getClass(1, !pointId.id), img: navArrow },
+    { name: 'Дополнительно', className: getClass(2, !carId.id), img: navArrow },
+    { name: 'Итого', className: getClass(3, true), img: false },
+  ];
 
   return (
-    <div className="order-page__navigator navigator">
-      <nav className="navigator__nav">
-        <ul className="navigator__link-container">
-          <li className={getClass(0, false)}>
-            <button onClick={() => navLinkHandler(0)}>Местоположение</button>
-            <img src={navArrow} alt="next" />
-          </li>
-          <li className={getClass(1, !pointId.id)}>
-            <button onClick={() => navLinkHandler(1)}>Модель</button>
-            <img src={navArrow} alt="next" />
-          </li>
-          <li className={getClass(2, !carId.id)}>
-            <button onClick={() => navLinkHandler(2)}>Дополнительно</button>
-            <img src={navArrow} alt="next" />
-          </li>
-          <li className="navigator__link navigator__link_disable">
-            <button onClick={() => navLinkHandler(3)}>Итого</button>
-          </li>
-        </ul>
-      </nav>
-    </div>
+    <>
+      <div className="order-page__navigator navigator">
+        <hr />
+        <nav className="navigator__nav">
+          <ul className="navigator__link-container">
+            {items.map((item, i) => {
+              const { name, className, img } = item;
+              return (
+                <li key={i} className={className}>
+                  <button onClick={() => navLinkHandler(i)}>{name}</button>
+                  {img && <img src={img} alt="next" />}
+                </li>
+              );
+            })}
+          </ul>
+        </nav>
+      </div>
+      <hr />
+    </>
   );
 };
 

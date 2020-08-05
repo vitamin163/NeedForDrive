@@ -3,10 +3,11 @@ import { useSelector, useDispatch } from 'react-redux';
 import './Sidebar.scss';
 import cn from 'classnames';
 import icons from '../../icon';
+
 import { actions } from '../../store';
 
 const Sidebar = () => {
-  const { closeButton } = icons;
+  const { closeButton, Telegram, Facebook, Instagram, Burger } = icons;
   const dispatch = useDispatch();
   const { isOpen } = useSelector((state) => state.sidebar);
   const { openMenu } = actions;
@@ -28,12 +29,6 @@ const Sidebar = () => {
     'burger-btn': true,
     'burger-btn_show': !isOpen,
     'burger-btn_hide': isOpen,
-  });
-
-  const burgerIconClass = cn({
-    'burger-btn__icon': true,
-    'burger-btn__icon_show': !isOpen,
-    'burger-btn__icon_hide': isOpen,
   });
 
   const closeBtnClass = cn({
@@ -69,38 +64,7 @@ const Sidebar = () => {
   return (
     <div className={sidebarClass}>
       <button className={burgerBtnClass} onClick={() => openMenuHandler()} alt="menu button">
-        {
-          <svg
-            className={burgerIconClass}
-            width="32"
-            height="32"
-            viewBox="0 0 32 32"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-          >
-            <path
-              d="M4 8H28"
-              stroke="white"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M4 16H28"
-              stroke="white"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-            <path
-              d="M4 24H28"
-              stroke="white"
-              strokeWidth="3"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            />
-          </svg>
-        }
+        <Burger />
       </button>
 
       <button className={langBtnClass} alt="language button">
@@ -115,13 +79,13 @@ const Sidebar = () => {
           <ul className="nav__link-container">{renderLinks()}</ul>
           <div className="nav__icon-container">
             <a className="nav__social" href="https://telegram.org/">
-              <span className="nav__icon nav__icon-telegram"></span>
+              <Telegram />
             </a>
             <a className="nav__social" href="https://ru-ru.facebook.com/">
-              <span className="nav__icon nav__icon-facebook"></span>
+              <Facebook />
             </a>
             <a className="nav__social" href="https://www.instagram.com/">
-              <span className="nav__icon nav__icon-instagram"></span>
+              <Instagram />
             </a>
           </div>
         </nav>

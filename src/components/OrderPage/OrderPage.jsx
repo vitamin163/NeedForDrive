@@ -13,9 +13,11 @@ const OrderPage = () => {
   return (
     <div className="order-page">
       <div className="order-page__wrapper">
+        <div className="order-page__header">
+          <Header />
+          <Navigator />
+        </div>
         <SideBar />
-        <Header />
-        <Navigator />
         <div className="order-page__content">
           {active === 0 && <MapPage />}
           {active === 1 && <ModelPage />}
