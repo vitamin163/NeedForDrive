@@ -57,13 +57,17 @@
     height: 100%;
     padding-right: 16px;
     padding-left: 16px;
+    &__map {
+      height: auto;
+    }
     &__search-container {
       width: 100%;
       align-items: flex-start;
     }
     &__dropdown {
+      position: absolute;
       left: 0;
-      @include tr(0px, 50px);
+      @include tr(0px, 43px);
     }
   }
 }
