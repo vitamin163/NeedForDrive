@@ -32,8 +32,8 @@ const Navigator = () => {
 
   return (
     <>
-      <hr className="top-line" />
       <div className="order-page__navigator navigator">
+        <hr className="top-line" />
         <nav className="navigator__nav">
           <ul className="navigator__link-container">
             {items.map((item, i) => {
@@ -47,8 +47,8 @@ const Navigator = () => {
             })}
           </ul>
         </nav>
+        <hr className="bottom-line" />
       </div>
-      <hr className="bottom-line" />
     </>
   );
 };

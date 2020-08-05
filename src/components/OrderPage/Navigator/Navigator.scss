@@ -71,10 +71,12 @@
     scrollbar-width: none;
   }
   .top-line {
-    top: 103px;
+    position: relative;
+    top: 0;
   }
 
   .bottom-line {
-    top: 135px;
+    position: relative;
+    top: 0;
   }
 }
