@@ -1,0 +1,104 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.total-page {
+  width: 928px;
+  height: calc(100vh - 132px);
+  padding-right: 192px;
+  overflow: hidden;
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+  &__model {
+    @include textStyle(400, 18px, 21px, $black);
+    margin-bottom: 8px;
+  }
+  &__img {
+    width: 256px;
+    height: 116px;
+  }
+  &__fuel,
+  &__date {
+    @include textStyle(700, 14px, 16px, $black);
+    margin-bottom: 8px;
+    span {
+      @include textStyle(300, 14px, 16px, $black);
+    }
+  }
+  &__popup {
+    position: fixed;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(255, 255, 255, 0.9);
+    z-index: 1000;
+  }
+  &__popup-label {
+    @include textStyle(400, 24px, 28px, $black);
+    margin-bottom: 32px;
+  }
+  &__button-container {
+    display: flex;
+    width: 357px;
+    justify-content: space-between;
+    button {
+      height: 48px;
+      border-radius: 4px;
+      @include textStyle(500, 18px, 21px, $white, 'center');
+    }
+  }
+  &__confirm-button {
+    width: 177px;
+    background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
+    background-blend-mode: darken;
+    &:hover {
+      background: linear-gradient(90deg, #0b934a 2.61%, #026e47 112.6%);
+      background-blend-mode: darken;
+    }
+    &:active {
+      background: linear-gradient(90deg, #076432 2.61%, #013c27 112.6%);
+      background-blend-mode: darken;
+    }
+  }
+  &__return-button {
+    width: 164px;
+    background: linear-gradient(90deg, #493013 0%, #7b0c3b 100%);
+    &:hover {
+      background: linear-gradient(90deg, #3b260d 0%, #5c0529 100%);
+      background-blend-mode: darken;
+    }
+    &:active {
+      background: linear-gradient(90deg, #331f07 0%, #4e0121 100%);
+      background-blend-mode: darken;
+    }
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .total-page {
+    height: auto;
+    padding-left: 16px;
+    padding-right: 16px;
+    &__content {
+      flex-direction: column;
+    }
+    &__button-container {
+      width: 320px;
+      flex-direction: column;
+      align-items: center;
+      height: 112px;
+    }
+  }
+}

@@ -1,13 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
-  name: 'navUIState',
+  name: 'uiState',
   initialState: {
-    active: 3,
+    popupIsOpen: false,
   },
   reducers: {
-    changeActive(state, { payload }) {
-      return { ...state, active: payload };
+    togglePopup(state, { payload }) {
+      return { ...state, popupIsOpen: payload };
     },
   },
 });

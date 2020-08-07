@@ -1,13 +1,10 @@
 import React from 'react';
-import { useSelector, useDispatch } from 'react-redux';
+import { useSelector } from 'react-redux';
 import cn from 'classnames';
-import { actions } from '../../../store';
 import './Order.scss';
 
 const Order = (props) => {
-  const dispatch = useDispatch();
-  const { changeActive } = actions;
-  const { buttonName, disabled, activeLink } = props;
+  const { buttonName, disabled, click } = props;
   const {
     pointId: { id: pointId },
     cityId: { id: cityId },
@@ -44,7 +41,7 @@ const Order = (props) => {
         </ul>
         <div className="order__price">Цена: {price} ₽</div>
       </div>
-      <button className={buttonClass} onClick={() => dispatch(changeActive(activeLink))}>
+      <button className={buttonClass} onClick={click}>
         {buttonName}
       </button>
     </div>

@@ -3,7 +3,7 @@
 
 .options-page {
   width: 928px;
-  height: 512px;
+  height: calc(100vh - 132px);
   padding-right: 192px;
   overflow: hidden;
   &__color-label {

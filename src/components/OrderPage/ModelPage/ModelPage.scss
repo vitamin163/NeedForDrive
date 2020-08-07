@@ -53,11 +53,11 @@
     height: 116px;
   }
   &__card:hover {
-    z-index: 100;
+    z-index: 40;
     border: 1px solid $gray;
   }
   &__card:active {
-    z-index: 100;
+    z-index: 40;
     border: 1px solid $mainAccent;
   }
   &__filter-container {
