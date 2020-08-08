@@ -15,14 +15,21 @@ const ModelPage = () => {
     order,
   } = useSelector((state) => state);
   const cars = allIds.map((id) => byId[id]);
-  const { categoryId } = useSelector((state) => state.modelUIState);
-  const { addCars, addCategory, changeCategory, addCarId, addPrice, changeActiveNav } = actions;
+  const { categoryModelId } = useSelector((state) => state.uiState);
+  const {
+    addCars,
+    addCategory,
+    changeModelCategory,
+    addCarId,
+    addPrice,
+    changeActiveNav,
+  } = actions;
   const {
     carId: { id: carId },
   } = order;
   const defaultCategory = 0;
   const filtered = cars.filter(
-    ({ categoryId: { id } }) => id === categoryId || categoryId === defaultCategory,
+    ({ categoryId: { id } }) => id === categoryModelId || categoryModelId === defaultCategory,
   );
 
   const renderCars = () => {
@@ -110,7 +117,7 @@ const ModelPage = () => {
   }, []);
 
   const filterHandler = (id) => {
-    dispatch(changeCategory(id));
+    dispatch(changeModelCategory(id));
   };
 
   const { id: allModel } = category['Все модели'];

@@ -6,7 +6,6 @@ import order, { actions as orderActions } from './order';
 import cars, { actions as carsActions } from './cars';
 import locationsInput, { actions as locationsInputActions } from './locationsInput';
 import cities, { actions as citiesActions } from './cities';
-import modelUIState, { actions as modelUIStateActions } from './modelUIState';
 import category, { actions as categoryActions } from './category';
 import uiState, { actions as uiStateActions } from './uiState';
 
@@ -17,7 +16,6 @@ export default combineReducers({
   locationsInput,
   order,
   cars,
-  modelUIState,
   cities,
   category,
   uiState,
@@ -29,7 +27,6 @@ const actions = {
   ...orderActions,
   ...pointsActions,
   ...carsActions,
-  ...modelUIStateActions,
   ...citiesActions,
   ...categoryActions,
   ...uiStateActions,
