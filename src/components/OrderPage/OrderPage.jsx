@@ -10,7 +10,7 @@ import OptionsPage from './OptionsPage/OptionsPage.jsx';
 import TotalPage from './TotalPage/TotalPage.jsx';
 
 const OrderPage = () => {
-  const { active } = useSelector((state) => state.navUIState);
+  const { activeNav } = useSelector((state) => state.uiState);
   return (
     <div className="order-page">
       <div className="order-page__wrapper">
@@ -20,10 +20,10 @@ const OrderPage = () => {
         </div>
         <SideBar />
         <div className="order-page__content">
-          {active === 0 && <MapPage />}
-          {active === 1 && <ModelPage />}
-          {active === 2 && <OptionsPage />}
-          {active === 3 && <TotalPage />}
+          {activeNav === 0 && <MapPage />}
+          {activeNav === 1 && <ModelPage />}
+          {activeNav === 2 && <OptionsPage />}
+          {activeNav === 3 && <TotalPage />}
         </div>
       </div>
     </div>

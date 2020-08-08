@@ -11,8 +11,7 @@ import Pointinput from './PointInput.jsx';
 const MapPage = () => {
   const dispatch = useDispatch();
   const { pointId } = useSelector((state) => state.order);
-
-  const { addCities, addPoints } = actions;
+  const { addCities, addPoints, changeActiveNav } = actions;
 
   useEffect(() => {
     const getLocations = async () => {
@@ -62,7 +61,11 @@ const MapPage = () => {
           <img className="map-page__map-image" src={map} alt="map" />
         </div>
       </div>
-      <Order buttonName="Выбрать модель" disabled={!pointId.id} activeLink={1} />
+      <Order
+        buttonName="Выбрать модель"
+        disabled={!pointId.id}
+        click={() => dispatch(changeActiveNav(1))}
+      />
     </>
   );
 };

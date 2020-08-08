@@ -3,7 +3,6 @@ import sidebar, { actions as sidebarActions } from './sidebar';
 import slides from './slides';
 import points, { actions as pointsActions } from './points';
 import order, { actions as orderActions } from './order';
-import navUIState, { actions as navUIStateActions } from './navUIState';
 import cars, { actions as carsActions } from './cars';
 import locationsInput, { actions as locationsInputActions } from './locationsInput';
 import cities, { actions as citiesActions } from './cities';
@@ -17,7 +16,6 @@ export default combineReducers({
   points,
   locationsInput,
   order,
-  navUIState,
   cars,
   modelUIState,
   cities,
@@ -30,7 +28,6 @@ const actions = {
   ...locationsInputActions,
   ...orderActions,
   ...pointsActions,
-  ...navUIStateActions,
   ...carsActions,
   ...modelUIStateActions,
   ...citiesActions,

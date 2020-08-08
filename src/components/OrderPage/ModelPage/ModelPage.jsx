@@ -16,7 +16,7 @@ const ModelPage = () => {
   } = useSelector((state) => state);
   const cars = allIds.map((id) => byId[id]);
   const { categoryId } = useSelector((state) => state.modelUIState);
-  const { addCars, addCategory, changeCategory, addCarId, addPrice } = actions;
+  const { addCars, addCategory, changeCategory, addCarId, addPrice, changeActiveNav } = actions;
   const {
     carId: { id: carId },
   } = order;
@@ -135,7 +135,11 @@ const ModelPage = () => {
         </div>
         <div className="model-page__cards-container">{cars.length > 0 && renderCars()}</div>
       </div>
-      <Order buttonName="Дополнительно" disabled={!carId} activeLink={2} />
+      <Order
+        buttonName="Дополнительно"
+        disabled={!carId}
+        click={() => dispatch(changeActiveNav(2))}
+      />
     </>
   );
 };

@@ -1,12 +1,15 @@
 import React from 'react';
 import './OptionsPage.scss';
-
+import { useDispatch } from 'react-redux';
+import { actions } from '../../../store';
 import Order from '../Order/Order.jsx';
 import RadioButton from '../../RadioButton/RadioBugtton.jsx';
 import Checkbox from '../../Checkbox/Checkbox.jsx';
 import Input from '../../Input/Input.jsx';
 
 const OptionsPage = () => {
+  const dispatch = useDispatch();
+  const { changeActiveNav } = actions;
   return (
     <>
       <div className="order-page__options-page options-page">
@@ -38,7 +41,7 @@ const OptionsPage = () => {
           />
         </form>
       </div>
-      <Order buttonName="Итого" disabled={true} activeLink={3} />
+      <Order buttonName="Итого" disabled={true} click={() => dispatch(changeActiveNav(3))} />
     </>
   );
 };

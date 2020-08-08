@@ -10,12 +10,12 @@ const Navigator = () => {
   const { changeActive } = actions;
   const { navArrow } = icons;
   const { pointId, carId } = useSelector((state) => state.order);
-  const { active } = useSelector((state) => state.navUIState);
+  const { activeNav } = useSelector((state) => state.uiState);
 
   const getClass = (id, condition) => {
     return cn({
       navigator__link: true,
-      navigator__link_active: active === id,
+      navigator__link_active: activeNav === id,
       navigator__link_disable: condition,
     });
   };
