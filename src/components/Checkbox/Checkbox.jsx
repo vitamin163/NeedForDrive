@@ -2,25 +2,19 @@ import React from 'react';
 import './Checkbox.scss';
 
 const Checkbox = (props) => {
-  const { items: buttons } = props;
-  const renderCheckbox = (items) => {
-    return items.map((item, i) => {
-      const { name, click, checked } = item;
-      return (
-        <label key={i} htmlFor={`${name}${i}`} className="checkbox">
-          {name}
-          <input
-            id={`${name}${i}`}
-            type="checkbox"
-            defaultChecked={i === checked}
-            name="checkbox"
-            onClick={click}
-          />
-          <span className="checkbox__checkmark"></span>
-        </label>
-      );
-    });
-  };
-  return renderCheckbox(buttons);
+  const { name, checked, change } = props;
+  return (
+    <label htmlFor={name} className="checkbox">
+      {name}
+      <input
+        id={name}
+        type="checkbox"
+        defaultChecked={checked}
+        name="checkbox"
+        onChange={(event) => change(event)}
+      />
+      <span className="checkbox__checkmark"></span>
+    </label>
+  );
 };
 export default Checkbox;

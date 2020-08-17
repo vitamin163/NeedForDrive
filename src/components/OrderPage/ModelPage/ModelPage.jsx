@@ -52,7 +52,9 @@ const ModelPage = () => {
           key={i}
           className={cardClass}
           onClick={() => {
-            dispatch(addPrice(`${priceMin.toLocaleString('ru')}-${priceMax.toLocaleString('ru')}`));
+            dispatch(
+              addPrice(`от ${priceMin.toLocaleString('ru')} до ${priceMax.toLocaleString('ru')}`),
+            );
             dispatch(addCarId(id));
           }}
         >
@@ -120,26 +122,16 @@ const ModelPage = () => {
     dispatch(changeModelCategory(id));
   };
 
-  const { id: allModel } = category['Все модели'];
-  const economy = category['Эконом'] && category['Эконом'].id;
-  const premium = category['Премиум'] && category['Премиум'].id;
+  const renderCategory = (items) =>
+    items.map((item, i) => {
+      const { name, id } = item;
+      return <RadioButton key={i} name={name} checked={i === 0} click={() => filterHandler(id)} />;
+    });
 
   return (
     <>
       <div className="order-page__model-page model-page">
-        <div className="model-page__filter-container">
-          <RadioButton
-            items={[
-              {
-                name: 'Все модели',
-                checked: 0,
-                click: () => filterHandler(allModel),
-              },
-              { name: 'Эконом', click: () => filterHandler(economy) },
-              { name: 'Премиум', click: () => filterHandler(premium) },
-            ]}
-          />
-        </div>
+        <div className="model-page__filter-container">{renderCategory(category)}</div>
         <div className="model-page__cards-container">{cars.length > 0 && renderCars()}</div>
       </div>
       <Order

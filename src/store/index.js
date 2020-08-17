@@ -8,6 +8,8 @@ import locationsInput, { actions as locationsInputActions } from './locationsInp
 import cities, { actions as citiesActions } from './cities';
 import category, { actions as categoryActions } from './category';
 import uiState, { actions as uiStateActions } from './uiState';
+import rates, { actions as ratesActions } from './rates';
+import price, { actions as priceActions } from './price';
 
 export default combineReducers({
   sidebar,
@@ -19,6 +21,8 @@ export default combineReducers({
   cities,
   category,
   uiState,
+  rates,
+  price,
 });
 
 const actions = {
@@ -30,6 +34,8 @@ const actions = {
   ...citiesActions,
   ...categoryActions,
   ...uiStateActions,
+  ...ratesActions,
+  ...priceActions,
 };
 
 export { actions };

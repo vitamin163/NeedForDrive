@@ -3,6 +3,7 @@
 
 .order {
   width: 320px;
+  min-width: 200px;
   border-left: 1px solid $grayLight;
   padding-top: 32px;
   padding-left: 32px;
@@ -27,8 +28,7 @@
     order: 2;
     margin: 0 12px;
   }
-  &__address {
-    width: 101px;
+  &__name {
     order: 3;
     @include textStyle(300, 14px, 16px, $gray, right);
   }
@@ -63,7 +63,7 @@
 @media (max-width: $desktop-min-width) {
   .order {
     &__button {
-      width: 89.6875%;
+      width: 100%;
     }
   }
 }
@@ -74,6 +74,7 @@
     padding-right: 0px;
     padding-left: 0px;
     padding-bottom: 64px;
+    border-left: 0px;
     &__content {
       padding-right: 16px;
       padding-left: 16px;

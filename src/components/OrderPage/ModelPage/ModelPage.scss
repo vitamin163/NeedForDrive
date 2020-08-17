@@ -78,11 +78,11 @@
 @media (max-width: $mobile-width) {
   .model-page {
     width: 100%;
-    padding-left: 8px;
-    padding-right: 8px;
+    padding-left: 16px;
+    padding-right: 16px;
     &__card {
       width: 100%;
-      min-width: 300px;
+      min-width: 280px;
       min-height: 159px;
     }
   }

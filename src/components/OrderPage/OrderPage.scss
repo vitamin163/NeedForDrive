@@ -25,6 +25,14 @@
   }
 }
 
+@media (max-width: $tablet-width) {
+  .order-page {
+    &__wrapper {
+      padding-right: 32px;
+    }
+  }
+}
+
 @media (max-width: $mobile-width) {
   .order-page {
     padding-top: 16px;

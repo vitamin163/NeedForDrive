@@ -6,23 +6,21 @@
   height: calc(100vh - 132px);
   padding-right: 192px;
   overflow: hidden;
+  &__calendar {
+    width: 300px;
+  }
   &__color-label {
     margin-top: 32px;
     @include textStyle(300, 14px, 16px, $black);
   }
   &__colors-container {
-    display: flex;
     margin-top: 16px;
-  }
-  &__radio-color {
-    margin-right: 16px;
   }
   &__label {
     margin-top: 32px;
     @include textStyle(300, 14px, 16px, $black);
   }
   &__rent {
-    position: relative;
     display: inline-flex;
     flex-direction: column;
     align-items: flex-end;
@@ -45,7 +43,13 @@
 
 @media (max-width: $mobile-width) {
   .options-page {
+    width: 100vw;
+    height: auto;
     padding-left: 16px;
     padding-right: 16px;
+
+    &__colors-container {
+      width: 100%;
+    }
   }
 }

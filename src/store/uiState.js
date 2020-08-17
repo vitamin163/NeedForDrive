@@ -3,7 +3,7 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'uiState',
   initialState: {
-    activeNav: 1,
+    activeNav: 0,
     categoryModelId: 0,
     popupIsOpen: false,
   },
@@ -14,7 +14,6 @@ const slice = createSlice({
     changeModelCategory(state, { payload }) {
       return { ...state, categoryModelId: payload };
     },
-
     togglePopup(state, { payload }) {
       return { ...state, popupIsOpen: payload };
     },

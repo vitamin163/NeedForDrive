@@ -1,10 +1,11 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import './Input.scss';
 import cn from 'classnames';
 import icons from '../../icon';
 
-const Input = (props) => {
-  const { label, type, value, change, click, disable, dropdown, placeholder } = props;
+// eslint-disable-next-line no-unused-vars
+const Input = (props, ref) => {
+  const { label, type, value, change, onClick, click, disable, dropdown, placeholder } = props;
   const { cleanInput } = icons;
 
   const inputClass = cn({
@@ -19,6 +20,7 @@ const Input = (props) => {
         type={type}
         value={value}
         onChange={change}
+        onClick={onClick}
         className={inputClass}
         placeholder={placeholder}
       />
@@ -33,4 +35,4 @@ const Input = (props) => {
   );
 };
 
-export default Input;
+export default forwardRef(Input);

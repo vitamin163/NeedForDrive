@@ -1,5 +1,7 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { roundToNearestMinutes } from 'date-fns';
+import { actions as ratesActions } from './rates';
 
 const slice = createSlice({
   name: 'order',
@@ -8,14 +10,14 @@ const slice = createSlice({
     cityId: {},
     pointId: {},
     carId: {},
-    color: 'string',
-    dateFrom: 0,
+    color: '',
+    dateFrom: Date.parse(roundToNearestMinutes(new Date(), { nearestTo: 5 })),
     dateTo: 0,
     rateId: {},
     price: 0,
-    isFullTank: true,
-    isNeedChildChair: true,
-    isRightWheel: true,
+    isFullTank: false,
+    isNeedChildChair: false,
+    isRightWheel: false,
   },
   reducers: {
     addCityId(state, { payload }) {
@@ -35,6 +37,27 @@ const slice = createSlice({
     },
     addPrice(state, { payload }) {
       state.price = payload;
+    },
+    setDateFrom(state, { payload }) {
+      state.dateFrom = payload;
+    },
+    setDateTo(state, { payload }) {
+      state.dateTo = payload;
+    },
+    addColor(state, { payload }) {
+      state.color = payload;
+    },
+    addRateId(state, { payload }) {
+      state.rateId.id = payload;
+    },
+    setOptions(state, { payload: { option, value } }) {
+      state[option] = value;
+    },
+  },
+  extraReducers: {
+    [ratesActions.addRates](state, { payload }) {
+      const { id } = payload[0];
+      state.rateId.id = id;
     },
   },
 });
