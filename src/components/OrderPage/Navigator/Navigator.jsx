@@ -7,7 +7,7 @@ import { actions } from '../../../store';
 
 const Navigator = () => {
   const dispatch = useDispatch();
-  const { changeActive } = actions;
+  const { changeActiveNav } = actions;
   const { navArrow } = icons;
   const { pointId, carId } = useSelector((state) => state.order);
   const { activeNav } = useSelector((state) => state.uiState);
@@ -21,7 +21,7 @@ const Navigator = () => {
   };
 
   const navLinkHandler = (activeLink) => {
-    dispatch(changeActive(activeLink));
+    dispatch(changeActiveNav(activeLink));
   };
   const items = [
     { name: 'Местоположение', className: getClass(0, false), img: navArrow },
