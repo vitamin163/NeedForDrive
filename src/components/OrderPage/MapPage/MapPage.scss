@@ -63,9 +63,11 @@
     height: 100%;
     padding-right: 16px;
     padding-left: 16px;
-
+    &__map-container {
+      height: 100vw;
+    }
     &__map {
-      height: auto;
+      height: 100%;
     }
     &__search-container {
       width: 100%;
