@@ -36,9 +36,9 @@ const CityInput = () => {
   });
 
   const renderCity = () => {
-    return filtered.map(({ id, name }, i) => {
+    return filtered.map(({ id, name }) => {
       return (
-        <button key={i} onClick={() => addCityHandler(id, name)}>
+        <button key={id} onClick={() => addCityHandler(id, name)}>
           {name}
         </button>
       );
@@ -50,19 +50,12 @@ const CityInput = () => {
     dispatch(addCityInputValue(value));
   };
 
-  const selectHandler = (event) => {
-    if (event.keyCode === 40) {
-      console.log(true);
-    }
-  };
-
   return (
     <Input
       label="Город"
       type="text"
       value={cityInputValue}
       change={handleChangeCity}
-      keydown={selectHandler}
       click={() => dispatch(deleteCityId())}
       placeholder="Начните вводить город..."
       dropdown={

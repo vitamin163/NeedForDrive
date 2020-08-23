@@ -83,7 +83,10 @@
     &__card {
       width: 100%;
       min-width: 280px;
-      min-height: 159px;
+      min-height: 170px;
+    }
+    &__card:hover {
+      border: 1px solid $mainAccent;
     }
   }
 }

@@ -6,6 +6,7 @@
   flex-direction: column;
   height: 32px;
   margin-top: 32px;
+  background: $white;
 
   &__nav {
     display: flex;
@@ -28,6 +29,7 @@
       margin-right: 16px;
     }
   }
+
   &__link_active button {
     @include textStyle(700, 14px, 16px, $mainAccent);
   }
@@ -57,10 +59,30 @@
 
 @media (max-width: $mobile-width) {
   .navigator {
-    overflow-x: scroll;
+    width: 100vw;
     &__link-container {
+      width: 100%;
+      justify-content: space-between;
       padding-left: 16px;
       padding-right: 16px;
+    }
+    &__link {
+      button {
+        @include textStyle(700, 12px, 14px, $black);
+      }
+      img {
+        margin-left: calc(((100vw - 316px) / 3) / 2);
+        margin-right: 0px;
+      }
+    }
+
+    &__link_active button {
+      @include textStyle(700, 12px, 14px, $mainAccent);
+    }
+
+    &__link_disable button {
+      pointer-events: none;
+      @include textStyle(700, 12px, 14px, $gray);
     }
   }
   .navigator::-webkit-scrollbar {

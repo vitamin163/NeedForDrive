@@ -12,6 +12,7 @@ import DateInput from './DateInput.jsx';
 import Colors from './Colors.jsx';
 import Rates from './Rates.jsx';
 import Other from './Other.jsx';
+import Error from '../../Error/Error.jsx';
 
 const OptionsPage = () => {
   const dispatch = useDispatch();
@@ -24,7 +25,10 @@ const OptionsPage = () => {
   const { amount } = useSelector((state) => state.price);
   const { byId: cars } = useSelector((state) => state.cars);
   const car = cars[carId];
-  const { allIds: allIdsRates, byId: byIdRates } = useSelector((state) => state.rates);
+  const { allIds: allIdsRates, byId: byIdRates, isRatesLoaded } = useSelector(
+    (state) => state.rates,
+  );
+  const { requestState } = useSelector((state) => state.asyncRequestState);
   const rates = allIdsRates.map((id) => byIdRates[id]);
   const unitRate = rateId && byIdRates[rateId].rateTypeId.unit;
   const priceRate = rateId && byIdRates[rateId].price;
@@ -38,6 +42,7 @@ const OptionsPage = () => {
     addColor,
     addRates,
     addRentPrice,
+    setRequestState,
   } = actions;
 
   const maxOtherPrice = 2300;
@@ -107,7 +112,15 @@ const OptionsPage = () => {
   useEffect(() => {
     dispatch(addColor(colors[1]));
     rentPriceHandler(dateFrom, dateTo, unitRate, priceRate);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [dateFrom, dateTo, rateId]);
+
+  useEffect(() => {
+    if (isRatesLoaded) {
+      dispatch(setRequestState('SUCCESS'));
+    }
     const getRates = async () => {
+      dispatch(setRequestState('REQUEST'));
       try {
         const {
           data: { data: dataRate },
@@ -121,15 +134,22 @@ const OptionsPage = () => {
           },
         );
         dispatch(addRates(dataRate));
+        dispatch(setRequestState('SUCCESS'));
       } catch (error) {
         console.log(error);
+        dispatch(setRequestState('FAILURE'));
       }
     };
-    if (allIdsRates.length === 0) {
+
+    if (!isRatesLoaded) {
       getRates();
     }
+
+    return () => {
+      dispatch(setRequestState(null));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [dateFrom, dateTo, rateId]);
+  }, []);
 
   const setDateFromHandler = (date) => {
     const timestamp = Date.parse(date);
@@ -154,9 +174,8 @@ const OptionsPage = () => {
 
   return (
     <>
-      {allIdsRates.length === 0 ? (
-        <Spinner />
-      ) : (
+      {requestState === 'REQUEST' && <Spinner />}
+      {requestState === 'SUCCESS' && (
         <div className="order-page__options-page options-page">
           <Colors colors={colors} />
           <div className="options-page__label">Дата аренды</div>
@@ -201,6 +220,7 @@ const OptionsPage = () => {
           <Other />
         </div>
       )}
+      {requestState === 'FAILURE' && <Error text="Не удалось получить данные" />}
       <Order
         buttonName="Итого"
         disabled={dateFrom >= dateTo || amount === 0}

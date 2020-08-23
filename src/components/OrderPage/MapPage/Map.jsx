@@ -2,7 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { appendScript } from '../../../utils';
 import { actions } from '../../../store';
-import icons from '../../../icon';
+import { mapPoint } from '../../../icon';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 const yaMapsApi = `https://api-maps.yandex.ru/2.1/?apikey=${apiKey}&lang=ru_RU`;
@@ -26,7 +26,6 @@ const Map = () => {
     addPointId,
   } = actions;
   const currentCity = cityId.id ? citiesById[cityId.id].name : 'Ульяновск';
-  const { mapPoint } = icons;
 
   const { allIds, byId } = useSelector((state) => state.points);
   const currentPointId = pointId.id;

@@ -10,7 +10,7 @@ import { ReactComponent as Facebook } from './Facebook_white.svg';
 import { ReactComponent as Burger } from './menu_btn.svg';
 import mapPoint from './map_point.svg';
 
-const icons = {
+export {
   nextButton,
   prevButton,
   closeButton,
@@ -23,5 +23,3 @@ const icons = {
   Burger,
   mapPoint,
 };
-
-export default icons;

@@ -21,9 +21,9 @@ const Other = () => {
       { name: 'Детское кресло, 200р', price: 200, option: 'isNeedChildChair' },
       { name: 'Правый руль, 1600р', price: 1600, option: 'isRightWheel' },
     ];
-    return items.map((item, i) => {
+    return items.map((item) => {
       const { name, price, option } = item;
-      return <Checkbox key={i} name={name} change={otherPriceHandler(price, option)} />;
+      return <Checkbox key={option} name={name} change={otherPriceHandler(price, option)} />;
     });
   };
   return (

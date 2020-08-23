@@ -1,16 +1,15 @@
 import React from 'react';
 import { useSelector } from 'react-redux';
 import SlickSlider from 'react-slick';
-import icons from '../../../icon';
+import { nextButton, prevButton } from '../../../icon';
 import 'slick-carousel/slick/slick.css';
 import 'slick-carousel/slick/slick-theme.css';
 import './Slider.scss';
 
 const Slider = () => {
-  const { nextButton, prevButton } = icons;
   const content = useSelector((state) => state.slides);
-  const slides = content.map(({ img, header, title }, i) => (
-    <div className="slider__container" key={i}>
+  const slides = content.map(({ img, header, title }) => (
+    <div className="slider__container" key={header}>
       <div className="slider__content">
         <span className="slider__header">{header}</span>
         <span className="slider__title">{title}</span>

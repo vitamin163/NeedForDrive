@@ -44,9 +44,9 @@ const PointInput = () => {
     if (filteredByCity.length === 0 || filteredByAddress.length === 0) {
       return <button>Пункт выдачи не найден</button>;
     }
-    return filteredByAddress.map(({ id, address }, i) => {
+    return filteredByAddress.map(({ id, address }) => {
       return (
-        <button key={i} onClick={() => addDeliveryHandler(id, address)}>
+        <button key={id} onClick={() => addDeliveryHandler(id, address)}>
           {address}
         </button>
       );

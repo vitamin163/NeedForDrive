@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import './Input.scss';
 import cn from 'classnames';
-import icons from '../../icon';
+import { cleanInput } from '../../icon';
 
 // eslint-disable-next-line no-unused-vars
 const Input = (props, ref) => {
@@ -17,7 +17,6 @@ const Input = (props, ref) => {
     placeholder,
     keydown,
   } = props;
-  const { cleanInput } = icons;
 
   const inputClass = cn({
     'input-container__input': true,

@@ -10,7 +10,7 @@ const Colors = ({ colors }) => {
     return items.map((color, i) => {
       return (
         <RadioButton
-          key={i}
+          key={color}
           name={color}
           checked={i === 0}
           click={() => dispatch(addColor(color))}

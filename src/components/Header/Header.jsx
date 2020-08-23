@@ -1,9 +1,8 @@
 import React from 'react';
-import icons from '../../icon';
+import { place } from '../../icon';
 import './Header.scss';
 
 const Header = () => {
-  const { place } = icons;
   return (
     <header className="start-screen__header header">
       <div className="header__logo">Need for drive</div>

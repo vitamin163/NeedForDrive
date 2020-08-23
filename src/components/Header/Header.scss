@@ -6,6 +6,7 @@
   justify-content: space-between;
   margin-top: 0px;
   width: 100%;
+  background: $white;
 
   &__logo {
     @include textStyle(700, 30px, 35px, $mainAccent);
@@ -25,6 +26,5 @@
 @media (max-width: $mobile-width) {
   .header {
     top: 0px;
-    //margin-top: 16px;
   }
 }

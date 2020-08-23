@@ -10,7 +10,7 @@ const Rates = ({ rates }) => {
   } = useSelector((state) => state.order);
   const { addRateId } = actions;
   const renderRates = (items) => {
-    return items.map((rate, i) => {
+    return items.map((rate) => {
       const {
         id,
         rateTypeId: { unit, name },
@@ -18,7 +18,7 @@ const Rates = ({ rates }) => {
       } = rate;
       return (
         <RadioButton
-          key={i}
+          key={id}
           name={`${name}, ${price}₽/${unit}`}
           checked={id === rateId}
           click={() => {

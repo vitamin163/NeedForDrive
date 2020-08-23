@@ -1,8 +1,10 @@
+/* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
 
 const slice = createSlice({
   name: 'rates',
   initialState: {
+    isRatesLoaded: false,
     byId: {},
     allIds: [],
   },
@@ -13,7 +15,9 @@ const slice = createSlice({
         return { ...acc, [id]: rate };
       }, {});
       const allIds = payload.map((rate) => rate.id);
-      return { byId, allIds };
+      state.isRatesLoaded = true;
+      state.byId = byId;
+      state.allIds = allIds;
     },
   },
 });

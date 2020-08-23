@@ -2,12 +2,12 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './Sidebar.scss';
 import cn from 'classnames';
-import icons from '../../icon';
-
+import { closeButton, Telegram, Facebook, Instagram, Burger } from '../../icon';
 import { actions } from '../../store';
 
+console.log(closeButton);
+
 const Sidebar = () => {
-  const { closeButton, Telegram, Facebook, Instagram, Burger } = icons;
   const dispatch = useDispatch();
   const { isOpen } = useSelector((state) => state.sidebar);
   const { openMenu } = actions;
@@ -53,8 +53,8 @@ const Sidebar = () => {
     dispatch(openMenu(false));
   };
   const renderLinks = () => {
-    const liElements = ['ПАРКОВКА', 'СТРАХОВКА', 'БЕНЗИН', 'ОБСЛУЖИВАНИЕ'].map((text, i) => (
-      <li className="nav__link" key={i}>
+    const liElements = ['ПАРКОВКА', 'СТРАХОВКА', 'БЕНЗИН', 'ОБСЛУЖИВАНИЕ'].map((text) => (
+      <li className="nav__link" key={text}>
         {text}
       </li>
     ));

@@ -6,16 +6,19 @@ import Order from '../Order/Order.jsx';
 import './ModelPage.scss';
 import { actions } from '../../../store';
 import RadioButton from '../../RadioButton/RadioBugtton.jsx';
+import Spinner from '../../Spinner/Spinner.jsx';
+import Error from '../../Error/Error.jsx';
 
 const ModelPage = () => {
   const dispatch = useDispatch();
   const {
-    cars: { allIds, byId },
+    cars: { allIds, byId, isCarsLoaded },
     category,
     order,
   } = useSelector((state) => state);
   const cars = allIds.map((id) => byId[id]);
   const { categoryModelId } = useSelector((state) => state.uiState);
+  const { requestState } = useSelector((state) => state.asyncRequestState);
   const {
     addCars,
     addCategory,
@@ -23,6 +26,7 @@ const ModelPage = () => {
     addCarId,
     addPrice,
     changeActiveNav,
+    setRequestState,
   } = actions;
   const {
     carId: { id: carId },
@@ -33,7 +37,7 @@ const ModelPage = () => {
   );
 
   const renderCars = () => {
-    return filtered.map((car, i) => {
+    return filtered.map((car) => {
       const name = car.name.split(',')[1];
       const {
         id,
@@ -49,7 +53,7 @@ const ModelPage = () => {
 
       return (
         <button
-          key={i}
+          key={id}
           className={cardClass}
           onClick={() => {
             dispatch(
@@ -73,7 +77,7 @@ const ModelPage = () => {
   };
 
   useEffect(() => {
-    const getCars = async () => {
+    /* const getCars = async () => {
       try {
         const {
           data: { data: dataCars },
@@ -114,7 +118,51 @@ const ModelPage = () => {
       getCategory();
       getCars();
     }
+    */
+    if (isCarsLoaded) {
+      dispatch(setRequestState('SUCCESS'));
+    }
+    const getData = async () => {
+      dispatch(setRequestState('REQUEST'));
+      try {
+        const {
+          data: { data: dataCars },
+        } = await axios.get(
+          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/car/',
+          {
+            headers: {
+              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+              Authorization: 'Bearer 4cbcea96de',
+            },
+          },
+        );
+        const {
+          data: { data: dataCategory },
+        } = await axios.get(
+          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/category/',
+          {
+            headers: {
+              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+              Authorization: 'Bearer 4cbcea96de',
+            },
+          },
+        );
+        console.log(dataCars);
+        dispatch(addCars(dataCars));
+        dispatch(addCategory(dataCategory));
+        dispatch(setRequestState('SUCCESS'));
+      } catch (error) {
+        console.log(error);
+        dispatch(setRequestState('FAILURE'));
+      }
+    };
+    if (!isCarsLoaded) {
+      getData();
+    }
 
+    return () => {
+      dispatch(setRequestState(null));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -125,15 +173,19 @@ const ModelPage = () => {
   const renderCategory = (items) =>
     items.map((item, i) => {
       const { name, id } = item;
-      return <RadioButton key={i} name={name} checked={i === 0} click={() => filterHandler(id)} />;
+      return <RadioButton key={id} name={name} checked={i === 0} click={() => filterHandler(id)} />;
     });
 
   return (
     <>
-      <div className="order-page__model-page model-page">
-        <div className="model-page__filter-container">{renderCategory(category)}</div>
-        <div className="model-page__cards-container">{cars.length > 0 && renderCars()}</div>
-      </div>
+      {requestState === 'REQUEST' && <Spinner />}
+      {requestState === 'SUCCESS' && (
+        <div className="order-page__model-page model-page">
+          <div className="model-page__filter-container">{renderCategory(category)}</div>
+          <div className="model-page__cards-container">{cars.length > 0 && renderCars()}</div>
+        </div>
+      )}
+      {requestState === 'FAILURE' && <Error text="Не удалось получить данные" />}
       <Order
         buttonName="Дополнительно"
         disabled={!carId}
