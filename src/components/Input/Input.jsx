@@ -5,7 +5,18 @@ import icons from '../../icon';
 
 // eslint-disable-next-line no-unused-vars
 const Input = (props, ref) => {
-  const { label, type, value, change, onClick, click, disable, dropdown, placeholder } = props;
+  const {
+    label,
+    type,
+    value,
+    change,
+    onClick,
+    click,
+    disable,
+    dropdown,
+    placeholder,
+    keydown,
+  } = props;
   const { cleanInput } = icons;
 
   const inputClass = cn({
@@ -20,6 +31,7 @@ const Input = (props, ref) => {
         type={type}
         value={value}
         onChange={change}
+        onKeyDown={keydown}
         onClick={onClick}
         className={inputClass}
         placeholder={placeholder}

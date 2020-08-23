@@ -5,6 +5,10 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const { CleanWebpackPlugin } = require('clean-webpack-plugin');
 const ImageminPlugin = require('imagemin-webpack-plugin').default;
+const webpack = require('webpack');
+const dotenv = require('dotenv').config({
+  path: path.join(__dirname, '.env'),
+});
 
 module.exports = (env, options) => {
   const PATHS = {
@@ -113,6 +117,9 @@ module.exports = (env, options) => {
       ],
     },
     plugins: [
+      new webpack.DefinePlugin({
+        'process.env': dotenv.parsed,
+      }),
       new CleanWebpackPlugin(),
       new HtmlWebpackPlugin({
         filename: `${PATHS.dist}/index.html`,

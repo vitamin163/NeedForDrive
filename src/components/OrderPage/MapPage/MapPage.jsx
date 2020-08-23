@@ -3,18 +3,27 @@ import { useSelector, useDispatch } from 'react-redux';
 import axios from 'axios';
 import { actions } from '../../../store';
 import './MapPage.scss';
-import map from '../../../img/map.jpg';
 import Order from '../Order/Order.jsx';
 import CityInput from './CityInput.jsx';
 import Pointinput from './PointInput.jsx';
+import Map from './Map.jsx';
+import Spinner from '../../Spinner/Spinner.jsx';
+import Error from '../../Error/Error.jsx';
 
 const MapPage = () => {
   const dispatch = useDispatch();
   const { pointId } = useSelector((state) => state.order);
-  const { addCities, addPoints, changeActiveNav } = actions;
+  const { addCities, addPoints, changeActiveNav, setRequestState } = actions;
+  const { isCitiesLoaded } = useSelector((state) => state.cities);
+  const { isPointsLoaded } = useSelector((state) => state.points);
+  const { requestState } = useSelector((state) => state.asyncRequestState);
 
   useEffect(() => {
-    const getLocations = async () => {
+    if (isCitiesLoaded && isPointsLoaded) {
+      dispatch(setRequestState('SUCCESS'));
+    }
+    const getData = async () => {
+      dispatch(setRequestState('REQUEST'));
       try {
         const {
           data: { data: dataCities },
@@ -40,27 +49,38 @@ const MapPage = () => {
         );
         dispatch(addCities(dataCities));
         dispatch(addPoints(dataPoints));
-      } catch (e) {
-        console.log(e);
+        dispatch(setRequestState('SUCCESS'));
+      } catch (error) {
+        console.log(error);
+        dispatch(setRequestState('FAILURE'));
       }
     };
+    if (!isCitiesLoaded && !isPointsLoaded) {
+      getData();
+    }
 
-    getLocations();
+    return () => {
+      dispatch(setRequestState(null));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
     <>
-      <div className="order-page__map-page map-page">
-        <div className="map-page__search-container">
-          <CityInput />
-          <Pointinput />
+      {requestState === 'REQUEST' && <Spinner />}
+      {requestState === 'SUCCESS' && (
+        <div className="order-page__map-page map-page">
+          <div className="map-page__search-container">
+            <CityInput />
+            <Pointinput />
+          </div>
+          <div className="map-page__map-container">
+            <span>Выбрать на карте</span>
+            <Map />
+          </div>
         </div>
-        <div className="map-page__map">
-          <span>Выбрать на карте</span>
-          <img className="map-page__map-image" src={map} alt="map" />
-        </div>
-      </div>
+      )}
+      {requestState === 'FAILURE' && <Error text="Не удалось получить данные" />}
       <Order
         buttonName="Выбрать модель"
         disabled={!pointId.id}

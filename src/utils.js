@@ -82,3 +82,16 @@ export const dhm = (start, end) => {
   }, []);
   return result.join(' ');
 };
+
+export const appendScript = (scriptToAppend, isScriptLoaded, setScriptLoadState) => {
+  if (isScriptLoaded) return false;
+  const script = document.createElement('script');
+  script.src = scriptToAppend;
+  script.async = true;
+  script.type = 'text/javascript';
+  script.onload = () => {
+    setScriptLoadState();
+  };
+  script.onerror = () => console.log(`Error loading`);
+  return document.head.appendChild(script);
+};

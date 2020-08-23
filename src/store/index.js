@@ -10,6 +10,8 @@ import category, { actions as categoryActions } from './category';
 import uiState, { actions as uiStateActions } from './uiState';
 import rates, { actions as ratesActions } from './rates';
 import price, { actions as priceActions } from './price';
+import map, { actions as mapActions } from './map';
+import asyncRequestState, { actions as actionsRequestState } from './asyncRequestState';
 
 export default combineReducers({
   sidebar,
@@ -23,6 +25,8 @@ export default combineReducers({
   uiState,
   rates,
   price,
+  map,
+  asyncRequestState,
 });
 
 const actions = {
@@ -36,6 +40,8 @@ const actions = {
   ...uiStateActions,
   ...ratesActions,
   ...priceActions,
+  ...mapActions,
+  ...actionsRequestState,
 };
 
 export { actions };

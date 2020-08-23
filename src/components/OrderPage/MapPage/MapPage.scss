@@ -12,15 +12,21 @@
     flex-direction: column;
     align-items: flex-end;
   }
-  &__map {
+  &__map-container {
     display: flex;
     max-width: 736px;
     flex-direction: column;
     height: calc(100vh - 265px);
     margin-top: 45px;
+    span {
+      @include textStyle(300, 14px, 16px, $black);
+    }
   }
-  &__map-image {
+
+  &__map {
     margin-top: 16px;
+    width: 100%;
+    height: 352px;
   }
   &__dropdown {
     position: absolute;

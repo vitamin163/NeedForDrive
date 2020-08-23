@@ -49,12 +49,20 @@ const CityInput = () => {
     dispatch(filterCity(value));
     dispatch(addCityInputValue(value));
   };
+
+  const selectHandler = (event) => {
+    if (event.keyCode === 40) {
+      console.log(true);
+    }
+  };
+
   return (
     <Input
       label="Город"
       type="text"
       value={cityInputValue}
       change={handleChangeCity}
+      keydown={selectHandler}
       click={() => dispatch(deleteCityId())}
       placeholder="Начните вводить город..."
       dropdown={

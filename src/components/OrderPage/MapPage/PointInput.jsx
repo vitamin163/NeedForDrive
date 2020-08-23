@@ -41,6 +41,9 @@ const PointInput = () => {
   });
 
   const renderDevilery = () => {
+    if (filteredByCity.length === 0 || filteredByAddress.length === 0) {
+      return <button>Пункт выдачи не найден</button>;
+    }
     return filteredByAddress.map(({ id, address }, i) => {
       return (
         <button key={i} onClick={() => addDeliveryHandler(id, address)}>

@@ -1,0 +1,8 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.custom-error {
+  width: 928px;
+  height: calc(100vh - 132px);
+  @include textStyle(700, 20px, 25px, $black);
+}
