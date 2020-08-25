@@ -29,6 +29,7 @@ const Map = () => {
 
   const { allIds, byId } = useSelector((state) => state.points);
   const currentPointId = pointId.id;
+
   const allPoints = allIds.map((id) => byId[id]);
 
   const getPoints = async (ymap) => {
@@ -74,10 +75,16 @@ const Map = () => {
   const createNewMap = async () => {
     if (!isYMapsLoaded) return false;
     const init = () => {
-      const myMap = new window.ymaps.Map('YMapsID', {
-        center: defaultCoords,
-        zoom: 11,
-      });
+      const myMap = new window.ymaps.Map(
+        'YMapsID',
+        {
+          center: defaultCoords,
+          zoom: 10,
+        },
+        {
+          searchControlProvider: 'yandex#search',
+        },
+      );
       getPoints(myMap);
       setMap(myMap);
     };
