@@ -2,6 +2,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { roundToNearestMinutes } from 'date-fns';
 import { actions as ratesActions } from './rates';
+import { actions as orderStatusActions } from './orderStatus';
 
 const slice = createSlice({
   name: 'order',
@@ -58,6 +59,10 @@ const slice = createSlice({
     [ratesActions.addRates](state, { payload }) {
       const { id } = payload[0];
       state.rateId.id = id;
+    },
+    [orderStatusActions.addOrderStatus](state, { payload }) {
+      const orderStatus = payload.find((item) => item.name === 'new');
+      state.orderStatusId = orderStatus;
     },
   },
 });

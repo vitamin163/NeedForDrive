@@ -12,6 +12,7 @@ import rates, { actions as ratesActions } from './rates';
 import price, { actions as priceActions } from './price';
 import map, { actions as mapActions } from './map';
 import asyncRequestState, { actions as actionsRequestState } from './asyncRequestState';
+import orderStatus, { actions as orderStatusActions } from './orderStatus';
 
 export default combineReducers({
   sidebar,
@@ -27,6 +28,7 @@ export default combineReducers({
   price,
   map,
   asyncRequestState,
+  orderStatus,
 });
 
 const actions = {
@@ -42,6 +44,7 @@ const actions = {
   ...priceActions,
   ...mapActions,
   ...actionsRequestState,
+  ...orderStatusActions,
 };
 
 export { actions };

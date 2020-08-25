@@ -68,7 +68,6 @@ const Map = () => {
       }
       return acc;
     }, []);
-
     dispatch(setPoints(addresses));
   };
 
@@ -97,8 +96,8 @@ const Map = () => {
   };
 
   useEffect(() => {
-    createNewMap();
     appendScript(yaMapsApi, isYMapsLoaded, () => dispatch(setLoadState(true)));
+    createNewMap();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [isYMapsLoaded]);
 

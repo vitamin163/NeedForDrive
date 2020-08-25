@@ -77,48 +77,6 @@ const ModelPage = () => {
   };
 
   useEffect(() => {
-    /* const getCars = async () => {
-      try {
-        const {
-          data: { data: dataCars },
-        } = await axios.get(
-          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/car/',
-          {
-            headers: {
-              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-              Authorization: 'Bearer 4cbcea96de',
-            },
-          },
-        );
-        console.log(dataCars);
-        dispatch(addCars(dataCars));
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    const getCategory = async () => {
-      try {
-        const {
-          data: { data: dataCategory },
-        } = await axios.get(
-          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/category/',
-          {
-            headers: {
-              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-              Authorization: 'Bearer 4cbcea96de',
-            },
-          },
-        );
-        dispatch(addCategory(dataCategory));
-      } catch (e) {
-        console.log(e);
-      }
-    };
-    if (allIds.length === 0) {
-      getCategory();
-      getCars();
-    }
-    */
     if (isCarsLoaded) {
       dispatch(setRequestState('SUCCESS'));
     }

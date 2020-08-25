@@ -5,8 +5,6 @@ import cn from 'classnames';
 import { closeButton, Telegram, Facebook, Instagram, Burger } from '../../icon';
 import { actions } from '../../store';
 
-console.log(closeButton);
-
 const Sidebar = () => {
   const dispatch = useDispatch();
   const { isOpen } = useSelector((state) => state.sidebar);
