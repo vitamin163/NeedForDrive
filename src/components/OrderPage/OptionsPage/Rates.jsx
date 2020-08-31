@@ -22,7 +22,7 @@ const Rates = ({ rates }) => {
           name={`${name}, ${price}₽/${unit}`}
           checked={id === rateId}
           click={() => {
-            dispatch(addRateId(id));
+            dispatch(addRateId(rate));
           }}
         />
       );

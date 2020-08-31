@@ -4,20 +4,13 @@ import { createSlice } from '@reduxjs/toolkit';
 const slice = createSlice({
   name: 'points',
   initialState: {
-    byId: {},
-    allIds: [],
     isPointsLoaded: false,
+    points: [],
   },
   reducers: {
     addPoints(state, { payload }) {
       state.isPointsLoaded = true;
-      const byId = payload.reduce((acc, point) => {
-        const { id } = point;
-        return { ...acc, [id]: point };
-      }, {});
-      const allIds = payload.map((point) => point.id);
-      state.byId = byId;
-      state.allIds = allIds;
+      state.points = payload;
     },
     setStatePointsRequest(state, { payload }) {
       state.initPoints = true;

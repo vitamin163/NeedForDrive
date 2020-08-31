@@ -8,35 +8,33 @@ import { dhm } from '../../../utils';
 const Order = (props) => {
   const { buttonName, disabled, click } = props;
   const {
-    pointId: { id: pointId },
-    cityId: { id: cityId },
-    carId: { id: carId },
-    rateId: { id: rateId },
+    pointId,
+    cityId,
+    carId,
+    rateId,
     price,
     color,
     dateFrom,
     dateTo,
+    isFullTank,
+    isNeedChildChair,
+    isRightWheel,
   } = useSelector((state) => state.order);
-  const { byId: cities } = useSelector((state) => state.cities);
-  const { byId: points } = useSelector((state) => state.points);
-  const { byId: cars } = useSelector((state) => state.cars);
-  const { byId: rates } = useSelector((state) => state.rates);
   const { amount } = useSelector((state) => state.price);
   const { activeNav } = useSelector((state) => state.uiState);
-  const rate = rates[rateId];
   const buttonClass = cn({
     order__button: true,
     order__button_disabled: disabled,
   });
-  const car = cars[carId];
+
   const getCurrentPrice = () => {
-    if (!car) {
+    if (!carId.id) {
       return 0;
     }
     if (activeNav === 1) {
       return price;
     }
-    return car.priceMin > amount ? car.priceMin : amount;
+    return carId.priceMin > amount ? carId.priceMin : amount;
   };
 
   return (
@@ -44,18 +42,18 @@ const Order = (props) => {
       <div className="order__content">
         <div className="order__title">Ваш заказ:</div>
         <ul className="order__list">
-          {pointId && (
+          {pointId.id && (
             <li className="order__item">
               Пункт выдачи
               <span className="order__name">
-                {cities[cityId].name}, {points[pointId].address}
+                {cityId.name}, {pointId.address}
               </span>
             </li>
           )}
-          {carId && (
+          {carId.id && (
             <li className="order__item">
               Модель
-              <span className="order__name">{car.name}</span>
+              <span className="order__name">{carId.name}</span>
             </li>
           )}
           {color && (
@@ -70,10 +68,28 @@ const Order = (props) => {
               <span className="order__name">{dhm(dateFrom, dateTo)}</span>
             </li>
           )}
-          {rateId && (
+          {rateId.id && (
             <li className="order__item">
               Тариф
-              <span className="order__name">{rate.rateTypeId.name}</span>
+              <span className="order__name">{rateId.rateTypeId.name}</span>
+            </li>
+          )}
+          {isFullTank && (
+            <li className="order__item">
+              Полный бак
+              <span className="order__name">Да</span>
+            </li>
+          )}
+          {isNeedChildChair && (
+            <li className="order__item">
+              Детское кресло
+              <span className="order__name">Да</span>
+            </li>
+          )}
+          {isRightWheel && (
+            <li className="order__item">
+              Правый руль
+              <span className="order__name">Да</span>
             </li>
           )}
         </ul>

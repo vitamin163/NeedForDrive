@@ -9,19 +9,18 @@ const PointInput = () => {
   const dispatch = useDispatch();
 
   const {
-    points: { allIds, byId },
+    points: { points },
   } = useSelector((state) => state);
-  const points = allIds.map((id) => byId[id]);
 
   const { cityId } = useSelector((state) => state.order);
 
   const { pointFilterValue, pointInputValue } = useSelector((state) => state.locationsInput);
   const { filterPoint, addPointInputValue, addPointId, deletePointId } = actions;
 
-  const addDeliveryHandler = (id, address) => {
-    dispatch(addPointId(id));
+  const addDeliveryHandler = (point) => {
+    dispatch(addPointId(point));
     dispatch(filterPoint(''));
-    dispatch(addPointInputValue(address));
+    dispatch(addPointInputValue(point.address));
   };
 
   const filteredByCity = points.filter(({ cityId: { id } }) => id === cityId.id);
@@ -35,8 +34,8 @@ const PointInput = () => {
       filteredByAddress.length === 1 &&
       filteredByAddress[0].address === capitalize(pointInputValue)
     ) {
-      const { id, address } = filteredByAddress[0];
-      addDeliveryHandler(id, address);
+      const point = filteredByAddress[0];
+      addDeliveryHandler(point);
     }
   });
 
@@ -44,10 +43,10 @@ const PointInput = () => {
     if (filteredByCity.length === 0 || filteredByAddress.length === 0) {
       return <button>Пункт выдачи не найден</button>;
     }
-    return filteredByAddress.map(({ id, address }) => {
+    return filteredByAddress.map((point) => {
       return (
-        <button key={id} onClick={() => addDeliveryHandler(id, address)}>
-          {address}
+        <button key={point.id} onClick={() => addDeliveryHandler(point)}>
+          {point.address}
         </button>
       );
     });

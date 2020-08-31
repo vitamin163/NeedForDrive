@@ -12,11 +12,10 @@ import Error from '../../Error/Error.jsx';
 const ModelPage = () => {
   const dispatch = useDispatch();
   const {
-    cars: { allIds, byId, isCarsLoaded },
+    cars: { cars, isCarsLoaded },
     category,
     order,
   } = useSelector((state) => state);
-  const cars = allIds.map((id) => byId[id]);
   const { categoryModelId } = useSelector((state) => state.uiState);
   const { requestState } = useSelector((state) => state.asyncRequestState);
   const {
@@ -59,7 +58,7 @@ const ModelPage = () => {
             dispatch(
               addPrice(`от ${priceMin.toLocaleString('ru')} до ${priceMax.toLocaleString('ru')}`),
             );
-            dispatch(addCarId(id));
+            dispatch(addCarId(car));
           }}
         >
           <div className="model-page__info">
@@ -105,7 +104,6 @@ const ModelPage = () => {
             },
           },
         );
-        console.log(dataCars);
         dispatch(addCars(dataCars));
         dispatch(addCategory(dataCategory));
         dispatch(setRequestState('SUCCESS'));

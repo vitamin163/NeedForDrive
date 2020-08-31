@@ -11,8 +11,7 @@ const Map = () => {
   const [map, setMap] = useState({});
   const dispatch = useDispatch();
   const { cityId, pointId } = useSelector((state) => state.order);
-  const { byId: citiesById } = useSelector((state) => state.cities);
-  const { isYMapsCreated, isYMapsLoaded, defaultCoords, points } = useSelector(
+  const { isYMapsCreated, isYMapsLoaded, defaultCoords, points: coordpoint } = useSelector(
     (state) => state.map,
   );
 
@@ -25,15 +24,13 @@ const Map = () => {
     addPointInputValue,
     addPointId,
   } = actions;
-  const currentCity = cityId.id ? citiesById[cityId.id].name : 'Ульяновск';
+  const currentCity = cityId.id ? cityId.name : 'Ульяновск';
 
-  const { allIds, byId } = useSelector((state) => state.points);
+  const { points } = useSelector((state) => state.points);
   const currentPointId = pointId.id;
 
-  const allPoints = allIds.map((id) => byId[id]);
-
   const getPoints = async (ymap) => {
-    const addresses = await allPoints.reduce(async (acc, item) => {
+    const addresses = await points.reduce(async (acc, item) => {
       if (currentCity === item.cityId.name) {
         const res = await window.ymaps.geocode(`${item.cityId.name} ${item.address}`);
         const firstGeoObject = res.geoObjects.get(0);
@@ -58,7 +55,7 @@ const Map = () => {
           if (!cityId.id) {
             return false;
           }
-          dispatch(addPointId(item.id));
+          dispatch(addPointId(item));
           dispatch(filterPoint(''));
           return dispatch(addPointInputValue(item.address));
         });
@@ -110,7 +107,7 @@ const Map = () => {
 
   useEffect(() => {
     if (!currentPointId || !isYMapsCreated) return;
-    const { coords } = points.filter((point) => point.id === currentPointId)[0];
+    const { coords } = coordpoint.filter((point) => point.id === currentPointId)[0];
     map.setCenter(coords, 12, {
       duration: 500,
     });

@@ -1,4 +1,62 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
 .final-page {
-  width: 500px;
-  height: 500px;
+  width: 928px;
+  height: calc(100vh - 132px);
+  padding-right: 192px;
+  overflow: hidden;
+
+  &__content {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 32px;
+    flex-wrap: wrap;
+  }
+  &__status {
+    @include textStyle(400, 24px, 28px, $black);
+    margin-bottom: 16px;
+  }
+  &__info {
+    display: flex;
+    flex-direction: column;
+  }
+  &__model {
+    @include textStyle(400, 18px, 21px, $black);
+    margin-bottom: 8px;
+  }
+  &__number {
+    display: flex;
+    @include textStyle(400, 14px, 16px, $black, center);
+    justify-content: center;
+    align-items: center;
+    width: 94px;
+    height: 24px;
+    border: 1px solid $gray;
+    border-radius: 4px;
+    margin-bottom: 8px;
+  }
+  &__img {
+    width: 256px;
+    height: 116px;
+  }
+  &__fuel,
+  &__date {
+    @include textStyle(700, 14px, 16px, $black);
+    margin-bottom: 8px;
+    span {
+      @include textStyle(300, 14px, 16px, $black);
+    }
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .final-page {
+    padding-left: 16px;
+    padding-right: 16px;
+    height: auto;
+    &__content {
+      flex-direction: column;
+    }
+  }
 }

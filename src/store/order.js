@@ -4,28 +4,31 @@ import { roundToNearestMinutes } from 'date-fns';
 import { actions as ratesActions } from './rates';
 import { actions as orderStatusActions } from './orderStatus';
 
+const init = {
+  orderStatusId: {},
+  cityId: {},
+  pointId: {},
+  carId: {},
+  color: '',
+  dateFrom: Date.parse(roundToNearestMinutes(new Date(), { nearestTo: 5 })),
+  dateTo: 0,
+  rateId: {},
+  price: 0,
+  isFullTank: false,
+  isNeedChildChair: false,
+  isRightWheel: false,
+};
 const slice = createSlice({
   name: 'order',
   initialState: {
-    orderStatusId: {},
-    cityId: {},
-    pointId: {},
-    carId: {},
-    color: '',
-    dateFrom: Date.parse(roundToNearestMinutes(new Date(), { nearestTo: 5 })),
-    dateTo: 0,
-    rateId: {},
-    price: 0,
-    isFullTank: false,
-    isNeedChildChair: false,
-    isRightWheel: false,
+    ...init,
   },
   reducers: {
     addCityId(state, { payload }) {
-      state.cityId.id = payload;
+      state.cityId = payload;
     },
     addPointId(state, { payload }) {
-      state.pointId.id = payload;
+      state.pointId = payload;
     },
     deleteCityId(state) {
       return { ...state, cityId: {}, pointId: {} };
@@ -34,7 +37,7 @@ const slice = createSlice({
       state.pointId = {};
     },
     addCarId(state, { payload }) {
-      state.carId.id = payload;
+      state.carId = payload;
     },
     addPrice(state, { payload }) {
       state.price = payload;
@@ -49,16 +52,22 @@ const slice = createSlice({
       state.color = payload;
     },
     addRateId(state, { payload }) {
-      state.rateId.id = payload;
+      state.rateId = payload;
     },
     setOptions(state, { payload: { option, value } }) {
       state[option] = value;
     },
+    setOrder(state, { payload }) {
+      return payload;
+    },
+    setDefaultOrder() {
+      return init;
+    },
   },
   extraReducers: {
     [ratesActions.addRates](state, { payload }) {
-      const { id } = payload[0];
-      state.rateId.id = id;
+      const [rate] = payload;
+      state.rateId = rate;
     },
     [orderStatusActions.addOrderStatus](state, { payload }) {
       const orderStatus = payload.find((item) => item.name === 'new');

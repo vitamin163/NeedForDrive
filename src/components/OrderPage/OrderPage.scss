@@ -15,7 +15,7 @@
   }
   &__header {
     position: sticky;
-
+    height: 96px;
     top: 0px;
     background: $white;
     z-index: 50;
@@ -23,8 +23,32 @@
   &__content {
     display: flex;
   }
+  &__order-number {
+    display: flex;
+    height: 32px;
+    margin-top: 30px;
+    background: $white;
+    align-items: center;
+    @include textStyle(700, 14px, 16px, $black);
+  }
+}
+.top-line {
+  position: fixed;
+  top: 96px;
+  left: 0;
+  background-color: $grayLight;
+  width: 100%;
+  height: 1px;
 }
 
+.bottom-line {
+  position: fixed;
+  top: 128px;
+  left: 0;
+  background-color: $grayLight;
+  width: 100%;
+  height: 1px;
+}
 @media (max-width: $tablet-width) {
   .order-page {
     &__wrapper {
@@ -42,6 +66,10 @@
     }
     &__content {
       flex-direction: column;
+    }
+    &__order-number {
+      margin-top: 25px;
+      padding-left: 16px;
     }
   }
 }

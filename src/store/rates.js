@@ -5,19 +5,12 @@ const slice = createSlice({
   name: 'rates',
   initialState: {
     isRatesLoaded: false,
-    byId: {},
-    allIds: [],
+    rates: [],
   },
   reducers: {
     addRates(state, { payload }) {
-      const byId = payload.reduce((acc, rate) => {
-        const { id } = rate;
-        return { ...acc, [id]: rate };
-      }, {});
-      const allIds = payload.map((rate) => rate.id);
       state.isRatesLoaded = true;
-      state.byId = byId;
-      state.allIds = allIds;
+      state.rates = payload;
     },
   },
 });

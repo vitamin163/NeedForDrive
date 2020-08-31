@@ -5,19 +5,12 @@ const slice = createSlice({
   name: 'cities',
   initialState: {
     isCitiesLoaded: false,
-    byId: {},
-    allIds: [],
+    cities: [],
   },
   reducers: {
     addCities(state, { payload }) {
       state.isCitiesLoaded = true;
-      const byId = payload.reduce((acc, city) => {
-        const { id } = city;
-        return { ...acc, [id]: city };
-      }, {});
-      const allIds = payload.map((city) => city.id);
-      state.byId = byId;
-      state.allIds = allIds;
+      state.cities = payload;
     },
     setStateCitiesRequest(state, { payload }) {
       state.initCities = true;

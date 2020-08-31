@@ -5,7 +5,7 @@
   display: flex;
   flex-direction: column;
   height: 32px;
-  margin-top: 32px;
+  margin-top: 30px;
   background: $white;
 
   &__nav {
@@ -39,27 +39,11 @@
     @include textStyle(700, 14px, 16px, $gray);
   }
 }
-.top-line {
-  position: fixed;
-  top: 99px;
-  left: 0;
-  background-color: $grayLight;
-  width: 100%;
-  height: 1px;
-}
-
-.bottom-line {
-  position: fixed;
-  top: 131px;
-  left: 0;
-  background-color: $grayLight;
-  width: 100%;
-  height: 1px;
-}
 
 @media (max-width: $mobile-width) {
   .navigator {
     width: 100vw;
+    margin-top: 25px;
     &__link-container {
       width: 100%;
       justify-content: space-between;
@@ -91,14 +75,5 @@
   .navigator {
     -ms-overflow-style: none;
     scrollbar-width: none;
-  }
-  .top-line {
-    position: relative;
-    top: 0;
-  }
-
-  .bottom-line {
-    position: relative;
-    top: 0;
   }
 }

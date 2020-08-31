@@ -1,0 +1,107 @@
+@import '../../scss/variables.scss';
+@import '../../scss/mixins.scss';
+
+.popup {
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(255, 255, 255, 0.9);
+  z-index: 1000;
+  &__label {
+    @include textStyle(400, 24px, 28px, $black);
+    margin-bottom: 32px;
+  }
+  &__button-container {
+    display: flex;
+    width: 357px;
+    justify-content: space-between;
+    button {
+      height: 48px;
+      border-radius: 4px;
+      @include textStyle(500, 18px, 21px, $white, 'center');
+    }
+  }
+  &__confirm-button {
+    width: 177px;
+    background: linear-gradient(90deg, #0ec261 2.61%, #039f67 112.6%);
+    background-blend-mode: darken;
+    &:hover {
+      background: linear-gradient(90deg, #0b934a 2.61%, #026e47 112.6%);
+      background-blend-mode: darken;
+    }
+    &:active {
+      background: linear-gradient(90deg, #076432 2.61%, #013c27 112.6%);
+      background-blend-mode: darken;
+    }
+  }
+
+  &__confirm-button_loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    .lds-ring {
+      width: 10px;
+      height: 20px;
+      margin-right: 20px;
+    }
+    .lds-ring div {
+      box-sizing: border-box;
+      display: block;
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      margin: 1px;
+      border: 3px solid $white;
+      border-radius: 50%;
+      animation: lds-ring 1.2s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+      border-color: $white transparent transparent transparent;
+    }
+    .lds-ring div:nth-child(1) {
+      animation-delay: -0.45s;
+    }
+    .lds-ring div:nth-child(2) {
+      animation-delay: -0.3s;
+    }
+    .lds-ring div:nth-child(3) {
+      animation-delay: -0.15s;
+    }
+    @keyframes lds-ring {
+      0% {
+        transform: rotate(0deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+  }
+
+  &__return-button {
+    width: 164px;
+    background: linear-gradient(90deg, #493013 0%, #7b0c3b 100%);
+    &:hover {
+      background: linear-gradient(90deg, #3b260d 0%, #5c0529 100%);
+      background-blend-mode: darken;
+    }
+    &:active {
+      background: linear-gradient(90deg, #331f07 0%, #4e0121 100%);
+      background-blend-mode: darken;
+    }
+  }
+}
+
+@media (max-width: $mobile-width) {
+  .popup {
+    &__button-container {
+      width: 320px;
+      flex-direction: column;
+      align-items: center;
+      height: 112px;
+    }
+  }
+}

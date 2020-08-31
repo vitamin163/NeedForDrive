@@ -7,21 +7,18 @@ import Input from '../../Input/Input.jsx';
 
 const CityInput = () => {
   const dispatch = useDispatch();
-
   const {
-    cities: { allIds, byId },
+    cities: { cities },
   } = useSelector((state) => state);
-
-  const cities = allIds.map((id) => byId[id]);
 
   const { cityFilterValue, cityInputValue } = useSelector((state) => state.locationsInput);
 
   const { filterCity, addCityInputValue, addCityId, deleteCityId, deletePointId } = actions;
 
-  const addCityHandler = (id, name) => {
-    dispatch(addCityId(id));
+  const addCityHandler = (city) => {
+    dispatch(addCityId(city));
     dispatch(filterCity(''));
-    dispatch(addCityInputValue(name));
+    dispatch(addCityInputValue(city.name));
     dispatch(deletePointId());
   };
 
@@ -30,16 +27,16 @@ const CityInput = () => {
   );
   useEffect(() => {
     if (filtered.length === 1 && filtered[0].name === capitalize(cityFilterValue)) {
-      const { id, name } = filtered[0];
-      addCityHandler(id, name);
+      const city = filtered[0];
+      addCityHandler(city);
     }
   });
 
   const renderCity = () => {
-    return filtered.map(({ id, name }) => {
+    return filtered.map((city) => {
       return (
-        <button key={id} onClick={() => addCityHandler(id, name)}>
-          {name}
+        <button key={city.id} onClick={() => addCityHandler(city)}>
+          {city.name}
         </button>
       );
     });

@@ -95,3 +95,30 @@ export const appendScript = (scriptToAppend, isScriptLoaded, setScriptLoadState)
   script.onerror = () => console.log(`Error loading`);
   return document.head.appendChild(script);
 };
+
+export const getNumber = (number) => {
+  if (!number) {
+    return 'N/A';
+  }
+  const normalized = number
+    .toUpperCase()
+    .split('')
+    .map((item, i) => {
+      if (i === 0) {
+        return `${item} `;
+      }
+      if (i === 4) {
+        return ` ${item}`;
+      }
+      return item;
+    })
+    .join('');
+  return normalized;
+};
+
+export const getFuel = (isFullTank, tank) => {
+  if (isFullTank) {
+    return '100%';
+  }
+  return tank ? `${tank}%` : 'неизвестно';
+};

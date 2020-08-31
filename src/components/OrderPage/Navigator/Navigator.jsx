@@ -8,7 +8,7 @@ import { actions } from '../../../store';
 const Navigator = () => {
   const dispatch = useDispatch();
   const { changeActiveNav } = actions;
-  const { pointId, carId } = useSelector((state) => state.order);
+  const { pointId, carId, dateFrom, dateTo } = useSelector((state) => state.order);
   const { activeNav } = useSelector((state) => state.uiState);
 
   const getClass = (id, condition) => {
@@ -25,14 +25,13 @@ const Navigator = () => {
   const items = [
     { name: 'Местоположение', className: getClass(0, false) },
     { name: 'Модель', className: getClass(1, !pointId.id) },
-    { name: 'Дополнительно', className: getClass(2, !carId.id) },
-    { name: 'Итого', className: getClass(3, true) },
+    { name: 'Дополнительно', className: getClass(2, !carId.id || !pointId.id) },
+    { name: 'Итого', className: getClass(3, !carId.id || !pointId.id || dateFrom >= dateTo) },
   ];
 
   return (
     <>
       <div className="order-page__navigator navigator">
-        <hr className="top-line" />
         <nav className="navigator__nav">
           <ul className="navigator__link-container">
             {items.map((item, i) => {
@@ -46,7 +45,6 @@ const Navigator = () => {
             })}
           </ul>
         </nav>
-        <hr className="bottom-line" />
       </div>
     </>
   );

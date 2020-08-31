@@ -16,23 +16,14 @@ import Error from '../../Error/Error.jsx';
 
 const OptionsPage = () => {
   const dispatch = useDispatch();
-  const {
-    carId: { id: carId },
-    rateId: { id: rateId },
-    dateFrom,
-    dateTo,
-  } = useSelector((state) => state.order);
+  const { carId, rateId, dateFrom, dateTo } = useSelector((state) => state.order);
   const { amount } = useSelector((state) => state.price);
-  const { byId: cars } = useSelector((state) => state.cars);
-  const car = cars[carId];
-  const { allIds: allIdsRates, byId: byIdRates, isRatesLoaded } = useSelector(
-    (state) => state.rates,
-  );
+  const { isRatesLoaded, rates } = useSelector((state) => state.rates);
   const { requestState } = useSelector((state) => state.asyncRequestState);
-  const rates = allIdsRates.map((id) => byIdRates[id]);
-  const unitRate = rateId && byIdRates[rateId].rateTypeId.unit;
-  const priceRate = rateId && byIdRates[rateId].price;
-  const colors = ['Любой', ...car.colors];
+
+  const unitRate = rateId.id && rateId.rateTypeId.unit;
+  const priceRate = rateId.id && rateId.price;
+  const colors = ['Любой', ...carId.colors];
 
   const {
     changeActiveNav,
@@ -46,7 +37,7 @@ const OptionsPage = () => {
   } = actions;
 
   const maxOtherPrice = 2300;
-  const maxRentPrice = car.priceMax - maxOtherPrice;
+  const maxRentPrice = carId.priceMax - maxOtherPrice;
 
   const { d: maxRentDay, h: maxTimeHour, m: maxTimeMinute } = getMaxRentTime(
     unitRate,
@@ -103,7 +94,7 @@ const OptionsPage = () => {
     }
 
     if (unit === 'сутки') {
-      const day = Math.floor(timeRange / 86400000);
+      const day = Math.ceil(timeRange / 86400000);
       const result = day * price;
       return result > maxRentPrice ? dispatch(setDateTo(start)) : dispatch(addRentPrice(result));
     }

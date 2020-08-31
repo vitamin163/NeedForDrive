@@ -9,49 +9,21 @@ import Order from '../Order/Order.jsx';
 import { actions } from '../../../store';
 import Spinner from '../../Spinner/Spinner.jsx';
 import Error from '../../Error/Error.jsx';
+import { getNumber, getFuel } from '../../../utils';
 
 const TotalPage = () => {
   const dispatch = useDispatch();
   const history = useHistory();
   const { popupIsOpen } = useSelector((state) => state.uiState);
-  const {
-    carId: { id: carId },
-    isFullTank,
-    dateFrom,
-  } = useSelector((state) => state.order);
+  const { carId, isFullTank, dateFrom } = useSelector((state) => state.order);
   const { order } = useSelector((state) => state);
 
-  const car = useSelector((state) => state.cars.byId[carId]);
   const { requestState } = useSelector((state) => state.asyncRequestState);
   const { isOrderStatusLoaded } = useSelector((state) => state.orderStatus);
-  const getFuel = () => {
-    if (isFullTank) {
-      return '100%';
-    }
-    return car.tank ? `${car.tank}%` : 'неизвестно';
-  };
-  const getNumber = () => {
-    if (!car.number) {
-      return 'N/A';
-    }
-    const normalized = car.number
-      .toUpperCase()
-      .split('')
-      .map((item, i) => {
-        if (i === 0) {
-          return `${item} `;
-        }
-        if (i === 4) {
-          return ` ${item}`;
-        }
-        return item;
-      })
-      .join('');
-    return normalized;
-  };
+
   const date = format(new Date(dateFrom), 'dd.MM.yyyy HH:mm');
   const { togglePopup, setRequestState, addOrderStatus } = actions;
-  const imgPath = `http://api-factory.simbirsoft1.com${car.thumbnail.path}`;
+  const imgPath = `http://api-factory.simbirsoft1.com${carId.thumbnail.path}`;
 
   useEffect(() => {
     if (isOrderStatusLoaded) {
@@ -71,7 +43,6 @@ const TotalPage = () => {
             },
           },
         );
-        console.log(dataOrderStatus);
         dispatch(addOrderStatus(dataOrderStatus));
         dispatch(setRequestState('SUCCESS'));
       } catch (error) {
@@ -84,6 +55,7 @@ const TotalPage = () => {
     }
     return () => {
       dispatch(setRequestState(null));
+      dispatch(togglePopup(false));
     };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
@@ -112,8 +84,8 @@ const TotalPage = () => {
     }
   };
   const confirmButtonClass = cn({
-    'total-page__confirm-button': true,
-    'total-page__confirm-button_loading': requestState === 'REQUEST',
+    'popup__confirm-button': true,
+    'popup__confirm-button_loading': requestState === 'REQUEST',
   });
   return (
     <>
@@ -122,10 +94,10 @@ const TotalPage = () => {
         <div className="order-page__total-page total-page">
           <div className="total-page__content">
             <div className="total-page__info">
-              <div className="total-page__model">{car.name}</div>
-              <div className="total-page__number">{getNumber()}</div>
+              <div className="total-page__model">{carId.name}</div>
+              <div className="total-page__number">{getNumber(carId.number)}</div>
               <div className="total-page__fuel">
-                Топливо <span>{getFuel()}</span>
+                Топливо <span>{getFuel(isFullTank, carId.tank)}</span>
               </div>
               <div className="total-page__date">
                 Доступна с <span>{date}</span>
@@ -143,9 +115,9 @@ const TotalPage = () => {
       )}
       {requestState === 'FAILURE' && <Error text="Не удалось получить данные" />}
       {popupIsOpen && (
-        <div className="total-page__popup">
-          <div className="total-page__popup-label">Подтвердить заказ</div>
-          <div className="total-page__button-container">
+        <div className="total-page__popup popup">
+          <div className="popup__label">Подтвердить заказ</div>
+          <div className="popup__button-container">
             <button className={confirmButtonClass} onClick={() => sendOrder()}>
               <div className="lds-ring">
                 <div></div>
@@ -155,10 +127,7 @@ const TotalPage = () => {
               </div>
               Подтвердить
             </button>
-            <button
-              className="total-page__return-button"
-              onClick={() => dispatch(togglePopup(false))}
-            >
+            <button className="popup__return-button" onClick={() => dispatch(togglePopup(false))}>
               Вернуться
             </button>
           </div>
