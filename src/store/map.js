@@ -6,7 +6,6 @@ const slice = createSlice({
   initialState: {
     isYMapsLoaded: false,
     isYMapsCreated: false,
-    points: [],
     defaultCoords: [54.314192, 48.403123],
   },
   reducers: {
@@ -15,9 +14,6 @@ const slice = createSlice({
     },
     setStateMapCreated(state, { payload }) {
       state.isYMapsCreated = payload;
-    },
-    setPoints(state, { payload }) {
-      state.points = payload;
     },
     setDefaultCoords(state, { payload }) {
       state.defaultCoords = payload;

@@ -11,30 +11,36 @@ const Map = () => {
   const [map, setMap] = useState({});
   const dispatch = useDispatch();
   const { cityId, pointId } = useSelector((state) => state.order);
-  const { isYMapsCreated, isYMapsLoaded, defaultCoords, points: coordpoint } = useSelector(
-    (state) => state.map,
-  );
+  const { isYMapsCreated, isYMapsLoaded, defaultCoords } = useSelector((state) => state.map);
 
   const {
     setLoadState,
     setStateMapCreated,
-    setPoints,
     setDefaultCoords,
     filterPoint,
     addPointInputValue,
     addPointId,
+    addCityId,
+    filterCity,
+    addCityInputValue,
   } = actions;
   const currentCity = cityId.id ? cityId.name : 'Ульяновск';
 
+  const { cities } = useSelector((state) => state.cities);
   const { points } = useSelector((state) => state.points);
   const currentPointId = pointId.id;
 
+  const getCoords = async (place) => {
+    const res = await window.ymaps.geocode(place);
+    const firstGeoObject = res.geoObjects.get(0);
+    const coords = firstGeoObject.geometry.getCoordinates();
+    return coords;
+  };
+
   const getPoints = async (ymap) => {
-    const addresses = await points.reduce(async (acc, item) => {
+    await points.map(async (item) => {
       if (currentCity === item.cityId.name) {
-        const res = await window.ymaps.geocode(`${item.cityId.name} ${item.address}`);
-        const firstGeoObject = res.geoObjects.get(0);
-        const coords = firstGeoObject.geometry.getCoordinates();
+        const coords = await getCoords(`${item.cityId.name} ${item.address}`);
         const myPlacemark = new window.ymaps.Placemark(
           coords,
           {
@@ -60,13 +66,33 @@ const Map = () => {
           return dispatch(addPointInputValue(item.address));
         });
         ymap.geoObjects.add(myPlacemark);
-        const newItem = { ...item, coords };
-        const newAcc = await acc;
-        return [...newAcc, newItem];
       }
-      return acc;
-    }, []);
-    dispatch(setPoints(addresses));
+    });
+  };
+
+  const getCities = async (ymap) => {
+    await cities.map(async (item) => {
+      const coords = await getCoords(item.name);
+      const myPlacemark = new window.ymaps.Placemark(
+        coords,
+        {
+          hintContent: item.name,
+        },
+        {
+          preset: 'islands#darkGreenStretchyIcon',
+        },
+      );
+      myPlacemark.events.add('click', () => {
+        ymap.setCenter(coords, 10, {
+          duration: 500,
+        });
+
+        dispatch(addCityId(item));
+        dispatch(filterCity(''));
+        return dispatch(addCityInputValue(item.name));
+      });
+      ymap.geoObjects.add(myPlacemark);
+    });
   };
 
   const createNewMap = async () => {
@@ -76,13 +102,13 @@ const Map = () => {
         'YMapsID',
         {
           center: defaultCoords,
-          zoom: 10,
+          zoom: 5,
         },
         {
           searchControlProvider: 'yandex#search',
         },
       );
-      getPoints(myMap);
+      getCities(myMap);
       setMap(myMap);
     };
     await window.ymaps.ready(init);
@@ -92,9 +118,7 @@ const Map = () => {
   const findCity = async () => {
     if (!isYMapsCreated) return false;
     getPoints(map);
-    const res = await window.ymaps.geocode(currentCity);
-    const firstGeoObject = res.geoObjects.get(0);
-    const coords = firstGeoObject.geometry.getCoordinates();
+    const coords = await getCoords(currentCity);
     map.setCenter(coords, 10);
     return dispatch(setDefaultCoords(coords));
   };
@@ -107,10 +131,12 @@ const Map = () => {
 
   useEffect(() => {
     if (!currentPointId || !isYMapsCreated) return;
-    const { coords } = coordpoint.filter((point) => point.id === currentPointId)[0];
-    map.setCenter(coords, 12, {
-      duration: 500,
+    getCoords(`${pointId.cityId.name} ${pointId.address}`).then((coords) => {
+      map.setCenter(coords, 12, {
+        duration: 500,
+      });
     });
+
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [currentPointId]);
 

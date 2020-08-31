@@ -19,7 +19,14 @@ const FinalPage = () => {
   const { popupIsOpen } = useSelector((state) => state.uiState);
   const { carId, isFullTank, dateFrom } = useSelector((state) => state.order);
   const { requestState } = useSelector((state) => state.asyncRequestState);
-  const { togglePopup, setRequestState, setOrder, setDefaultOrder, changeActiveNav } = actions;
+  const {
+    togglePopup,
+    setRequestState,
+    setOrder,
+    setDefaultOrder,
+    changeActiveNav,
+    deleteCityId,
+  } = actions;
 
   useEffect(() => {
     if (order) {
@@ -89,6 +96,7 @@ const FinalPage = () => {
       localStorage.removeItem('order');
       dispatch(setDefaultOrder());
       dispatch(changeActiveNav(0));
+      dispatch(deleteCityId());
     } catch (error) {
       console.log(error);
       dispatch(setRequestState('FAILURE'));
