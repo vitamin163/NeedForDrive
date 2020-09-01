@@ -9,6 +9,7 @@ import { ReactComponent as Instagram } from './Instagram_white.svg';
 import { ReactComponent as Facebook } from './Facebook_white.svg';
 import { ReactComponent as Burger } from './menu_btn.svg';
 import mapPoint from './map_point.svg';
+import logo from './logo.svg';
 
 export {
   nextButton,
@@ -22,4 +23,5 @@ export {
   Facebook,
   Burger,
   mapPoint,
+  logo,
 };
