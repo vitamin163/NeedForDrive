@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import cn from 'classnames';
 import { format } from 'date-fns';
 import Order from '../Order/Order.jsx';
 import './FinalPage.scss';
 import { actions } from '../../../store';
 import Spinner from '../../Spinner/Spinner.jsx';
 import Error from '../../Error/Error.jsx';
+import Popup from '../Popup/Popup.jsx';
 import { getNumber, getFuel } from '../../../utils';
 
 const FinalPage = () => {
@@ -67,18 +67,13 @@ const FinalPage = () => {
 
   const date = format(new Date(dateFrom), 'dd.MM.yyyy HH:mm');
   const imgPath = `http://api-factory.simbirsoft1.com${carId.thumbnail.path}`;
-  const undoButtonClass = cn({
-    'popup__confirm-button': true,
-    'popup__confirm-button_loading': requestState === 'REQUEST',
-  });
 
   const undoOrder = async () => {
     dispatch(setRequestState('REQUEST'));
     try {
       await axios({
         method: 'put',
-        url: `http://api-factory.simbirsoft1.com/api/db/order/${orderId}`,
-        baseURL: 'https://cors-anywhere.herokuapp.com/',
+        url: `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/order/${orderId}`,
         headers: {
           'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
           'Content-Type': 'application/json',
@@ -102,7 +97,6 @@ const FinalPage = () => {
       dispatch(setRequestState('FAILURE'));
     }
   };
-
   return (
     <>
       {requestState === 'REQUEST' && <Spinner />}
@@ -132,23 +126,13 @@ const FinalPage = () => {
       )}
       {requestState === 'FAILURE' && <Error text="Не удалось получить данные" />}
       {popupIsOpen && (
-        <div className="final-page__popup popup">
-          <div className="popup__label">Отменить заказ?</div>
-          <div className="popup__button-container">
-            <button className={undoButtonClass} onClick={() => undoOrder()}>
-              <div className="lds-ring">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              Отменить
-            </button>
-            <button className="popup__return-button" onClick={() => dispatch(togglePopup(false))}>
-              Вернуться
-            </button>
-          </div>
-        </div>
+        <Popup
+          confirmHandler={() => undoOrder()}
+          returnHandler={() => dispatch(togglePopup(false))}
+          popupLabel="Отменить заказ?"
+          confirmLabel="Отменить"
+          returnLabel="Вернуться"
+        />
       )}
       <Order buttonName="Отменить" disabled={false} click={() => dispatch(togglePopup(true))} />
     </>

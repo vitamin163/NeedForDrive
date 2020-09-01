@@ -2,13 +2,13 @@ import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
-import cn from 'classnames';
 import './TotalPage.scss';
 import { format } from 'date-fns';
 import Order from '../Order/Order.jsx';
 import { actions } from '../../../store';
 import Spinner from '../../Spinner/Spinner.jsx';
 import Error from '../../Error/Error.jsx';
+import Popup from '../Popup/Popup.jsx';
 import { getNumber, getFuel } from '../../../utils';
 
 const TotalPage = () => {
@@ -67,8 +67,7 @@ const TotalPage = () => {
         data: { data },
       } = await axios({
         method: 'post',
-        url: 'http://api-factory.simbirsoft1.com/api/db/order',
-        baseURL: 'https://cors-anywhere.herokuapp.com/',
+        url: 'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/order',
         headers: {
           'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
           'Content-Type': 'application/json',
@@ -83,10 +82,7 @@ const TotalPage = () => {
       dispatch(setRequestState('FAILURE'));
     }
   };
-  const confirmButtonClass = cn({
-    'popup__confirm-button': true,
-    'popup__confirm-button_loading': requestState === 'REQUEST',
-  });
+
   return (
     <>
       {requestState === 'REQUEST' && <Spinner />}
@@ -114,24 +110,15 @@ const TotalPage = () => {
         </div>
       )}
       {requestState === 'FAILURE' && <Error text="Не удалось получить данные" />}
+
       {popupIsOpen && (
-        <div className="total-page__popup popup">
-          <div className="popup__label">Подтвердить заказ</div>
-          <div className="popup__button-container">
-            <button className={confirmButtonClass} onClick={() => sendOrder()}>
-              <div className="lds-ring">
-                <div></div>
-                <div></div>
-                <div></div>
-                <div></div>
-              </div>
-              Подтвердить
-            </button>
-            <button className="popup__return-button" onClick={() => dispatch(togglePopup(false))}>
-              Вернуться
-            </button>
-          </div>
-        </div>
+        <Popup
+          confirmHandler={() => sendOrder()}
+          returnHandler={() => dispatch(togglePopup(false))}
+          popupLabel="Подтвердить заказ"
+          confirmLabel="Подтвердить"
+          returnLabel="Вернуться"
+        />
       )}
       <Order buttonName="Заказать" disabled={false} click={() => dispatch(togglePopup(true))} />
     </>
