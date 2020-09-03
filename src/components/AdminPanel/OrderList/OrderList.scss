@@ -1,0 +1,43 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.orderList {
+  display: flex;
+  flex-direction: column;
+  padding-top: 29px;
+  padding-left: 31px;
+  padding-right: 31px;
+  width: 100%;
+  height: 100%;
+  &__sub-header {
+    @include textStyle(400, 29px, 33px, $grayBlue);
+    margin-bottom: 30px;
+  }
+  &__container {
+    height: 386px;
+    background: $white;
+    box-shadow: 0px 2px 0px rgba(90, 97, 105, 0.11), 0px 4px 8px rgba(90, 97, 105, 0.12),
+      0px 10px 10px rgba(90, 97, 105, 0.06), 0px 7px 70px rgba(90, 97, 105, 0.1);
+    border-radius: 9px;
+  }
+  &__topbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 59px;
+    border-radius: 9px 9px 0px 0px;
+    background: $white;
+    box-shadow: 0px -0.5px 0px #e0e2e8, 0px 0.5px 0px #e0e2e8;
+    padding-left: 21px;
+    padding-right: 21px;
+  }
+  &__applyButton {
+    width: 110px;
+    height: 29px;
+    background: $blue;
+    border: 0.5px solid $blue;
+    box-sizing: border-box;
+    border-radius: 4px;
+    @include textStyle(400, 11px, 13px, $white, 'center');
+  }
+}

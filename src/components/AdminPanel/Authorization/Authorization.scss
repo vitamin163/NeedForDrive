@@ -65,7 +65,6 @@
     box-sizing: border-box;
     border-radius: 4px;
     @include textStyle(400, 11px, 13px, $white, 'center');
-    font-family: Helvetica;
   }
 
   &__auth-link {

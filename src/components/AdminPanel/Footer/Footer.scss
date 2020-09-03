@@ -1,0 +1,17 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.footer {
+  height: 68px;
+  width: 100%;
+  background: $white;
+  padding: 0px 27px;
+  align-items: center;
+  &__link {
+    margin-right: 16px;
+    @include textStyle(400, 14px, 16px, $blue);
+  }
+  &__copyright {
+    @include textStyle(500, 14px, 16px, #818ea3);
+  }
+}

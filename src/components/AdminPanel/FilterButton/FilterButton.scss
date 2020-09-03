@@ -1,0 +1,16 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.filterButton {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  min-width: 111px;
+  height: 29px;
+  padding: 0 11px 0 14px;
+  background: $white;
+  border: 1px solid #becad6;
+  border-radius: 4px;
+  @include textStyle(400, 11px, 13px, #868e96);
+  margin-right: 15px;
+}

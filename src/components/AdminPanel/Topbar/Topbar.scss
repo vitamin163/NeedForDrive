@@ -1,0 +1,57 @@
+@import '../../../scss/variables.scss';
+@import '../../../scss/mixins.scss';
+
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  height: 68px;
+  width: 100%;
+  background: $white;
+  box-shadow: 0px 2.5px 9.5px rgba(90, 97, 105, 0.12);
+  padding-left: 28px;
+  padding-right: 23px;
+  &__search {
+    display: flex;
+    align-items: center;
+    form {
+      margin-left: 9px;
+      @include textStyle(400, 13px, 15px, #767f9d);
+    }
+  }
+  &__control-panel {
+    display: flex;
+  }
+  &__menu {
+    background: $white;
+    display: flex;
+    align-items: center;
+    width: 194px;
+    padding-left: 25px;
+  }
+  &__avatar {
+    border-radius: 50%;
+    margin-left: 0px;
+  }
+  &__admin-name {
+    margin-left: 14px;
+    margin-right: 55px;
+    @include textStyle(400, 15px, 17px, #5a6169);
+  }
+  &__notifications {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 68px;
+    height: 68px;
+    border-left: 1px solid #cacedb;
+    border-right: 1px solid #cacedb;
+    background: $white;
+  }
+  &__notifications-icon {
+    @include tr(8px);
+  }
+  &__count {
+    @include tr(2px, 8px);
+  }
+}
