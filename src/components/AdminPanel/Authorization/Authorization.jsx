@@ -7,11 +7,11 @@ import axios from 'axios';
 import * as Yup from 'yup';
 import { logo } from '../../../icon';
 import { actions } from '../../../store';
+import { getRandomString } from '../../../utils';
 
 const validationSchema = Yup.object({
   password: Yup.string().required('Password is required'),
 });
-const basicToken = process.env.BASIC_TOKEN;
 
 const Authorization = () => {
   const history = useHistory();
@@ -23,6 +23,9 @@ const Authorization = () => {
       username: email,
       password,
     };
+    const randomString = getRandomString();
+    const basicToken = window.btoa(`${randomString}:4cbcea96de`);
+    console.log(basicToken);
     try {
       const { data } = await axios({
         method: 'post',
@@ -37,6 +40,7 @@ const Authorization = () => {
       });
       localStorage.setItem('accessToken', data.access_token);
       localStorage.setItem('refreshToken', data.refresh_token);
+      localStorage.setItem('basicToken', basicToken);
       dispatch(setAuth(true));
       history.push('/admin/');
     } catch (e) {

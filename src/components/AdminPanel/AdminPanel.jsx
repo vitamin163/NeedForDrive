@@ -37,6 +37,7 @@ const AdminPanel = () => {
       });
       localStorage.removeItem('accessToken');
       localStorage.removeItem('refreshToken');
+      localStorage.removeItem('basicToken');
       dispatch(setAuth(false));
     } catch (error) {
       console.log(error);
@@ -44,7 +45,7 @@ const AdminPanel = () => {
   };
 
   const autoLogin = async () => {
-    const basicToken = process.env.BASIC_TOKEN;
+    const basicToken = localStorage.getItem('basicToken');
     const refreshToken = localStorage.getItem('refreshToken');
     if (!accessToken) {
       return false;
@@ -92,6 +93,9 @@ const AdminPanel = () => {
   };
   useEffect(() => {
     autoLogin();
+    return () => {
+      dispatch(setRequestState(null));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 

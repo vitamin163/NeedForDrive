@@ -122,3 +122,13 @@ export const getFuel = (isFullTank, tank) => {
   }
   return tank ? `${tank}%` : 'неизвестно';
 };
+
+export const getRandomString = () => {
+  const str = [];
+  const possible = '1234567890abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+  for (let i = 0; i < 8; i += 1) {
+    const symbol = possible.charAt(Math.floor(Math.random() * possible.length));
+    str.push(symbol);
+  }
+  return str.join('');
+};
