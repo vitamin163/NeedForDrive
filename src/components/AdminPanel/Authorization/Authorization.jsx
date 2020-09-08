@@ -10,6 +10,7 @@ import { autoLogout } from '../../../utils';
 const validationSchema = Yup.object({
   password: Yup.string().required('Password is required'),
 });
+const authToken = process.env.AUTH_TOKEN;
 
 const Authorization = () => {
   const history = useHistory();
@@ -25,7 +26,7 @@ const Authorization = () => {
           'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/auth/login',
         headers: {
           'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-          Authorization: 'Basic dml0YW1pbjo0Y2JjZWE5NmRl',
+          Authorization: `Basic ${authToken}`,
           'Content-Type': 'application/json',
         },
         data: JSON.stringify(authData),

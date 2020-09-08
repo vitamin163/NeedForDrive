@@ -10,7 +10,6 @@ import { logout, autoLogout } from '../../utils';
 
 const autoLogin = () => {
   const token = localStorage.getItem('token');
-
   const expirationDate = new Date(localStorage.getItem('expirationDate'));
   if (expirationDate <= new Date() || !token) {
     logout();
@@ -20,10 +19,12 @@ const autoLogin = () => {
 };
 
 const AdminPanel = () => {
+  const token = localStorage.getItem('token');
+
   useEffect(() => {
     autoLogin();
   }, []);
-  const token = localStorage.getItem('token');
+
   return (
     <div className="admin-panel">
       <Switch>

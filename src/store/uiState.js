@@ -6,6 +6,7 @@ const slice = createSlice({
     activeNav: 0,
     categoryModelId: 0,
     popupIsOpen: false,
+    dropdownIsOpen: false,
   },
   reducers: {
     changeActiveNav(state, { payload }) {
@@ -16,6 +17,9 @@ const slice = createSlice({
     },
     togglePopup(state, { payload }) {
       return { ...state, popupIsOpen: payload };
+    },
+    toggleDropdown(state) {
+      return { ...state, dropdownIsOpen: !state.dropdownIsOpen };
     },
   },
 });
