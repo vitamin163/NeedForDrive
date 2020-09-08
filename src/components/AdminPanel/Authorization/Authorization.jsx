@@ -1,45 +1,46 @@
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import './Authorization.scss';
 import { useHistory } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
 import { logo } from '../../../icon';
-import { autoLogout } from '../../../utils';
+import { actions } from '../../../store';
 
 const validationSchema = Yup.object({
   password: Yup.string().required('Password is required'),
 });
-const authToken = process.env.AUTH_TOKEN;
+const basicToken = process.env.BASIC_TOKEN;
 
 const Authorization = () => {
   const history = useHistory();
-  const submitHandler = async ({ email, password }, actions) => {
+  const dispatch = useDispatch();
+  const { setAuth } = actions;
+
+  const submitHandler = async ({ email, password }, action) => {
     const authData = {
       username: email,
       password,
     };
     try {
-      const response = await axios({
+      const { data } = await axios({
         method: 'post',
         url:
           'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/auth/login',
         headers: {
           'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-          Authorization: `Basic ${authToken}`,
+          Authorization: `Basic ${basicToken}`,
           'Content-Type': 'application/json',
         },
         data: JSON.stringify(authData),
       });
-      const { access_token: accessToken, user_id: userId, expires_in: expiresIn } = response.data;
-      const expirationDate = new Date(new Date().getTime() + expiresIn * 1000);
-      localStorage.setItem('token', accessToken);
-      localStorage.setItem('userId', userId);
-      localStorage.setItem('expirationDate', expirationDate);
-      autoLogout(expiresIn);
+      localStorage.setItem('accessToken', data.access_token);
+      localStorage.setItem('refreshToken', data.refresh_token);
+      dispatch(setAuth(true));
       history.push('/admin/');
     } catch (e) {
-      actions.setErrors({ email: e.message });
+      action.setErrors({ email: e.message });
     }
   };
 

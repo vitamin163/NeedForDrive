@@ -1,21 +1,15 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
 import { actions } from '../../../store';
 import './Topbar.scss';
 import { search, arrowToDown, notifications, count } from '../../../icon';
 import avatar from '../../../img/user-avatar.png';
-import { logout } from '../../../utils';
 
-const Topbar = () => {
+const Topbar = ({ logout }) => {
   const dispatch = useDispatch();
-  const history = useHistory();
   const { dropdownIsOpen } = useSelector((state) => state.uiState);
   const { toggleDropdown } = actions;
-  const logoutHandler = () => {
-    logout();
-    history.push('/admin/login');
-  };
+
   return (
     <div className="topbar">
       <div className="topbar__search">
@@ -37,7 +31,7 @@ const Topbar = () => {
           </button>
           {dropdownIsOpen && (
             <div className="topbar__dropdown-content">
-              <button className="topbar__dropdown-item" onClick={logoutHandler}>
+              <button className="topbar__dropdown-item" onClick={logout}>
                 Выйти
               </button>
             </div>

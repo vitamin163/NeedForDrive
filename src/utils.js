@@ -122,15 +122,3 @@ export const getFuel = (isFullTank, tank) => {
   }
   return tank ? `${tank}%` : 'неизвестно';
 };
-
-export const logout = () => {
-  localStorage.removeItem('token');
-  localStorage.removeItem('userId');
-  localStorage.removeItem('expirationDate');
-};
-
-export const autoLogout = (time) => {
-  setTimeout(() => {
-    logout();
-  }, time * 1000);
-};
