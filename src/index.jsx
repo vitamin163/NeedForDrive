@@ -17,7 +17,7 @@ if (order) {
 }
 render(
   <Provider store={store}>
-    <BrowserRouter>
+    <BrowserRouter basename="/NeedForDrive">
       <App />
     </BrowserRouter>
   </Provider>,

@@ -33,7 +33,6 @@ module.exports = (env, options) => {
     devServer: {
       overlay: true,
       contentBase: PATHS.dist,
-      port: 8080,
       historyApiFallback: true,
     },
 
