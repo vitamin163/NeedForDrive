@@ -107,7 +107,7 @@ const AdminPanel = () => {
           <Switch>
             <Route path="/admin/login" component={Authorization} />
             {!isAuth && <Redirect to="/admin/login" />}
-            <Route path="/admin/">
+            <Route path="/admin">
               <Sidebar />
               <div className="admin-panel__column">
                 <Topbar logout={logout} />
