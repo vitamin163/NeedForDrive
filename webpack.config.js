@@ -24,6 +24,7 @@ module.exports = (env, options) => {
     output: {
       path: PATHS.dist,
       filename: '[name].js',
+      publicPath: '/',
     },
 
     resolve: {
@@ -33,6 +34,8 @@ module.exports = (env, options) => {
     devServer: {
       overlay: true,
       contentBase: PATHS.dist,
+      port: 8080,
+      historyApiFallback: true,
     },
 
     devtool: isProduction ? 'source-map' : 'eval-sourcemap',
