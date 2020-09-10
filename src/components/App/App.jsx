@@ -6,7 +6,6 @@ import AdminPanel from '../AdminPanel/AdminPanel.jsx';
 import './App.scss';
 
 const App = () => {
-  console.log('test');
   return (
     <div className="app">
       <Switch>

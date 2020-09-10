@@ -19,10 +19,12 @@ module.exports = (env, options) => {
   };
   const isProduction = options.mode === 'production';
   const isDevelopment = !isProduction;
+  const publicPath = isDevelopment ? '/' : '/NeedForDrive/';
   const conf = {
     entry: ['@babel/polyfill', './src/index.jsx'],
     output: {
       path: PATHS.dist,
+      publicPath,
       filename: '[name].js',
     },
 
@@ -126,6 +128,10 @@ module.exports = (env, options) => {
         filename: `${PATHS.dist}/index.html`,
         template: `${PATHS.public}/index.html`,
         favicon: `${PATHS.public}/favicon.ico`,
+      }),
+      new HtmlWebpackPlugin({
+        filename: `${PATHS.dist}/404.html`,
+        template: `${PATHS.public}/404.html`,
       }),
       new MiniCssExtractPlugin({
         filename: '[name].css',
