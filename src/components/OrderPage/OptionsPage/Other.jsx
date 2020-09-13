@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import { actions } from '../../../store';
-import Checkbox from '../../Checkbox/Checkbox.jsx';
+import { actions } from '@/store';
+import Checkbox from '@Components/Checkbox';
 
 const Other = () => {
   const dispatch = useDispatch();

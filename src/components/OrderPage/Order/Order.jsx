@@ -3,7 +3,7 @@ import { useSelector } from 'react-redux';
 import { capitalize } from 'lodash';
 import cn from 'classnames';
 import './Order.scss';
-import { dhm } from '../../../utils';
+import { dhm } from '@/utils';
 
 const Order = (props) => {
   const { buttonName, disabled, click } = props;

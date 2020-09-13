@@ -1,7 +1,7 @@
 import React, { forwardRef } from 'react';
 import './Input.scss';
 import cn from 'classnames';
-import { cleanInput } from '../../icon';
+import { cleanInput } from '@/icon';
 
 // eslint-disable-next-line no-unused-vars
 const Input = (props, ref) => {

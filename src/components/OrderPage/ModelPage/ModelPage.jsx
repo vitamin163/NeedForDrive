@@ -1,15 +1,16 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import cn from 'classnames';
-import Order from '../Order/Order.jsx';
 import './ModelPage.scss';
-import { actions } from '../../../store';
-import RadioButton from '../../RadioButton/RadioBugtton.jsx';
-import Spinner from '../../Spinner/Spinner.jsx';
-import Error from '../../Error/Error.jsx';
+import { actions } from '@/store';
+import RadioButton from '@Components/RadioButton';
+import Spinner from '@Components/Spinner';
+import Error from '@Components/Error';
+import getData from '@/store/fetchData';
+import Order from '../Order';
 
-const ModelPage = () => {
+const ModelPage = (props) => {
+  const { proxy, api, headers } = props;
   const dispatch = useDispatch();
   const {
     cars: { cars, isCarsLoaded },
@@ -74,48 +75,23 @@ const ModelPage = () => {
       );
     });
   };
-
+  const fetchData = [
+    {
+      url: `${proxy}${api}car/`,
+      action: addCars,
+    },
+    {
+      url: `${proxy}${api}category/`,
+      action: addCategory,
+    },
+  ];
   useEffect(() => {
     if (isCarsLoaded) {
       dispatch(setRequestState('SUCCESS'));
     }
-    const getData = async () => {
-      dispatch(setRequestState('REQUEST'));
-      try {
-        const {
-          data: { data: dataCars },
-        } = await axios.get(
-          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/car/',
-          {
-            headers: {
-              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-              Authorization: 'Bearer 4cbcea96de',
-            },
-          },
-        );
-        const {
-          data: { data: dataCategory },
-        } = await axios.get(
-          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/category/',
-          {
-            headers: {
-              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-              Authorization: 'Bearer 4cbcea96de',
-            },
-          },
-        );
-        dispatch(addCars(dataCars));
-        dispatch(addCategory(dataCategory));
-        dispatch(setRequestState('SUCCESS'));
-      } catch (error) {
-        console.log(error);
-        dispatch(setRequestState('FAILURE'));
-      }
-    };
     if (!isCarsLoaded) {
-      getData();
+      dispatch(getData(fetchData, headers));
     }
-
     return () => {
       dispatch(setRequestState(null));
     };

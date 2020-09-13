@@ -1,20 +1,21 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import axios from 'axios';
 import { roundToNearestMinutes } from 'date-fns';
 import './OptionsPage.scss';
-import { actions } from '../../../store';
-import Order from '../Order/Order.jsx';
-import Input from '../../Input/Input.jsx';
-import Spinner from '../../Spinner/Spinner.jsx';
-import { getMaxRentTime } from '../../../utils';
+import { actions } from '@/store';
+import Input from '@Components/Input';
+import Spinner from '@Components/Spinner';
+import Error from '@Components/Error';
+import getData from '@/store/fetchData';
+import { getMaxRentTime } from '@/utils';
 import DateInput from './DateInput.jsx';
 import Colors from './Colors.jsx';
 import Rates from './Rates.jsx';
 import Other from './Other.jsx';
-import Error from '../../Error/Error.jsx';
+import Order from '../Order';
 
-const OptionsPage = () => {
+const OptionsPage = (props) => {
+  const { proxy, api, headers } = props;
   const dispatch = useDispatch();
   const { carId, rateId, dateFrom, dateTo } = useSelector((state) => state.order);
   const { amount } = useSelector((state) => state.price);
@@ -100,6 +101,12 @@ const OptionsPage = () => {
     }
     return false;
   };
+  const fetchData = [
+    {
+      url: `${proxy}${api}rate/`,
+      action: addRates,
+    },
+  ];
   useEffect(() => {
     dispatch(addColor(colors[1]));
     rentPriceHandler(dateFrom, dateTo, unitRate, priceRate);
@@ -110,32 +117,9 @@ const OptionsPage = () => {
     if (isRatesLoaded) {
       dispatch(setRequestState('SUCCESS'));
     }
-    const getRates = async () => {
-      dispatch(setRequestState('REQUEST'));
-      try {
-        const {
-          data: { data: dataRate },
-        } = await axios.get(
-          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/rate/',
-          {
-            headers: {
-              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-              Authorization: 'Bearer 4cbcea96de',
-            },
-          },
-        );
-        dispatch(addRates(dataRate));
-        dispatch(setRequestState('SUCCESS'));
-      } catch (error) {
-        console.log(error);
-        dispatch(setRequestState('FAILURE'));
-      }
-    };
-
     if (!isRatesLoaded) {
-      getRates();
+      dispatch(getData(fetchData, headers));
     }
-
     return () => {
       dispatch(setRequestState(null));
     };

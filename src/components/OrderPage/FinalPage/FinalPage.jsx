@@ -3,22 +3,26 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import { format } from 'date-fns';
-import Order from '../Order/Order.jsx';
+import { actions } from '@/store';
 import './FinalPage.scss';
-import { actions } from '../../../store';
-import Spinner from '../../Spinner/Spinner.jsx';
-import Error from '../../Error/Error.jsx';
-import Popup from '../Popup/Popup.jsx';
-import { getNumber, getFuel } from '../../../utils';
+import Spinner from '@Components/Spinner';
+import Error from '@Components/Error';
+import { getNumber, getFuel } from '@/utils';
+import getData from '@/store/fetchData';
+import Popup from '../Popup';
+import Order from '../Order';
 
-const FinalPage = () => {
+const FinalPage = (props) => {
+  const { proxy, api, headers } = props;
   const dispatch = useDispatch();
   const history = useHistory();
-  const order = localStorage.getItem('order');
   const orderId = localStorage.getItem('orderId');
   const { popupIsOpen } = useSelector((state) => state.uiState);
   const { carId, isFullTank, dateFrom } = useSelector((state) => state.order);
   const { requestState } = useSelector((state) => state.asyncRequestState);
+  const { statuses } = useSelector((state) => state.orderStatus);
+  const cancelledOrderStatus = statuses.find((status) => status.name === 'cancelled');
+
   const {
     togglePopup,
     setRequestState,
@@ -26,38 +30,20 @@ const FinalPage = () => {
     setDefaultOrder,
     changeActiveNav,
     deleteCityId,
+    addOrderStatus,
   } = actions;
-
+  const fetchData = [
+    {
+      url: `${proxy}${api}order/${orderId}`,
+      action: setOrder,
+    },
+    {
+      url: `${proxy}${api}orderStatus/`,
+      action: addOrderStatus,
+    },
+  ];
   useEffect(() => {
-    if (order) {
-      dispatch(setRequestState('SUCCESS'));
-    }
-    const getData = async () => {
-      dispatch(setRequestState('REQUEST'));
-      try {
-        const {
-          data: { data: dataOrder },
-        } = await axios.get(
-          `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/order/${orderId}`,
-          {
-            headers: {
-              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-              Authorization: 'Bearer 4cbcea96de',
-            },
-          },
-        );
-        localStorage.setItem('order', JSON.stringify(dataOrder));
-        dispatch(setOrder(dataOrder));
-        dispatch(setRequestState('SUCCESS'));
-      } catch (error) {
-        console.log(error);
-        dispatch(setRequestState('FAILURE'));
-      }
-    };
-
-    if (!order) {
-      getData();
-    }
+    dispatch(getData(fetchData, headers));
     return () => {
       dispatch(setRequestState(null));
       dispatch(togglePopup(false));
@@ -66,22 +52,21 @@ const FinalPage = () => {
   }, []);
 
   const date = format(new Date(dateFrom), 'dd.MM.yyyy HH:mm');
-  const imgPath = `http://api-factory.simbirsoft1.com${carId.thumbnail.path}`;
 
   const undoOrder = async () => {
     dispatch(setRequestState('REQUEST'));
     try {
       await axios({
         method: 'put',
-        url: `https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/order/${orderId}`,
+        url: `${proxy}${api}order/${orderId}`,
         headers: {
-          'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+          ...headers,
           'Content-Type': 'application/json',
         },
         data: JSON.stringify({
           orderStatusId: {
             name: 'cancelled',
-            id: '5e26a1f5099b810b946c5d8c',
+            id: cancelledOrderStatus.id,
           },
         }),
       });
@@ -97,6 +82,7 @@ const FinalPage = () => {
       dispatch(setRequestState('FAILURE'));
     }
   };
+
   return (
     <>
       {requestState === 'REQUEST' && <Spinner />}
@@ -118,7 +104,7 @@ const FinalPage = () => {
               className="total-page__img"
               crossOrigin="anonymous"
               referrerPolicy="origin"
-              src={imgPath}
+              src={`http://api-factory.simbirsoft1.com${carId.thumbnail.path}`}
               alt="car"
             />
           </div>
@@ -134,7 +120,9 @@ const FinalPage = () => {
           returnLabel="Вернуться"
         />
       )}
-      <Order buttonName="Отменить" disabled={false} click={() => dispatch(togglePopup(true))} />
+      {requestState === 'SUCCESS' && (
+        <Order buttonName="Отменить" disabled={false} click={() => dispatch(togglePopup(true))} />
+      )}
     </>
   );
 };

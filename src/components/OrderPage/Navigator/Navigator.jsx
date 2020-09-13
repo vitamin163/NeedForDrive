@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './Navigator.scss';
 import cn from 'classnames';
-import { navArrow } from '../../../icon';
-import { actions } from '../../../store';
+import { navArrow } from '@/icon';
+import { actions } from '@/store';
 
 const Navigator = () => {
   const dispatch = useDispatch();

@@ -1,7 +1,7 @@
 import React from 'react';
 import { useDispatch } from 'react-redux';
-import RadioButton from '../../RadioButton/RadioBugtton.jsx';
-import { actions } from '../../../store';
+import RadioButton from '@Components/RadioButton';
+import { actions } from '@/store';
 
 const Colors = ({ colors }) => {
   const dispatch = useDispatch();

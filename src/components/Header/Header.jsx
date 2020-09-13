@@ -1,5 +1,5 @@
 import React from 'react';
-import { place } from '../../icon';
+import { place } from '@/icon';
 import './Header.scss';
 
 const Header = () => {

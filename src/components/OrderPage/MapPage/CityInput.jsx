@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { capitalize } from 'lodash';
-import { actions } from '../../../store';
+import Input from '@Components/Input';
+import { actions } from '@/store';
 import './MapPage.scss';
-import Input from '../../Input/Input.jsx';
 
 const CityInput = () => {
   const dispatch = useDispatch();
@@ -30,7 +30,8 @@ const CityInput = () => {
       const city = filtered[0];
       addCityHandler(city);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderCity = () => {
     return filtered.map((city) => {

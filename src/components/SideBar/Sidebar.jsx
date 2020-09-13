@@ -2,8 +2,8 @@ import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import './Sidebar.scss';
 import cn from 'classnames';
-import { closeButton, Telegram, Facebook, Instagram, Burger } from '../../icon';
-import { actions } from '../../store';
+import { closeButton, Telegram, Facebook, Instagram, Burger } from '@/icon';
+import { actions } from '@/store';
 
 const Sidebar = () => {
   const dispatch = useDispatch();

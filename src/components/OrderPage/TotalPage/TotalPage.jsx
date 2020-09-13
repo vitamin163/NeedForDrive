@@ -4,14 +4,15 @@ import { useHistory } from 'react-router-dom';
 import axios from 'axios';
 import './TotalPage.scss';
 import { format } from 'date-fns';
-import Order from '../Order/Order.jsx';
-import { actions } from '../../../store';
-import Spinner from '../../Spinner/Spinner.jsx';
-import Error from '../../Error/Error.jsx';
-import Popup from '../Popup/Popup.jsx';
-import { getNumber, getFuel } from '../../../utils';
+import { actions } from '@/store';
+import Spinner from '@Components/Spinner';
+import Error from '@Components/Error';
+import { getNumber, getFuel } from '@/utils';
+import Popup from '../Popup';
+import Order from '../Order';
 
-const TotalPage = () => {
+const TotalPage = (props) => {
+  const { proxy, api, headers } = props;
   const dispatch = useDispatch();
   const history = useHistory();
   const { popupIsOpen } = useSelector((state) => state.uiState);
@@ -19,40 +20,13 @@ const TotalPage = () => {
   const { order } = useSelector((state) => state);
 
   const { requestState } = useSelector((state) => state.asyncRequestState);
-  const { isOrderStatusLoaded } = useSelector((state) => state.orderStatus);
 
   const date = format(new Date(dateFrom), 'dd.MM.yyyy HH:mm');
-  const { togglePopup, setRequestState, addOrderStatus } = actions;
+  const { togglePopup, setRequestState } = actions;
   const imgPath = `http://api-factory.simbirsoft1.com${carId.thumbnail.path}`;
 
   useEffect(() => {
-    if (isOrderStatusLoaded) {
-      dispatch(setRequestState('SUCCESS'));
-    }
-    const getData = async () => {
-      dispatch(setRequestState('REQUEST'));
-      try {
-        const {
-          data: { data: dataOrderStatus },
-        } = await axios.get(
-          'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/orderStatus/',
-          {
-            headers: {
-              'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
-              Authorization: 'Bearer 4cbcea96de',
-            },
-          },
-        );
-        dispatch(addOrderStatus(dataOrderStatus));
-        dispatch(setRequestState('SUCCESS'));
-      } catch (error) {
-        console.log(error);
-        dispatch(setRequestState('FAILURE'));
-      }
-    };
-    if (!isOrderStatusLoaded) {
-      getData();
-    }
+    dispatch(setRequestState('SUCCESS'));
     return () => {
       dispatch(setRequestState(null));
       dispatch(togglePopup(false));
@@ -67,9 +41,9 @@ const TotalPage = () => {
         data: { data },
       } = await axios({
         method: 'post',
-        url: 'https://cors-anywhere.herokuapp.com/http://api-factory.simbirsoft1.com/api/db/order',
+        url: `${proxy}${api}order`,
         headers: {
-          'X-Api-Factory-Application-Id': '5e25c641099b810b946c5d5b',
+          ...headers,
           'Content-Type': 'application/json',
         },
         data: JSON.stringify(order),
@@ -110,7 +84,6 @@ const TotalPage = () => {
         </div>
       )}
       {requestState === 'FAILURE' && <Error text="Не удалось получить данные" />}
-
       {popupIsOpen && (
         <Popup
           confirmHandler={() => sendOrder()}
@@ -120,7 +93,11 @@ const TotalPage = () => {
           returnLabel="Вернуться"
         />
       )}
-      <Order buttonName="Заказать" disabled={false} click={() => dispatch(togglePopup(true))} />
+      <Order
+        buttonName="Заказать"
+        disabled={requestState === 'REQUEST'}
+        click={() => dispatch(togglePopup(true))}
+      />
     </>
   );
 };

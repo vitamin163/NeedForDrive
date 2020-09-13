@@ -1,8 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { appendScript } from '../../../utils';
-import { actions } from '../../../store';
-import { mapPoint } from '../../../icon';
+import { appendScript } from '@/utils';
+import { actions } from '@/store';
+import { mapPoint } from '@/icon';
 
 const apiKey = process.env.REACT_APP_API_KEY;
 const yaMapsApi = `https://api-maps.yandex.ru/2.1/?apikey=${apiKey}&lang=ru_RU`;
@@ -23,6 +23,7 @@ const Map = () => {
     addCityId,
     filterCity,
     addCityInputValue,
+    deletePointId,
   } = actions;
   const currentCity = cityId.id ? cityId.name : 'Ульяновск';
 
@@ -37,41 +38,40 @@ const Map = () => {
     return coords;
   };
 
-  const getPoints = async (ymap) => {
-    await points.map(async (item) => {
-      if (currentCity === item.cityId.name) {
-        const coords = await getCoords(`${item.cityId.name} ${item.address}`);
-        const myPlacemark = new window.ymaps.Placemark(
-          coords,
-          {
-            hintContent: item.name,
-            balloonContent: `${item.cityId.name}, ${item.address}`,
-          },
-          {
-            iconLayout: 'default#image',
-            iconImageHref: mapPoint,
-            iconImageSize: [18, 18],
-            iconImageOffset: [-9, -9],
-          },
-        );
-        myPlacemark.events.add('click', () => {
-          ymap.setCenter(coords, 12, {
-            duration: 500,
-          });
-          if (!cityId.id) {
-            return false;
-          }
-          dispatch(addPointId(item));
-          dispatch(filterPoint(''));
-          return dispatch(addPointInputValue(item.address));
+  const getPoints = (ymap) => {
+    points.map(async (item) => {
+      console.log('getPoints');
+      const coords = await getCoords(`${item.cityId.name} ${item.address}`);
+      const myPlacemark = new window.ymaps.Placemark(
+        coords,
+        {
+          hintContent: item.name,
+          balloonContent: `${item.cityId.name}, ${item.address}`,
+        },
+        {
+          iconLayout: 'default#image',
+          iconImageHref: mapPoint,
+          iconImageSize: [18, 18],
+          iconImageOffset: [-9, -9],
+        },
+      );
+      myPlacemark.events.add('click', () => {
+        ymap.setCenter(coords, 12, {
+          duration: 500,
         });
-        ymap.geoObjects.add(myPlacemark);
-      }
+        dispatch(addCityId(item.cityId));
+        dispatch(filterCity(''));
+        dispatch(addCityInputValue(item.cityId.name));
+        dispatch(addPointId(item));
+        dispatch(filterPoint(''));
+        return dispatch(addPointInputValue(item.address));
+      });
+      ymap.geoObjects.add(myPlacemark);
     });
   };
 
-  const getCities = async (ymap) => {
-    await cities.map(async (item) => {
+  const getCities = (ymap) => {
+    cities.map(async (item) => {
       const coords = await getCoords(item.name);
       const myPlacemark = new window.ymaps.Placemark(
         coords,
@@ -89,6 +89,7 @@ const Map = () => {
 
         dispatch(addCityId(item));
         dispatch(filterCity(''));
+        dispatch(deletePointId());
         return dispatch(addCityInputValue(item.name));
       });
       ymap.geoObjects.add(myPlacemark);
@@ -109,6 +110,7 @@ const Map = () => {
         },
       );
       getCities(myMap);
+      getPoints(myMap);
       setMap(myMap);
     };
     await window.ymaps.ready(init);
@@ -117,7 +119,6 @@ const Map = () => {
 
   const findCity = async () => {
     if (!isYMapsCreated) return false;
-    getPoints(map);
     const coords = await getCoords(currentCity);
     map.setCenter(coords, 10);
     return dispatch(setDefaultCoords(coords));

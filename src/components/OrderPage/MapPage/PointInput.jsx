@@ -1,9 +1,9 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { capitalize } from 'lodash';
-import { actions } from '../../../store';
+import { actions } from '@/store';
 import './MapPage.scss';
-import Input from '../../Input/Input.jsx';
+import Input from '@Components/Input';
 
 const PointInput = () => {
   const dispatch = useDispatch();
@@ -37,7 +37,8 @@ const PointInput = () => {
       const point = filteredByAddress[0];
       addDeliveryHandler(point);
     }
-  });
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, []);
 
   const renderDevilery = () => {
     if (filteredByCity.length === 0 || filteredByAddress.length === 0) {

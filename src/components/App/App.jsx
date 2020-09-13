@@ -1,9 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import MainPage from '../MainPage/MainPage.jsx';
-import OrderPage from '../OrderPage/OrderPage.jsx';
-import AdminPanel from '../AdminPanel/AdminPanel.jsx';
-import './App.scss';
+import MainPage from '@Components/MainPage';
+import OrderPage from '@Components/OrderPage';
+import AdminPanel from '@Components/AdminPanel';
 
 const App = () => {
   return (
