@@ -40,7 +40,6 @@ const Map = () => {
 
   const getPoints = (ymap) => {
     points.map(async (item) => {
-      console.log('getPoints');
       const coords = await getCoords(`${item.cityId.name} ${item.address}`);
       const myPlacemark = new window.ymaps.Placemark(
         coords,

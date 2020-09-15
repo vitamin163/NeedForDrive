@@ -5,9 +5,9 @@ import { useHistory } from 'react-router-dom';
 import { Formik, Form, Field, ErrorMessage } from 'formik';
 import axios from 'axios';
 import * as Yup from 'yup';
-import { logo } from '../../../icon';
-import { actions } from '../../../store';
-import { getRandomString } from '../../../utils';
+import { logo } from '@/icon';
+import { actions } from '@/store';
+import { getRandomString } from '@/utils';
 
 const validationSchema = Yup.object({
   password: Yup.string().required('Password is required'),
@@ -25,7 +25,7 @@ const Authorization = () => {
     };
     const randomString = getRandomString();
     const basicToken = window.btoa(`${randomString}:4cbcea96de`);
-    console.log(basicToken);
+
     try {
       const { data } = await axios({
         method: 'post',
