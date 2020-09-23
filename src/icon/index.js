@@ -22,6 +22,9 @@ import arrowToDown from './arrowToDown.svg';
 import count from './Count.svg';
 import notifications from './Notifications.svg';
 import filterArrow from './filterArrow.svg';
+import redX from './redX.svg';
+import greenV from './greenV.svg';
+import verticalDots from './verticalDots.svg';
 
 export {
   nextButton,
@@ -48,4 +51,7 @@ export {
   count,
   notifications,
   filterArrow,
+  redX,
+  greenV,
+  verticalDots,
 };

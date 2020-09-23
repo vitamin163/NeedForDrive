@@ -1,3 +1,5 @@
+import { format, getDaysInMonth } from 'date-fns';
+
 const increment = (d, h, m) => {
   const dhm = { d, h, m };
 
@@ -131,4 +133,71 @@ export const getRandomString = () => {
     str.push(symbol);
   }
   return str.join('');
+};
+
+export const setTokens = (data, basicToken) => {
+  localStorage.setItem('accessToken', data.access_token);
+  localStorage.setItem('refreshToken', data.refresh_token);
+  localStorage.setItem('basicToken', basicToken);
+  localStorage.setItem('expiresIn', data.expires_in);
+  localStorage.setItem('expiresDate', Date.now() + data.expires_in * 1000);
+};
+
+export const getTokens = () => {
+  const accessToken = localStorage.getItem('accessToken');
+  const refreshToken = localStorage.getItem('refreshToken');
+  const basicToken = localStorage.getItem('basicToken');
+  const expiresIn = localStorage.getItem('expiresIn');
+  const expiresDate = localStorage.getItem('expiresDate');
+  return {
+    accessToken,
+    refreshToken,
+    basicToken,
+    expiresIn,
+    expiresDate,
+  };
+};
+
+export const destroyTokens = () => {
+  localStorage.removeItem('accessToken');
+  localStorage.removeItem('refreshToken');
+  localStorage.removeItem('basicToken');
+  localStorage.removeItem('expiresIn');
+  localStorage.removeItem('expiresDate');
+};
+
+export const formatDate = (date) => {
+  if (date === 'Данные отсутствуют') {
+    return date;
+  }
+  return format(new Date(date), 'dd.MM.yyyy HH:mm');
+};
+
+export const getInterval = () => {
+  const oneDayByMS = 86400000;
+  const currentDate = Date.now();
+  const daysInMonth = getDaysInMonth(new Date());
+  const dayAgo = currentDate - oneDayByMS;
+  const weekAgo = currentDate - oneDayByMS * 7;
+  const monthAgo = currentDate - daysInMonth * oneDayByMS;
+  return [
+    { name: 'За день', id: dayAgo },
+    { name: 'За неделю', id: weekAgo },
+    { name: 'За месяц', id: monthAgo },
+  ];
+};
+
+export const translateOrderStatus = (status) => {
+  switch (status.name) {
+    case 'new':
+      return 'Новый';
+    case 'issued':
+      return 'В процессе';
+    case 'confirmed':
+      return 'Подтвержден';
+    case 'cancelled':
+      return 'Отменён';
+    default:
+      return 'Прочее';
+  }
 };

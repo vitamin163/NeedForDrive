@@ -8,9 +8,10 @@ const slice = createSlice({
     cars: [],
   },
   reducers: {
-    addCars(state, { payload }) {
+    addCars(state, { payload: { data } }) {
       state.isCarsLoaded = true;
-      state.cars = payload;
+      console.log('CARS LOADED');
+      state.cars = data;
     },
   },
 });

@@ -8,12 +8,11 @@ const slice = createSlice({
     cities: [],
   },
   reducers: {
-    addCities(state, { payload }) {
+    addCities(state, { payload: { data } }) {
       state.isCitiesLoaded = true;
-      state.cities = payload;
+      state.cities = data;
     },
     setStateCitiesRequest(state, { payload }) {
-      state.initCities = true;
       state.requestCitiesState = payload;
     },
   },

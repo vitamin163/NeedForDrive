@@ -5,17 +5,21 @@ const { setRequestState } = actions;
 
 const getData = (fetchData, headers) => async (dispatch) => {
   dispatch(setRequestState('REQUEST'));
+  console.log(dispatch);
   try {
-    await Promise.all(
+    const response = await Promise.all(
       fetchData.map(async (item) => {
-        const {
-          data: { data },
-        } = await axios.get(item.url, {
+        const { data } = await axios.get(item.url, {
           headers,
         });
-        dispatch(item.action(data));
+        return { data, action: item.action };
       }),
     );
+    response.map((item) => {
+      const { data, action } = item;
+      return dispatch(action(data));
+    });
+
     dispatch(setRequestState('SUCCESS'));
   } catch (error) {
     console.log(error);

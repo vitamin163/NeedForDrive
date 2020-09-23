@@ -1,5 +1,6 @@
 import React from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+import { getTokens } from '@/utils';
 import { actions } from '../../../store';
 import './Topbar.scss';
 import { search, arrowToDown, notifications, count } from '../../../icon';
@@ -8,6 +9,7 @@ import avatar from '../../../img/user-avatar.png';
 const Topbar = ({ logout }) => {
   const dispatch = useDispatch();
   const { dropdownIsOpen } = useSelector((state) => state.uiState);
+  const { idTimeout } = useSelector((state) => state.admin);
   const { toggleDropdown } = actions;
 
   return (
@@ -31,7 +33,13 @@ const Topbar = ({ logout }) => {
           </button>
           {dropdownIsOpen && (
             <div className="topbar__dropdown-content">
-              <button className="topbar__dropdown-item" onClick={logout}>
+              <button
+                className="topbar__dropdown-item"
+                onClick={() => {
+                  const { accessToken } = getTokens();
+                  logout(accessToken, idTimeout);
+                }}
+              >
                 Выйти
               </button>
             </div>

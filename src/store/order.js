@@ -57,20 +57,20 @@ const slice = createSlice({
     setOptions(state, { payload: { option, value } }) {
       state[option] = value;
     },
-    setOrder(state, { payload }) {
-      return payload;
+    setOrder(state, { payload: { data } }) {
+      return data;
     },
     setDefaultOrder() {
       return init;
     },
   },
   extraReducers: {
-    [ratesActions.addRates](state, { payload }) {
-      const [rate] = payload;
+    [ratesActions.addRates](state, { payload: { data } }) {
+      const [rate] = data;
       state.rateId = rate;
     },
-    [orderStatusActions.addOrderStatus](state, { payload }) {
-      const orderStatus = payload.find((item) => item.name === 'new');
+    [orderStatusActions.addOrderStatus](state, { payload: { data } }) {
+      const orderStatus = data.find((item) => item.name === 'new');
       state.orderStatusId = orderStatus;
     },
   },

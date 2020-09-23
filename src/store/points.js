@@ -8,12 +8,11 @@ const slice = createSlice({
     points: [],
   },
   reducers: {
-    addPoints(state, { payload }) {
+    addPoints(state, { payload: { data } }) {
       state.isPointsLoaded = true;
-      state.points = payload;
+      state.points = data;
     },
     setStatePointsRequest(state, { payload }) {
-      state.initPoints = true;
       state.requestPointsState = payload;
     },
   },

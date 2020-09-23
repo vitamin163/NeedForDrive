@@ -7,7 +7,7 @@ const slice = createSlice({
     categoryModelId: 0,
     popupIsOpen: false,
     dropdownIsOpen: false,
-    isAuth: false,
+    isAuth: true,
   },
   reducers: {
     changeActiveNav(state, { payload }) {

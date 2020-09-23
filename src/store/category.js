@@ -9,8 +9,8 @@ const slice = createSlice({
     },
   ],
   reducers: {
-    addCategory(state, { payload }) {
-      return [...state, ...payload];
+    addCategory(state, { payload: { data } }) {
+      return [...state, ...data];
     },
   },
 });

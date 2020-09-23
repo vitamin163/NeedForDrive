@@ -8,9 +8,9 @@ const slice = createSlice({
     rates: [],
   },
   reducers: {
-    addRates(state, { payload }) {
+    addRates(state, { payload: { data } }) {
       state.isRatesLoaded = true;
-      state.rates = payload;
+      state.rates = data;
     },
   },
 });

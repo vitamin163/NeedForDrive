@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { translateOrderStatus } from '@/utils';
 
 const slice = createSlice({
   name: 'orderStatus',
@@ -8,9 +9,13 @@ const slice = createSlice({
     statuses: [],
   },
   reducers: {
-    addOrderStatus(state, { payload }) {
+    addOrderStatus(state, { payload: { data } }) {
       state.isOrderStatusLoaded = true;
-      state.statuses = payload;
+      const addedTranslation = data.map((status) => {
+        const translation = translateOrderStatus(status);
+        return { ...status, translation };
+      });
+      state.statuses = addedTranslation;
     },
   },
 });
