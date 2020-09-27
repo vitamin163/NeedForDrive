@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
-import { useHistory } from 'react-router-dom';
+import { useHistory, useParams } from 'react-router-dom';
 import axios from 'axios';
 import { format } from 'date-fns';
 import { actions } from '@/store';
@@ -16,7 +16,8 @@ const FinalPage = (props) => {
   const { proxy, api, headers } = props;
   const dispatch = useDispatch();
   const history = useHistory();
-  const orderId = localStorage.getItem('orderId');
+  const { orderId: id } = useParams();
+  const orderId = id || localStorage.getItem('orderId');
   const { popupIsOpen } = useSelector((state) => state.uiState);
   const { carId, isFullTank, dateFrom } = useSelector((state) => state.order);
   const { requestState } = useSelector((state) => state.asyncRequestState);
