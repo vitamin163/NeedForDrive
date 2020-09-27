@@ -1,0 +1,23 @@
+@import '@/scss/variables.scss';
+@import '@/scss/mixins.scss';
+
+.adminButton {
+  width: 110px;
+  height: 29px;
+  border: 0.5px solid $blue;
+  box-sizing: border-box;
+  border-radius: 4px;
+  @include textStyle(400, 11px, 13px, $white, 'center');
+  &:active {
+    transform: scale(0.9, 0.9);
+  }
+  &_blue {
+    background: $blue;
+  }
+  &_red {
+    background: #c4183c;
+  }
+  &_gray {
+    background: #e9ecef;
+  }
+}

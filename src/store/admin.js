@@ -1,5 +1,6 @@
 /* eslint-disable no-param-reassign */
 import { createSlice } from '@reduxjs/toolkit';
+import { actions as carsActions } from './cars';
 
 const slice = createSlice({
   name: 'admin',
@@ -11,16 +12,23 @@ const slice = createSlice({
     orderPageSize: 3,
     currentOrdersPage: 0,
     totalOrdersPage: 0,
+    carsPageSize: 5,
+    currentCarsPage: 0,
+    totalCarsPage: 0,
   },
   reducers: {
     setIdTimeout(state, { payload }) {
       state.idTimeout = payload;
     },
     addOrders(state, { payload }) {
+      const { orderPageSize, currentOrdersPage } = state;
       state.isOrdersLoaded = true;
       state.orders = payload.data;
-      const totalPage = Math.ceil(payload.count / state.orderPageSize);
+      const totalPage = Math.ceil(payload.count / orderPageSize);
       state.totalOrdersPage = totalPage;
+      if (totalPage <= currentOrdersPage) {
+        state.currentOrdersPage = 0;
+      }
     },
     changeOrder(state, { payload }) {
       const updateOrders = state.orders.map((order) => {
@@ -33,14 +41,21 @@ const slice = createSlice({
     },
     setIntervals(state, { payload }) {
       state.intervals = payload;
-      // const dayAgo = payload.find((interval) => interval.name === 'За день');
-      // state.orderPageFilter.byInterval = dayAgo.id;
     },
-    setCurrentOrdersPage(state, { payload }) {
-      state.currentOrdersPage = payload;
+    setCurrentPage(state, { payload: { page, name } }) {
+      state[name] = page;
     },
   },
-  extraReducers: {},
+  extraReducers: {
+    [carsActions.addCars](state, { payload }) {
+      const { carsPageSize, currentCarsPage } = state;
+      const totalPage = Math.ceil(payload.count / carsPageSize);
+      state.totalCarsPage = totalPage;
+      if (totalPage <= currentCarsPage) {
+        state.currentCarsPage = 0;
+      }
+    },
+  },
 });
 
 export const { actions } = slice;

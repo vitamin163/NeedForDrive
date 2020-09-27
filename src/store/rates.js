@@ -12,6 +12,9 @@ const slice = createSlice({
       state.isRatesLoaded = true;
       state.rates = data;
     },
+    setRatesLoaded(state, { payload }) {
+      state.isRatesLoaded = payload;
+    },
   },
 });
 

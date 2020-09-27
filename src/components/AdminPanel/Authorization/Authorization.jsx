@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 import { logo } from '@/icon';
 import { actions } from '@/store';
 import { setTokens, getRandomString, getTokens } from '@/utils';
+import AdminButton from '../Common/AdminButton';
 
 const validationSchema = Yup.object({
   password: Yup.string().required('Password is required'),
@@ -60,7 +61,6 @@ const Authorization = (props) => {
       (response) => {
         const { expiresDate } = getTokens();
         const timeout = expiresDate - Date.now();
-        console.log(timeout);
         const retryCheck = makeAxios(requestInterceptor, responseInterceptor);
         dispatch(setRequestState('SUCCESS'));
         dispatch(setAuth(true));
@@ -177,13 +177,7 @@ const Authorization = (props) => {
                 <button className="authorization__auth-link" disabled={isSubmitting}>
                   Запросить доступ
                 </button>
-                <button
-                  className="authorization__submit-button"
-                  disabled={isSubmitting}
-                  type="submit"
-                >
-                  Войти
-                </button>
+                <AdminButton name="Войти" color="blue" type="submit" disabled={isSubmitting} />
               </div>
             </Form>
           )}

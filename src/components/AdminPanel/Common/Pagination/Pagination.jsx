@@ -2,7 +2,7 @@ import React from 'react';
 import ReactPaginate from 'react-paginate';
 import './Pagination.scss';
 
-const Pagination = ({ totalPage, action }) => {
+const Pagination = ({ totalPage, action, currentPage }) => {
   return (
     <ReactPaginate
       previousLabel={'\u00AB'}
@@ -18,6 +18,7 @@ const Pagination = ({ totalPage, action }) => {
       pageClassName={'pagination__page'}
       nextClassName={'pagination__next'}
       previousClassName={'pagination__prev'}
+      forcePage={currentPage}
     />
   );
 };

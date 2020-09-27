@@ -14,9 +14,9 @@ const ModelPage = (props) => {
   const dispatch = useDispatch();
   const {
     cars: { cars, isCarsLoaded },
-    category,
     order,
   } = useSelector((state) => state);
+  const { category } = useSelector((state) => state.category);
   const { categoryModelId } = useSelector((state) => state.uiState);
   const { requestState } = useSelector((state) => state.asyncRequestState);
   const {
@@ -31,7 +31,7 @@ const ModelPage = (props) => {
   const {
     carId: { id: carId },
   } = order;
-  const defaultCategory = 0;
+  const defaultCategory = '';
   const filtered = cars.filter(
     ({ categoryId: { id } }) => id === categoryModelId || categoryModelId === defaultCategory,
   );

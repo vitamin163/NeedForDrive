@@ -8,6 +8,7 @@ import emptyImage from '@/img/vwBeetle.jpg';
 import { actions } from '@/store';
 import cn from 'classnames';
 import Popup from '../Popup';
+import './Order.scss';
 
 const Order = ({ proxy, api, order }) => {
   const dispatch = useDispatch();
@@ -93,8 +94,7 @@ const Order = ({ proxy, api, order }) => {
       rateId: values.rateId,
       orderStatusId: values.orderStatusId,
     };
-    console.log(rate);
-    console.log(updateOrder);
+
     dispatch(setRequestState('REQUEST'));
     try {
       const {
@@ -144,32 +144,32 @@ const Order = ({ proxy, api, order }) => {
         onSubmit={changeOrderHandler(id)}
       >
         {({ isSubmitting, resetForm }) => (
-          <Form className="orderList__form">
+          <Form className="order-form">
             <img
-              className="orderList__img"
+              className="order-form__img"
               crossOrigin="anonymous"
               referrerPolicy="origin"
               src={imgPath}
               alt="car"
             />
-            <div className="orderList__column">
-              <div className="orderList__large-row">
+            <div className="order-form__column">
+              <div className="order-form__large-row">
                 <span>{car.name}</span> в <span>{city.name}, </span> {point.address}
               </div>
-              <div className="orderList__large-row">
+              <div className="order-form__large-row">
                 {formatDate(dateFromChecked)} — {formatDate(dateToChecked)}
               </div>
-              <div className="orderList__large-row">
+              <div className="order-form__large-row">
                 Цвет: <span>{colorChecked}</span>
               </div>
             </div>
-            <div role="group" aria-labelledby="checkbox-group" className="orderList__column">
+            <div role="group" aria-labelledby="checkbox-group" className="order-form__column">
               <label htmlFor="isFullTank">
                 <Field
                   id="isFullTank"
                   type="checkbox"
                   name="isFullTank"
-                  className="orderList__checkbox"
+                  className="order-form__checkbox"
                 />
                 Полный бак
               </label>
@@ -178,7 +178,7 @@ const Order = ({ proxy, api, order }) => {
                   id="isNeedChildChair"
                   type="checkbox"
                   name="isNeedChildChair"
-                  className="orderList__checkbox"
+                  className="order-form__checkbox"
                 />
                 Детское кресло
               </label>
@@ -187,29 +187,29 @@ const Order = ({ proxy, api, order }) => {
                   type="checkbox"
                   id="isRightWheel"
                   name="isRightWheel"
-                  className="orderList__checkbox"
+                  className="order-form__checkbox"
                 />
                 Правый руль
               </label>
             </div>
 
-            <div className="orderList__column">
-              <div className="orderList__small-row">
+            <div className="order-form__column">
+              <div className="order-form__small-row">
                 Статус: <span>{translateOrderStatus(orderStatus)}</span>
               </div>
-              <div className="orderList__small-row">
+              <div className="order-form__small-row">
                 Тариф: <span>{`${rate.price} ₽/${rate.rateTypeId.unit}`}</span>
               </div>
-              <div className="orderList__small-row">{dhm(dateFrom, dateTo)}</div>
+              <div className="order-form__small-row">{dhm(dateFrom, dateTo)}</div>
             </div>
 
-            <div className="orderList__price">{priceChecked} ₽</div>
+            <div className="order-form__price">{priceChecked} ₽</div>
             {popupIsOpen === id && <Popup returnHandler={() => dispatch(togglePopup(false))} />}
-            <div className="orderList__button-container">
+            <div className="order-form__button-container">
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className={`orderList__orderButton ${orderButtonClass} orderButton__confirm`}
+                className={`order-form__orderButton ${orderButtonClass} orderButton__confirm`}
               >
                 <img src={greenV} alt="" />
                 Готово

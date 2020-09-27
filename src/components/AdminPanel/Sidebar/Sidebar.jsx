@@ -16,7 +16,7 @@ import {
 const Sidebar = () => {
   const links = [
     { name: 'Карточка автомобиля', icon: BlogIcon, path: '/admin/carSetting' },
-    { name: 'Список авто', icon: BlogPostsIcon, path: '/admin/table' },
+    { name: 'Список авто', icon: BlogPostsIcon, path: '/admin/carList' },
     { name: 'Заказы', icon: AddNewPostIcon, path: '/admin/orderList' },
     { name: 'Menu 4', icon: OverviewIcon, path: 'admin/menu4' },
     { name: 'Menu 5', icon: FormsAndComponentsIcon, path: 'admin/menu5' },

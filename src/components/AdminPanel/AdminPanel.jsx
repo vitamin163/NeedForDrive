@@ -10,6 +10,7 @@ import Sidebar from './Sidebar';
 import Topbar from './Topbar';
 import Footer from './Footer';
 import OrderList from './OrderList';
+import CarList from './CarList';
 
 const AdminPanel = () => {
   const dispatch = useDispatch();
@@ -53,6 +54,9 @@ const AdminPanel = () => {
             <Topbar logout={logout} />
             <Route path="/admin/orderList">
               <OrderList proxy={proxy} api={api} headers={headers} />
+            </Route>
+            <Route path="/admin/carList">
+              <CarList proxy={proxy} api={api} headers={headers} />
             </Route>
             <Footer />
           </div>

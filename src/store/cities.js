@@ -12,8 +12,8 @@ const slice = createSlice({
       state.isCitiesLoaded = true;
       state.cities = data;
     },
-    setStateCitiesRequest(state, { payload }) {
-      state.requestCitiesState = payload;
+    setCitiesLoaded(state, { payload }) {
+      state.isCitiesLoaded = payload;
     },
   },
 });

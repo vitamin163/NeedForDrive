@@ -32,7 +32,6 @@ const Popup = ({ returnHandler }) => {
           rateTypeId: { name },
           id,
         } = item;
-        console.log(id);
         return (
           <option key={id} value={id} className="">
             {name}

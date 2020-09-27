@@ -1,0 +1,12 @@
+@import '@/scss/variables.scss';
+@import '@/scss/mixins.scss';
+
+.filter-form {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  &__button-container {
+    display: inline-flex;
+    align-items: center;
+  }
+}

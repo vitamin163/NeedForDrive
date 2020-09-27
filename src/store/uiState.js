@@ -4,10 +4,10 @@ const slice = createSlice({
   name: 'uiState',
   initialState: {
     activeNav: 0,
-    categoryModelId: 0,
+    categoryModelId: '',
     popupIsOpen: false,
     dropdownIsOpen: false,
-    isAuth: true,
+    isAuth: false,
   },
   reducers: {
     changeActiveNav(state, { payload }) {

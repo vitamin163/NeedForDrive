@@ -12,8 +12,8 @@ const slice = createSlice({
       state.isPointsLoaded = true;
       state.points = data;
     },
-    setStatePointsRequest(state, { payload }) {
-      state.requestPointsState = payload;
+    setPointsLoaded(state, { payload }) {
+      state.isPointsLoaded = payload;
     },
   },
 });

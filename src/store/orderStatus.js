@@ -17,6 +17,9 @@ const slice = createSlice({
       });
       state.statuses = addedTranslation;
     },
+    setOrderStatusLoaded(state, { payload }) {
+      state.isOrderStatusLoaded = payload;
+    },
   },
 });
 

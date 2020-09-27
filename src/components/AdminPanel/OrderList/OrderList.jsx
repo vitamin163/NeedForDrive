@@ -1,30 +1,20 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef } from 'react';
 import { actions } from '@/store';
 import getData from '@/store/fetchData';
 import { getInterval, getTokens } from '@/utils';
 import './OrderList.scss';
-import { Formik, Form, Field, useFormikContext } from 'formik';
 import { useSelector, useDispatch } from 'react-redux';
-import Spinner from '@/components/Spinner';
+import Spinner from '../Common/Spinner';
 import Order from './Order/Order.jsx';
-import Pagination from '../Pagination';
+import Pagination from '../Common/Pagination';
+import Filter from '../Common/Filter';
+import FilterButton from '../Common/FilterButton';
 
-const GetPage = () => {
-  const { currentOrdersPage } = useSelector((state) => state.admin);
-  const { submitForm } = useFormikContext();
-  useEffect(() => {
-    submitForm();
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [currentOrdersPage]);
-  return null;
-};
-
-const OrderList = (props) => {
-  const { proxy, api, headers } = props;
+const OrderList = ({ proxy, api, headers }) => {
   const dispatch = useDispatch();
-  const { cars, isCarsLoaded } = useSelector((state) => state.cars);
-  const { cities, isCitiesLoaded } = useSelector((state) => state.cities);
-  const { statuses, isOrderStatusLoaded } = useSelector((state) => state.orderStatus);
+  const { cars } = useSelector((state) => state.cars);
+  const { cities } = useSelector((state) => state.cities);
+  const { statuses } = useSelector((state) => state.orderStatus);
   const { requestState } = useSelector((state) => state.asyncRequestState);
   const {
     orders,
@@ -38,15 +28,23 @@ const OrderList = (props) => {
     addCities,
     addOrders,
     addPoints,
-
     addCars,
     addOrderStatus,
     setIntervals,
-    setCurrentOrdersPage,
+    setCurrentPage,
     addRates,
+    setRatesLoaded,
+    setOrderStatusLoaded,
+    setPointsLoaded,
+    setCitiesLoaded,
+    setCarsLoaded,
   } = actions;
 
   const fetchData = [
+    {
+      url: `${proxy}${api}db/order?page=${currentOrdersPage}&limit=${orderPageSize}`,
+      action: addOrders,
+    },
     {
       url: `${proxy}${api}db/car/`,
       action: addCars,
@@ -69,9 +67,11 @@ const OrderList = (props) => {
     },
   ];
 
+  const didMountRef = useRef(false);
   useEffect(() => {
     const { accessToken } = getTokens();
-    if (!isCarsLoaded && !isCitiesLoaded && !isOrderStatusLoaded) {
+
+    if (!didMountRef.current) {
       console.log('getData');
       dispatch(
         getData(fetchData, {
@@ -80,8 +80,17 @@ const OrderList = (props) => {
           Authorization: `Bearer ${accessToken}`,
         }),
       );
+      dispatch(setIntervals(getInterval()));
+    } else {
+      didMountRef.current = true;
     }
-    dispatch(setIntervals(getInterval()));
+    return () => {
+      dispatch(setRatesLoaded(false));
+      dispatch(setOrderStatusLoaded(false));
+      dispatch(setPointsLoaded(false));
+      dispatch(setCitiesLoaded(false));
+      dispatch(setCarsLoaded(false));
+    };
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
@@ -110,7 +119,6 @@ const OrderList = (props) => {
       .filter((item) => item !== '')
       .join('&');
     const url = `${urlParts}${queryParts}`;
-    console.log(url);
     dispatch(
       getData(
         [
@@ -138,14 +146,14 @@ const OrderList = (props) => {
   };
   const handlePageClick = async (e) => {
     const selectedPage = e.selected;
-    dispatch(setCurrentOrdersPage(selectedPage));
+    dispatch(setCurrentPage({ page: selectedPage, name: 'currentOrdersPage' }));
   };
   return (
     <div className="orderList">
       <div className="orderList__sub-header">Заказы</div>
       <div className="orderList__container">
         <div className="orderList__topbar">
-          <Formik
+          <Filter
             initialValues={{
               byModel: '',
               byInterval: 0,
@@ -154,38 +162,29 @@ const OrderList = (props) => {
             }}
             onSubmit={submitHandler}
           >
-            {({ isSubmitting }) => (
-              <Form className="orderList__form">
-                <div className="orderList__button-container">
-                  <Field name="byInterval" as="select" className="orderList__filterButton">
-                    <option value={0}>За всё время</option>
-                    {renderSelect(intervals)}
-                  </Field>
-                  <Field name="byModel" as="select" className="orderList__filterButton">
-                    <option value="">Все модели</option>
-                    {renderSelect(cars)}
-                  </Field>
-                  <Field name="byCity" as="select" className="orderList__filterButton">
-                    <option value="">Все города</option>
-                    {renderSelect(cities)}
-                  </Field>
-                  <Field name="byStatus" as="select" className="orderList__filterButton">
-                    <option value="">Все заказы</option>
-                    {renderSelect(statuses, true)}
-                  </Field>
-                </div>
-                <button type="submit" disabled={isSubmitting} className="orderList__applyButton">
-                  Применить
-                </button>
-                <GetPage />
-              </Form>
-            )}
-          </Formik>
+            <FilterButton name="byInterval" as="select" render={() => renderSelect(intervals)}>
+              <option value={0}>За всё время</option>
+            </FilterButton>
+            <FilterButton name="byModel" as="select" render={() => renderSelect(cars)}>
+              <option value="">Все модели</option>
+            </FilterButton>
+            <FilterButton name="byCity" as="select" render={() => renderSelect(cities)}>
+              <option value="">Все города</option>
+            </FilterButton>
+
+            <FilterButton name="byStatus" as="select" render={() => renderSelect(statuses, true)}>
+              <option value="">Все заказы</option>
+            </FilterButton>
+          </Filter>
         </div>
         {requestState === 'SUCCESS' && <div className="orderList__content">{renderOrders()}</div>}
         {requestState === 'REQUEST' && <Spinner />}
         <div className="orderList__footer">
-          <Pagination totalPage={totalOrdersPage} action={handlePageClick} />
+          <Pagination
+            totalPage={totalOrdersPage}
+            action={handlePageClick}
+            currentPage={currentOrdersPage}
+          />
         </div>
       </div>
     </div>
