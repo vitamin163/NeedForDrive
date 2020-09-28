@@ -22,7 +22,7 @@ const Order = ({ proxy, api, order }) => {
   const { requestState } = useSelector((state) => state.asyncRequestState);
 
   const currentOrder = orders[order];
-  const { togglePopup, changeOrder, setRequestState } = actions;
+  const { togglePopup, changeOrder, setRequestState, setError } = actions;
   const {
     id,
     carId,
@@ -113,6 +113,7 @@ const Order = ({ proxy, api, order }) => {
     } catch (e) {
       console.log(e);
       dispatch(setRequestState('FAILURE'));
+      dispatch(setError(e.message));
     }
   };
   const getDefaultItem = (item) => {

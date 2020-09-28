@@ -27,7 +27,7 @@
       display: flex;
       align-items: center;
       @include textStyle(400, 10px, 12px, $black, 'center');
-      .orderList__checkbox {
+      .order-form__checkbox {
         margin-right: 8px;
       }
     }

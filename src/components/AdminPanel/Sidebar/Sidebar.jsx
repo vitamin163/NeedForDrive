@@ -18,10 +18,10 @@ const Sidebar = () => {
     { name: 'Карточка автомобиля', icon: BlogIcon, path: '/admin/carSetting' },
     { name: 'Список авто', icon: BlogPostsIcon, path: '/admin/carList' },
     { name: 'Заказы', icon: AddNewPostIcon, path: '/admin/orderList' },
-    { name: 'Menu 4', icon: OverviewIcon, path: 'admin/menu4' },
-    { name: 'Menu 5', icon: FormsAndComponentsIcon, path: 'admin/menu5' },
-    { name: 'Menu 6', icon: PersonIcon, path: 'admin/menu6' },
-    { name: 'Menu 7', icon: ErrorIcon, path: 'admin/menu7' },
+    { name: 'Menu 4', icon: OverviewIcon, path: '/admin/menu4' },
+    { name: 'Menu 5', icon: FormsAndComponentsIcon, path: '/admin/menu5' },
+    { name: 'Menu 6', icon: PersonIcon, path: '/admin/menu6' },
+    { name: 'Menu 7', icon: ErrorIcon, path: '/admin/menu7' },
   ];
 
   const renderLinks = () => {

@@ -11,11 +11,13 @@ import Topbar from './Topbar';
 import Footer from './Footer';
 import OrderList from './OrderList';
 import CarList from './CarList';
+import ErrorPage from './ErrorPage';
 
 const AdminPanel = () => {
   const dispatch = useDispatch();
   const { isAuth } = useSelector((state) => state.uiState);
-  const { setAuth } = actions;
+  const { requestState, error } = useSelector((state) => state.asyncRequestState);
+  const { setAuth, setRequestState, setError } = actions;
   const proxy = 'https://cors-anywhere.herokuapp.com/';
   const api = 'http://api-factory.simbirsoft1.com/api/';
   const headers = {
@@ -24,6 +26,7 @@ const AdminPanel = () => {
   };
 
   const logout = async (token, idTimeout) => {
+    dispatch(setRequestState('REQUEST'));
     try {
       await axios({
         method: 'post',
@@ -36,8 +39,11 @@ const AdminPanel = () => {
       destroyTokens();
       dispatch(setAuth(false));
       clearTimeout(idTimeout);
-    } catch (error) {
+      dispatch(setRequestState('SUCCESS'));
+    } catch (e) {
       console.log(error);
+      dispatch(setRequestState('FAILURE'));
+      dispatch(setError(e.message));
     }
   };
 
@@ -48,10 +54,15 @@ const AdminPanel = () => {
           <Authorization proxy={proxy} api={api} headers={headers} />
         </Route>
         {!isAuth && <Redirect to="/admin/login" />}
+
         <Route path="/admin">
           <Sidebar />
           <div className="admin-panel__column">
             <Topbar logout={logout} />
+            {requestState === 'FAILURE' && <Redirect to="/admin/error" />}
+            <Route path="/admin/error">
+              <ErrorPage proxy={proxy} api={api} headers={headers} errorCode={error} />
+            </Route>
             <Route path="/admin/orderList">
               <OrderList proxy={proxy} api={api} headers={headers} />
             </Route>

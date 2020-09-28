@@ -1,0 +1,23 @@
+@import '@/scss/variables.scss';
+@import '@/scss/mixins.scss';
+
+.error-page {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  &__code {
+    @include textStyle(500, 75px, 88px, #cacedb);
+    margin-bottom: 13px;
+  }
+  &__description {
+    @include textStyle(400, 50px, 57px, #3d5170);
+    margin-bottom: 15px;
+  }
+  &__small-text {
+    @include textStyle(400, 20px, 23px, #818ea3);
+    margin-bottom: 35px;
+  }
+}

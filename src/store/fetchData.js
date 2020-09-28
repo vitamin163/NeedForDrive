@@ -2,7 +2,7 @@ import axios from 'axios';
 import { actions } from './index';
 
 const getData = (fetchData, headers) => async (dispatch) => {
-  const { setRequestState } = actions;
+  const { setRequestState, setError } = actions;
   dispatch(setRequestState('REQUEST'));
   try {
     await Promise.all(
@@ -18,6 +18,7 @@ const getData = (fetchData, headers) => async (dispatch) => {
   } catch (error) {
     console.log(error);
     dispatch(setRequestState('FAILURE'));
+    dispatch(setError(error.message));
   }
 };
 export default getData;
